@@ -53,24 +53,25 @@ def linear_backward(dout, X, W, b):
     - dW: A numpy array of shape (D, M), gradient with respect to W
     - db: A nump array of shape (M,), gradient with respect to b
     """
-    dX, dW, db = None, None, None
-    """
-    TODO: Implement the linear backward pass. Store your results of the
-    gradients in `dX`, `dW`, `db`.
-    """
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
 
-
-    # compute D = d_1 * ... * d_k
+    # get N and compute D = d_1 * ... * d_k
+    N = X.shape[0]
     D = np.prod(X.shape[1:])
 
-    
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
+    # for dW, derivate with respect to W_i is x_i
 
+    # flatten X
+    reshapedX = X.reshape(N, D)
+
+    # d(sigma(W_all*x_all) + b)/dxi = W_i. must reshape dX as specs require it
+    dX = np.dot(dout, W.transpose()).reshape(X.shape)
+    
+    # d(sigma(W_all*x_all)+ b )/dWi = x_i. Why don't we divide by number of examples?
+    dW = np.dot(reshapedX.transpose(), dout)
+
+    # d(sigma(W_all*x_all) + b)/db = 1. Collapse matrix vertically
+    db = dout.sum(axis = 0)
+         
     return dX, dW, db
 
 
