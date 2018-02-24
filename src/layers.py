@@ -19,11 +19,12 @@ def linear_forward(X, W, b):
     - out: linear transformation to the incoming data
     """
 
-    # compute D = d_1 * ... * d_k
+    # get N and compute D = d_1 * ... * d_k
+    N = X.shape[0]
     D = np.prod(X.shape[1:])
     
-    # reshape X with dimensions: N x D. -1 flattens all remaining dimensions from X
-    reshapedX = X.reshape(X.shape[0], D)
+    # reshape X with dimensions: N x D
+    reshapedX = X.reshape(N, D)
 
     # Compute WX. dimensions: (N x D) dot (D x N) = M x N
     XW = np.dot(reshapedX, W)
@@ -60,6 +61,10 @@ def linear_backward(dout, X, W, b):
     ###########################################################################
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
+
+
+    # compute D = d_1 * ... * d_k
+    D = np.prod(X.shape[1:])
 
     
     ###########################################################################
