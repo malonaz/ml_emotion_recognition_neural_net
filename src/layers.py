@@ -83,18 +83,13 @@ def relu_forward(X):
     Returns:
     - out: An numpy array, same shape as X
     """
-    out = None
-    """
-    TODO: Implement the ReLU forward pass. Store your result in out.
-    """
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
-    out = X.copy()  # Must use copy in numpy to avoid pass by reference.
+    
+    # Must use copy in numpy to avoid pass by reference.
+    out = X.copy()
+
+    # for all entries in out, x_ij = max(x_ij, 0)
     out[out < 0] = 0
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
+
     return out
 
 
