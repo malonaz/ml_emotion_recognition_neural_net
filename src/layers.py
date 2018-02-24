@@ -171,17 +171,13 @@ def dropout_backward(dout, mask, p=0.5, train=True):
     Returns:
     - dX: A numpy array, derivative with respect to X
     """
-    dX = None
-    """
-    TODO: Implement the inverted backward pass for dropout. Make sure to
-    consider both train and test case.
-    """
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
 
+    
+    # do not perform dropout if in test mode
+    if not train:
+        return dout
 
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
+    # apply mask to dout
+    dX = dout * mask
+    
     return dX
