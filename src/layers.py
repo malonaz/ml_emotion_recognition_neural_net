@@ -18,16 +18,19 @@ def linear_forward(X, W, b):
     Returns:
     - out: linear transformation to the incoming data
     """
+
+    # compute D = d_1 * ... * d_k
+    D = np.prod(X.shape[1:])
     
     # reshape X with dimensions: N x D. -1 flattens all remaining dimensions from X
-    reshapedX = X.reshape(X.shape[0], -1)
+    reshapedX = X.reshape(X.shape[0], D)
 
     # Compute WX. dimensions: (N x D) dot (D x N) = M x N
     XW = np.dot(reshapedX, W)
 
     
     # add bias to XW
-    for sample in oXW:
+    for sample in XW:
         sample += b
 
     # return biased XW
