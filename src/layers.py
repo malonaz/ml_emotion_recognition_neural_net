@@ -18,16 +18,7 @@ def linear_forward(X, W, b):
     Returns:
     - out: linear transformation to the incoming data
     """
-    out = None
-    """
-    TODO: Implement the linear forward pass. Store your result in `out`.
-    Tip: Think how X needs to be reshaped.
-    """
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
-
-
+    
     # reshape X with dimensions: N x D. -1 flattens all remaining dimensions from X
     reshapedX = X.reshape(X.shape[0], -1)
 
@@ -35,16 +26,12 @@ def linear_forward(X, W, b):
     XW = np.dot(reshapedX, W)
 
     
-    # add bias
-    out = XW
-    for sample in out:
+    # add bias to XW
+    for sample in oXW:
         sample += b
-    
-    
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
-    return out
+
+    # return biased XW
+    return XW
 
 
 def linear_backward(dout, X, W, b):
