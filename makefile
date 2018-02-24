@@ -1,10 +1,10 @@
 
-default: testLinearLayer TestReLULayer
+default: testLinearLayer TestReLULayer testDropoutLayer
 
 pdf:
 	pandoc manuals/assignment2_advanced.md --pdf-engine=xelatex -o manuals/assignment2_advanced.pdf -V geometry:margin=1in --variable urlcolor=cyan --template eisvogel --listings
 
-.PHONY: manual
+.PHONY: manual 
 
 testLinearLayer:
 	python -m test.test_layers TestLinearLayer
@@ -14,6 +14,9 @@ testLinearLayer:
 TestReLULayer:
 	python -m test.test_layers TestReLULayer
 
+
+testDropoutLayer:
+	python -m test.test_layers TestDropoutLayer
 
 manual:
 	google-chrome manuals/assignment2_advanced.pdf&

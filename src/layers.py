@@ -99,21 +99,17 @@ def relu_backward(dout, X):
     Args:
     - dout: Upstream derivative, an numpy array of any shape
     - X: Input, an numpy array with the same shape as dout
+
     Returns:
     - dX: A numpy array, derivative with respect to X
     """
-    dX = None
-    """
-    TODO: Implement the ReLU backward pass. Store your result in out.
-    """
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
+    
+    # Must use copy in numpy to avoid pass by reference.
+    dX = dout.copy()
+ 
+    # d(ReLU(x)/dx = 0 if x < 0 and 1 otherwise
+    dX[X < 0] = 0
 
-
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
     return dX
 
 
@@ -132,22 +128,31 @@ def dropout_forward(X, p=0.5, train=True, seed=42):
     - mask: In training mode, mask is the dropout
       mask that was used to multiply the input; in test mode, mask is None.
     """
-    out = None
-    mask = None
+
+    # seed random number generator
     if seed:
         np.random.seed(seed)
-    """
-    TODO: Implement the inverted dropout forward pass. Make sure to consider
-    both train and test case. Pay attention scaling the activation function.
-    """
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
+    
+    # do no perform dropout if in test mode. Mask is None
+    if not train:
+        return X, None
 
+    # must use copy in numpy to avoid pass by reference
+    out = X.copy()
+    
+    # generate matrix of same size as X filled with values drawn from uniform distribution of [0, 1]
+    mask = np.random.uniform(size = X.shape)
 
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
+    # map the distribution to 1s and 0s as per the given probability
+    mask[mask <= p] = 0
+    mask[mask > p] = 1
+
+    # now our expected output for each neuron is p*x. multiply through by 1/(1-p) to get expected output = x
+    mask *= 1/(1 - p)
+
+    # apply mask to out
+    out = X * mask
+
     return out, mask
 
 
