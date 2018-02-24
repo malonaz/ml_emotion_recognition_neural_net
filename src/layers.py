@@ -28,6 +28,19 @@ def linear_forward(X, W, b):
     ###########################################################################
 
 
+    # reshape X with dimensions: N x D. -1 flattens all remaining dimensions from X
+    reshapedX = X.reshape(X.shape[0], -1)
+
+    # Compute WX. dimensions: (N x D) dot (D x N) = M x N
+    XW = np.dot(reshapedX, W)
+
+    
+    # add bias
+    out = XW
+    for sample in out:
+        sample += b
+    
+    
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
