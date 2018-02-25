@@ -112,6 +112,7 @@ class FullyConnectedNet(object):
         parameter
           names to gradients of the loss with respect to those parameters.
         """
+        
         scores = None
         X = X.astype(self.dtype)
         linear_cache = dict()
@@ -121,8 +122,6 @@ class FullyConnectedNet(object):
         TODO: Implement the forward pass for the fully-connected neural
         network, compute the scores and store them in the scores variable.
         """
-
-        # [linear - relu - (dropout)] x (N - 1) - linear - softmax
         
         # get num of hidden layers (do not count the output layer)
         num_hidden_layers = self.num_layers - 1
@@ -132,12 +131,12 @@ class FullyConnectedNet(object):
 
         for i in range(num_hidden_layers):
 
-            # get W and b
-            W = self.params["W" + str(i + 1)]
-            b = self.params["b" + str(i + 1)]
+            # compute names of W and b
+            W = "W" + str(i + 1)
+            b = "b" + str(i + 1)
             
             # perform linear pass. output has dimensions M x N
-            linear_out = linear_forward(X, W, b)
+            linear_out = linear_forward(X, self.params[W], self.params[b])
 
             # perform relu -> dropout
             if i < num_hidden_layers - 1:
@@ -164,10 +163,6 @@ class FullyConnectedNet(object):
         if y is None:
             return scores
 
-        # perform softmax. should I log scores?
-        loss, dlogits = softmax(scores, y)
-
-        grads = dict()
 
         """
         TODO: Implement the backward pass for the fully-connected net. Store
@@ -178,12 +173,30 @@ class FullyConnectedNet(object):
         automated tests, make sure that your L2 regularization includes a
         factor of 0.5 to simplify the expression for the gradient.
         """
-        #######################################################################
-        #                           BEGIN OF YOUR CODE                        #
-        #######################################################################
+    
+        # [linear - relu - (dropout)] x (N - 1) - linear - softmax
 
+        
+        # perform softmax. should I log scores?
+        loss, dlogits = softmax(scores, y)
 
-        #######################################################################
-        #                            END OF YOUR CODE                         #
-        #######################################################################
+        # used to store the input of the next layer to be processed
+        dout = dlogits
+        
+        for i in range(num_hidden_layers, 0, -1):
+
+            # compute names of W and b
+            W_name = "W" + str(i + 1)
+            b_name = "b" + str(i + 1)
+
+            # perform linear backward
+#            dX, dW, db = linear_backward(dlogits, 
+
+        
+        # lets compute gradients
+        grads = dict()
+        
+
+        # perform linear backward
+        
         return loss, grads
