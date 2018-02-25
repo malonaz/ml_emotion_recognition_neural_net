@@ -183,7 +183,9 @@ class FullyConnectedNet(object):
         """
     
         # [linear - relu - (dropout)] x (N - 1) - linear - softmax
-
+        
+        # used to store gradients
+        grads = dict()
         
         # perform softmax. should I log scores?
         loss, dlogits = softmax(scores, y)
@@ -192,6 +194,10 @@ class FullyConnectedNet(object):
         dout = dlogits
         
         for i in range(self.num_layers, 0, -1):
+            
+            if i < self.num_layers:
+                # perform dropout and relu backprop
+                break
 
             # compute this layer's X, W and b names
             X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
@@ -199,15 +205,16 @@ class FullyConnectedNet(object):
             # perform linear backward
             dX, dW, db = linear_backward(dlogits, linear_cache[X], self.params[W], self.params[b])
 
-            
-            if i < self.num_layers:
+            # store the gradients
+            grads.update({W: dW, b: db})
+        
+            # chain rule the derivatives
+            dout = np.dot(dout.transpose(), dX)
+            dout = np.dot(dout, dW)
+            dout = np.dot(dout, db)
 
-                # perform dropout and relu backprop
-                
-            
+        
                                          
-        # lets compute gradients
-        grads = dict()
         
 
         # perform linear backward
