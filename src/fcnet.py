@@ -83,7 +83,6 @@ class FullyConnectedNet(object):
             # update number of input node into each output of the next layer
             n_in = n_out
             
-            
         # When using dropout we need to pass a dropout_param dictionary to
         # each dropout layer so that the layer knows the dropout probability
         # and the mode (train / test). You can pass the same dropout_param to
@@ -156,10 +155,9 @@ class FullyConnectedNet(object):
                 # add this layer's output as input to the next layer in the linear cache
                 linear_cache[X_next] = out
 
-            # perform softmax
+                
+            # this final iteration's output are the scores
             else:
-
-                # this final iteration's output are the scores
                 scores = out
                 
             
@@ -183,20 +181,30 @@ class FullyConnectedNet(object):
         
         # perform softmax. should I log scores?
         loss, dlogits = softmax(scores, y)
-
+        
         # used to store the input of the next layer to be processed
         dout = dlogits
+
+
+        print ("dout: ", dout.shape)
+        print (self.params["W2"].shape)
+
+        
+        #for key in self.params:
+        #    print (key, self.params[key].shape)
+        #for key in linear_cache:
+        #    print (key, linear_cache[key].shape)
+        
         
         for i in range(num_hidden_layers, 0, -1):
 
-            # compute names of W and b
-            W_name = "W" + str(i + 1)
-            b_name = "b" + str(i + 1)
-
+            # compute this layer's X, W and b names
+            X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
+            
             # perform linear backward
-#            dX, dW, db = linear_backward(dlogits, 
-
-        
+            dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
+            
+                                         
         # lets compute gradients
         grads = dict()
         

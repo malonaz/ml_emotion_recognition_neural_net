@@ -44,7 +44,7 @@ def linear_backward(dout, X, W, b):
     Args:
     - dout: Upstream derivative, of shape (N, M)
     - X: A numpy array of shape (N, d_1, ..., d_K) incoming data
-    - W: Anumpy array of shape (D, M) of weights, with D= d_1 * ... * d_K
+    - W: Anumpy array of shape (D, M) of weights, with D = d_1 * ... * d_K
     - b: A numpy array of shape (M, ) of biases
 
     Returns (as tuple):
@@ -63,6 +63,8 @@ def linear_backward(dout, X, W, b):
     reshapedX = X.reshape(N, D)
 
     # d(sigma(W_all*x_all) + b)/dxi = W_i. must reshape dX as specs require it
+    # (N, M) x (M x D) = N x D
+    print ("dout: ", dout.shape, " and W.T: ", W.transpose().shape)
     dX = np.dot(dout, W.transpose()).reshape(X.shape)
     
     # d(sigma(W_all*x_all)+ b )/dWi = x_i. Why don't we divide by number of examples?
