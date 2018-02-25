@@ -79,6 +79,9 @@ class FullyConnectedNet(object):
             # store weight and b into params using appropriate name
             self.params["W" + str(i + 1)] = W
             self.params["b" + str(i + 1)] = b
+
+            # update number of input node into each output of the next layer
+            n_int = n_out
             
             
         # When using dropout we need to pass a dropout_param dictionary to
@@ -127,6 +130,9 @@ class FullyConnectedNet(object):
         
         # get num of hidden layers (do not count the output layer)
         num_hidden_layers = self.num_layers - 1
+
+        # used to store the inputs to the next layer
+        in_next_layer = X
         
         for i in range(num_hidden_layers):
 
@@ -135,7 +141,24 @@ class FullyConnectedNet(object):
             b = self.params["b" + str(i + 1)]
             
             # perform linear pass. output has dimensions M x N
-            out = linear_forward(X, W, b)
+            linear_out = linear_forward(X, W, b)
+
+            # perform ReLU
+            relu_out = relu_forward(linear_out)
+
+            # perform dropout
+            out, mask = dropout_forward(relu_out, \
+                                        self.dropout_params["p"], \
+                                        self.dropout_params["train"], \
+                                        self.dropout_params["seed"])
+
+
+            # update in_next_layer
+            in_next_layer = out
+        
+            
+            
+                
             
             
 
