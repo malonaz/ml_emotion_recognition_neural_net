@@ -29,6 +29,7 @@ def softmax(logits, y):
 
     # for each example, divide each class score by the sum of the scores of all classes
     # this turns the scores into a probability distribution over the classes: P(y_i = class_j|logits)
+    # number at row i and col j represents sigma_x(y^_i)
     classDistribution = stableScores / sampleScoreSums
 
     # compute likelihood: P(y_i = correctClass | logits)
@@ -39,7 +40,17 @@ def softmax(logits, y):
 
     # loss = sigma(negloglikelihood)/N
     loss = negLogLikelihood.sum()/negLogLikelihood.shape[0]
+
     
-    dlogits = None
+    # dLoss/dlogit_i[x] = (1/N)sigma_x(y^_i) if c is not the correct class of the example in this row
+    # dLoss/dlogit_i[x] = (1/N)(sigma_x(y^_i) - 1) if c is the correct class of the example in row i
+    # hence start by setting dlogits_i[x] = sigma_x(y^_i), which I've called classDistribution
+    dlogits = classDistribution
+
+    # now for each row, find the class that is correct and subtract 1
+    dlogits[np.arange(classDistribution.shape[0]), y] -= 1
+    
+    # now divide through by N
+    dlogits /= y.shape[0]
     
     return loss, dlogits
