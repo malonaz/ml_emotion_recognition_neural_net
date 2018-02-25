@@ -32,6 +32,7 @@ def softmax(logits, y):
     # number at row i and col j represents sigma_x(y^_i)
     classDistribution = stableScores / sampleScoreSums
 
+    
     # compute likelihood: P(y_i = correctClass | logits)
     correctClassProbabilities = classDistribution[np.arange(classDistribution.shape[0]), y]
 
@@ -54,3 +55,6 @@ def softmax(logits, y):
     dlogits /= y.shape[0]
     
     return loss, dlogits
+
+
+

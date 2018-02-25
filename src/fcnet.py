@@ -63,15 +63,20 @@ class FullyConnectedNet(object):
         initialisation (see manual).
         """
 
+        # create a layers dimension list
+        layer_dims = hidden_dims + [num_classes]
+        
         # used to store the number of input nodes into each output of the next layer
         # initialized to the input dim for the first layer
         n_in = input_dim
 
         # iterate 
-        for i in range(len(hidden_dims)):
+        for i in range(len(layer_dims)):
 
             # get the number of output for each input
-            n_out = hidden_dims[i]
+            n_out = layer_dims[i]
+
+            # print ("layer" + str(i + 1) + "n_in: ", n_in, " and n_out: ", n_out)
 
             # initialize weights and biases
             W, b = random_init(n_in, n_out, weight_scale, dtype)
@@ -81,7 +86,7 @@ class FullyConnectedNet(object):
             self.params["b" + str(i + 1)] = b
 
             # update number of input node into each output of the next layer
-            n_in = n_out
+            n_in = n_out                
             
         # When using dropout we need to pass a dropout_param dictionary to
         # each dropout layer so that the layer knows the dropout probability
@@ -184,10 +189,8 @@ class FullyConnectedNet(object):
         
         # used to store the input of the next layer to be processed
         dout = dlogits
-
-
-        print ("dout: ", dout.shape)
-        print (self.params["W2"].shape)
+        
+        print (scores.shape)
 
         
         #for key in self.params:
@@ -202,7 +205,7 @@ class FullyConnectedNet(object):
             X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
             
             # perform linear backward
-            dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
+            dX, dW, db = linear_backward(dlogits, linear_cache[X], self.params[W], self.params[b])
             
                                          
         # lets compute gradients

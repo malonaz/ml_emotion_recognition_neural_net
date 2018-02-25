@@ -64,7 +64,7 @@ def linear_backward(dout, X, W, b):
 
     # d(sigma(W_all*x_all) + b)/dxi = W_i. must reshape dX as specs require it
     # (N, M) x (M x D) = N x D
-    print ("dout: ", dout.shape, " and W.T: ", W.transpose().shape)
+#    print ("dout: ", dout.shape, " and W.T: ", W.transpose().shape)
     dX = np.dot(dout, W.transpose()).reshape(X.shape)
     
     # d(sigma(W_all*x_all)+ b )/dWi = x_i. Why don't we divide by number of examples?
