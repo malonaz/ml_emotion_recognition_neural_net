@@ -1,5 +1,4 @@
 import numpy as np
-
 from src.classifiers import softmax
 from src.layers import (linear_forward, linear_backward, relu_forward,
                         relu_backward, dropout_forward, dropout_backward)
@@ -63,14 +62,26 @@ class FullyConnectedNet(object):
         Weights and bias are to be initialised according to the random
         initialisation (see manual).
         """
-        #######################################################################
-        #                           BEGIN OF YOUR CODE                        #
-        #######################################################################
 
+        # used to store the number of input nodes into each output of the next layer
+        # initialized to the input dim for the first layer
+        n_in = input_dim
 
-        #######################################################################
-        #                            END OF YOUR CODE                         #
-        #######################################################################
+        # iterate 
+        for i in range(len(hidden_dims)):
+
+            # get the number of output for each input
+            n_out = len(hidden_dims[i])
+
+            # initialize weights and biases
+            W, b = random_init(n_in, n_out, weight_scale, dtype)
+
+            # store weight and b into params using appropriate name
+            params["W" + str(i + 1)] = W
+            
+            
+            
+        
         # When using dropout we need to pass a dropout_param dictionary to
         # each dropout layer so that the layer knows the dropout probability
         # and the mode (train / test). You can pass the same dropout_param to
