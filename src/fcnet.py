@@ -192,12 +192,18 @@ class FullyConnectedNet(object):
         dout = dlogits
         
         for i in range(self.num_layers, 0, -1):
-            print (i)
+
             # compute this layer's X, W and b names
             X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
             
             # perform linear backward
             dX, dW, db = linear_backward(dlogits, linear_cache[X], self.params[W], self.params[b])
+
+            
+            if i < self.num_layers:
+
+                # perform dropout and relu backprop
+                
             
                                          
         # lets compute gradients
