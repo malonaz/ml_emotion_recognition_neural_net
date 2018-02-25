@@ -128,14 +128,14 @@ def dropout_forward(X, p=0.5, train=True, seed=42):
     - mask: In training mode, mask is the dropout
       mask that was used to multiply the input; in test mode, mask is None.
     """
-
-    # seed random number generator
-    if seed:
-        np.random.seed(seed)
     
     # do no perform dropout if in test mode. Mask is None
     if not train:
         return X, None
+
+    # seed random number generator
+    if seed:
+        np.random.seed(seed)
 
     # must use copy in numpy to avoid pass by reference
     out = X.copy()
