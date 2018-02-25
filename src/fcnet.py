@@ -88,11 +88,7 @@ class FullyConnectedNet(object):
         # each dropout layer so that the layer knows the dropout probability
         # and the mode (train / test). You can pass the same dropout_param to
         # each dropout layer.
-        self.dropout_params = dict()
-        if self.use_dropout:
-            self.dropout_params = {"train": True, "p": dropout}
-            if seed is not None:
-                self.dropout_params["seed"] = seed
+        self.dropout_params = {"train": self.use_dropout, "p": dropout, "seed": seed}
                 
         # Cast all parameters to the correct datatype
         for k, v in self.params.items():
