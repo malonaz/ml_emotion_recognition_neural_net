@@ -129,7 +129,7 @@ class FullyConnectedNet(object):
 
         # used to store the inputs to the next layer
         in_next_layer = X
-        
+
         for i in range(num_hidden_layers):
 
             # get W and b
@@ -139,29 +139,35 @@ class FullyConnectedNet(object):
             # perform linear pass. output has dimensions M x N
             linear_out = linear_forward(X, W, b)
 
-            # perform ReLU
-            relu_out = relu_forward(linear_out)
+            # perform relu -> dropout
+            if i < num_hidden_layers - 1:
+                # perform ReLU
+                relu_out = relu_forward(linear_out)
 
-            # perform dropout
-            out, mask = dropout_forward(relu_out, \
-                                        self.dropout_params["p"], \
-                                        self.dropout_params["train"], \
-                                        self.dropout_params["seed"])
+                # perform dropout
+                out, mask = dropout_forward(relu_out, \
+                                            self.dropout_params["p"], \
+                                            self.dropout_params["train"], \
+                                            self.dropout_params["seed"])
+                
+                # update in_next_layer
+                in_next_layer = out
 
+            # perform softmax
+            else:
 
-            # update in_next_layer
-            in_next_layer = out
-        
-            
-            
+                # this final iteration's output are the scores
+                scores = out
                 
             
-            
-
-        # If y is None then we are in test mode so just return scores
+        # if y is None then we are in test mode so just return scores
         if y is None:
             return scores
-        loss, grads = 0, dict()
+
+        # perform softmax. should I log scores?
+        loss, dlogits = softmax(scores, y)
+
+        grads = dict()
 
         """
         TODO: Implement the backward pass for the fully-connected net. Store
