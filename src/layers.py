@@ -137,9 +137,6 @@ def dropout_forward(X, p=0.5, train=True, seed=42):
     # seed random number generator
     if seed:
         np.random.seed(seed)
-
-    # must use copy in numpy to avoid pass by reference
-    out = X.copy()
     
     # generate matrix of same size as X filled with values drawn from uniform distribution of [0, 1]
     mask = np.random.uniform(size = X.shape)
