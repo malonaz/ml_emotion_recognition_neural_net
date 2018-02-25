@@ -161,6 +161,10 @@ class FullyConnectedNet(object):
                 # add this layer's output as input to the next layer in the linear cache
                 linear_cache[X_next] = out
 
+                # add the mask to the dropout cache
+                dropout_cache["M" + str(i + 1)] = mask
+                
+
                 
             # this final iteration's output are the scores
             else:
@@ -196,8 +200,9 @@ class FullyConnectedNet(object):
         for i in range(self.num_layers, 0, -1):
             
             if i < self.num_layers:
-                # perform dropout and relu backprop
                 break
+                # perform dropout 
+                # dout = dropout_backward(dout, 
 
             # compute this layer's X, W and b names
             X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
@@ -209,11 +214,7 @@ class FullyConnectedNet(object):
             grads.update({W: dW, b: db})
         
             # chain rule the derivatives
-            dout = np.dot(dout.transpose(), dX)
-            dout = np.dot(dout, dW)
-            dout = np.dot(dout, db)
-
-        
+            dout = np.dot(np.dot(np.dot(dout.transpose(), dX), dW), db)
                                          
         
 
