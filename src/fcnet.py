@@ -128,7 +128,7 @@ class FullyConnectedNet(object):
         """
         
         # get num of hidden layers (do not count the output layer)
-        num_hidden_layers = self.num_layers - 1
+        num_hidden_layers = self.num_layers
 
         # store the first layer's input in the linear cache
         linear_cache["X1"] = X
@@ -163,7 +163,7 @@ class FullyConnectedNet(object):
                 
             # this final iteration's output are the scores
             else:
-                scores = out
+                scores = linear_out
                 
             
         # if y is None then we are in test mode so just return scores
