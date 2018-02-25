@@ -28,13 +28,9 @@ def linear_forward(X, W, b):
 
     # Compute WX. dimensions: (N x D) dot (D x M) = N x M
     XW = np.dot(reshapedX, W)
-    
-    # add bias to XW
-    for sample in XW:
-        sample += b
 
     # return biased XW
-    return XW
+    return XW + b
 
 
 def linear_backward(dout, X, W, b):

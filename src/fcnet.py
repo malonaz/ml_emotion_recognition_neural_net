@@ -222,9 +222,5 @@ class FullyConnectedNet(object):
             # store the gradients
             grads.update({W: dW, b: db})
             
-
-
-            
-
         
         return loss, grads
