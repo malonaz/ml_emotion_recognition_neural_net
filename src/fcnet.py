@@ -128,13 +128,13 @@ class FullyConnectedNet(object):
         """
         
         # get num of hidden layers (do not count the output layer)
-        num_hidden_layers = self.num_layers
+        num_hidden_layers = self.num_layers - 1
 
         # store the first layer's input in the linear cache
         linear_cache["X1"] = X
 
-        # iterate through all hidden layers, starting with index 1
-        for i in range(num_hidden_layers):
+        # iterate through all layers, including the class layer
+        for i in range(self.num_layers):
 
             # compute this layer's X W and b names
             X, W, b = "X" + str(i + 1), "W" + str(i + 1), "b" + str(i + 1)
@@ -147,7 +147,8 @@ class FullyConnectedNet(object):
             
                         
             # perform relu -> dropout
-            if i < num_hidden_layers - 1:
+            if i < num_hidden_layers:
+
                 # perform ReLU
                 relu_out = relu_forward(linear_out)
 
@@ -190,17 +191,8 @@ class FullyConnectedNet(object):
         # used to store the input of the next layer to be processed
         dout = dlogits
         
-        print (scores.shape)
-
-        
-        #for key in self.params:
-        #    print (key, self.params[key].shape)
-        #for key in linear_cache:
-        #    print (key, linear_cache[key].shape)
-        
-        
-        for i in range(num_hidden_layers, 0, -1):
-
+        for i in range(self.num_layers, 0, -1):
+            print (i)
             # compute this layer's X, W and b names
             X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
             
