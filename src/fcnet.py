@@ -15,16 +15,13 @@ def random_init(n_in, n_out, weight_scale=5e-2, dtype=np.float32):
     - n_in: The number of input nodes into each output.
     - n_out: The number of output nodes for each input.
     """
-    W = None
-    b = None
-    ###########################################################################
-    #                           BEGIN OF YOUR CODE                            #
-    ###########################################################################
+    
+    # initialize weights from a normal distribution with sd equal to weight_scale
+    W = np.random.normal(scale = weight_scale, size = (n_in, n_out))
 
-
-    ###########################################################################
-    #                            END OF YOUR CODE                             #
-    ###########################################################################
+    # initialize biases to 0. One for each next layer neuron
+    b = np.zeros((n_out,))
+    
     return W, b
 
 
