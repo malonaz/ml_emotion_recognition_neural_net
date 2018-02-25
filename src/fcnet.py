@@ -204,24 +204,24 @@ class FullyConnectedNet(object):
             # perform linear backward
             dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
 
-            if i < self.num_layers and False:
+
+            if i < self.num_layers:
                 
                 # compute mask name
                 M = "M" + str(i)
                 
                 # perform dropout 
-                dout = dropout_backward(dout, dropout_cache[M], self.dropout_params["p"], self.dropout_params["train"])
+                dX = dropout_backward(dX, dropout_cache[M], self.dropout_params["p"], self.dropout_params["train"])
 
                 # perform ReLU
-                dout = relu_backward(dout, linear_cache[X])
+                dX = relu_backward(dX, linear_cache[X])
 
-
+            # set dout equal to dX
+            dout = dX
 
             # store the gradients
             grads.update({W: dW, b: db})
             
-            # dout is not dX
-            dout = dX
 
 
             
