@@ -81,7 +81,7 @@ class FullyConnectedNet(object):
             self.params["b" + str(i + 1)] = b
 
             # update number of input node into each output of the next layer
-            n_int = n_out
+            n_in = n_out
             
             
         # When using dropout we need to pass a dropout_param dictionary to
@@ -138,9 +138,11 @@ class FullyConnectedNet(object):
             current_b = "b" + str(i + 1)
 
             print (linear_cache[current_X].shape)
+
             # perform linear pass. output has dimensions M x N
             linear_out = linear_forward(in_next_layer, self.params[current_W], self.params[current_b])
-
+            
+                        
             # perform relu -> dropout
             if i < num_hidden_layers - 1:
                 # perform ReLU
