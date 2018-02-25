@@ -71,17 +71,16 @@ class FullyConnectedNet(object):
         for i in range(len(hidden_dims)):
 
             # get the number of output for each input
-            n_out = len(hidden_dims[i])
+            n_out = hidden_dims[i]
 
             # initialize weights and biases
             W, b = random_init(n_in, n_out, weight_scale, dtype)
 
             # store weight and b into params using appropriate name
-            params["W" + str(i + 1)] = W
+            self.params["W" + str(i + 1)] = W
+            self.params["b" + str(i + 1)] = b
             
             
-            
-        
         # When using dropout we need to pass a dropout_param dictionary to
         # each dropout layer so that the layer knows the dropout probability
         # and the mode (train / test). You can pass the same dropout_param to
@@ -91,6 +90,7 @@ class FullyConnectedNet(object):
             self.dropout_params = {"train": True, "p": dropout}
             if seed is not None:
                 self.dropout_params["seed"] = seed
+                
         # Cast all parameters to the correct datatype
         for k, v in self.params.items():
             self.params[k] = v.astype(dtype)
@@ -122,14 +122,23 @@ class FullyConnectedNet(object):
         TODO: Implement the forward pass for the fully-connected neural
         network, compute the scores and store them in the scores variable.
         """
-        #######################################################################
-        #                           BEGIN OF YOUR CODE                        #
-        #######################################################################
 
+        # [linear - relu - (dropout)] x (N - 1) - linear - softmax
+        
+        # get num of hidden layers (do not count the output layer)
+        num_hidden_layers = self.num_layers - 1
+        
+        for i in range(num_hidden_layers):
 
-        #######################################################################
-        #                            END OF YOUR CODE                         #
-        #######################################################################
+            # get W and b
+            W = self.params["W" + str(i + 1)]
+            b = self.params["b" + str(i + 1)]
+            
+            # perform linear pass. output has dimensions M x N
+            out = linear_forward(X, W, b)
+            
+            
+
         # If y is None then we are in test mode so just return scores
         if y is None:
             return scores
