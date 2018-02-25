@@ -128,15 +128,18 @@ class FullyConnectedNet(object):
 
         # used to store the inputs to the next layer
         in_next_layer = X
-
+        linear_cache["X1"] = X
+        
         for i in range(num_hidden_layers):
 
-            # compute names of W and b
-            W = "W" + str(i + 1)
-            b = "b" + str(i + 1)
-            
+            # compute names of X W and b
+            current_X = "X" + str(i + 1)
+            current_W = "W" + str(i + 1)
+            current_b = "b" + str(i + 1)
+
+            print (linear_cache[current_X].shape)
             # perform linear pass. output has dimensions M x N
-            linear_out = linear_forward(X, self.params[W], self.params[b])
+            linear_out = linear_forward(in_next_layer, self.params[current_W], self.params[current_b])
 
             # perform relu -> dropout
             if i < num_hidden_layers - 1:
@@ -151,6 +154,7 @@ class FullyConnectedNet(object):
                 
                 # update in_next_layer
                 in_next_layer = out
+                linear_cache["X" + str(i + 2)] = out
 
             # perform softmax
             else:
