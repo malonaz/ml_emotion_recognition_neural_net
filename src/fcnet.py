@@ -181,15 +181,13 @@ class FullyConnectedNet(object):
         automated tests, make sure that your L2 regularization includes a
         factor of 0.5 to simplify the expression for the gradient.
         """
-    
-        # [linear - relu - (dropout)] x (N - 1) - linear - softmax
         
         # used to store gradients
         grads = dict()
         
         # perform softmax. should I log scores?
         loss, dlogits = softmax(scores, y)
-        
+
         # used to store the upstream derivate of the next layer
         dout = dlogits
         
@@ -216,7 +214,6 @@ class FullyConnectedNet(object):
             # perform linear backward and store the gradients
             dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
             grads.update({W: dW, b: db})
-
 
             # set dout equal to dX
             dout = dX
