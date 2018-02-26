@@ -2,7 +2,7 @@ from builtins import range
 from six.moves import cPickle as pickle
 import numpy as np
 import os
-import imread
+from scipy.misc import imread
 import platform
 
 def load_pickle(f):
