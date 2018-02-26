@@ -4,10 +4,11 @@ from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
 from src.utils.data_utils import get_CIFAR10_data
 
-"""
-TODO: Overfit the network with 50 samples of CIFAR-10
-"""
+# directory where the pickled batches are located
+DIR = "datasets/cifar-10-batches-py/"
 
+# contains the filenames of the 5 dataset batches
+BATCHES_FILENAMES = map(lambda x: DIR + "data_batch" + str(x + 1), range(5))
 
 def unpickle(filename):
     """
@@ -29,10 +30,9 @@ def unpickle(filename):
     return obj
 
 
+# contains the unpickled batches
+batches = map(lambda filename: unpickle(filename), BATCHES_FILENAMES)
 
-
-# load the 5 batches
-batch1 = unpickle("datasets/cifar-10-batches-py/data_batch_1")
 overtfit_fcnet = FullyConnectedNet([10,10,10] , input_dim=32*32*3, num_classes=10,
                                    dropout=0, reg=0.0, weight_scale=1e-2, dtype=np.float32,
                                    seed = 1)
