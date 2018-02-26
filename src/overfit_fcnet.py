@@ -15,10 +15,21 @@ data = get_CIFAR10_data()
 
 
 # intialize net
-model = FullyConnectedNet([10,10,10] , input_dim=32*32*3, num_classes=10,
+model = FullyConnectedNet([1000,1000] , input_dim=32*32*3, num_classes=10,
                           dropout=0, reg=0.0, weight_scale=1e-2, dtype=np.float32,
                           seed = 1)
-solver = Solver(model, data)
+
+solver = Solver(model, data,
+                update_rule='sgd',
+                optim_config={
+                    'learning_rate': 1e-2,
+                },
+                lr_decay=0.95,
+                num_epochs=20, batch_size=100,
+                print_every=100)
+x = data["X_test"]
+
+
 solver.train()
 
 plt.subplot(2, 1, 1)
@@ -38,3 +49,4 @@ plt.xlabel('Epoch')
 plt.legend(loc = 'lowerright')
 plt.gcf().set_size_inches(15, 12)
 plt.show()
+
