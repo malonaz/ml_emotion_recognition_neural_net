@@ -129,7 +129,7 @@ class FullyConnectedNet(object):
         num_hidden_layers = self.num_layers - 1
 
         # store the first layer's input in the linear cache
-        linear_cache["X1"] = X
+        linear_cache[1] = X
 
         # iterate through all layers, including the class layer
         for i in range(1, self.num_layers + 1):
@@ -139,7 +139,7 @@ class FullyConnectedNet(object):
 
                        
             # perform linear pass. output has dimensions M x N. Store it in relu_cache
-            relu_cache[i] = linear_forward(linear_cache[Xkey], self.params[Wkey], self.params[bkey])
+            relu_cache[i] = linear_forward(linear_cache[i], self.params[Wkey], self.params[bkey])
             
             # perform relu -> dropout
             if i < self.num_layers:
@@ -158,12 +158,11 @@ class FullyConnectedNet(object):
 
                 # compute next layer's X key and add this layer's output as input to the next layer in the linear cache
                 X_nextkey = "X" + str(i + 1)
-                linear_cache[X_nextkey] = out
+                linear_cache[i + 1] = out
 
                 
         # final layer output is stored in the relu_cache since it did not go through dropout or ReLU
         scores = relu_cache[self.num_layers]
-                
             
         # if y is None then we are in test mode so just return scores
         if y is None:
@@ -207,7 +206,7 @@ class FullyConnectedNet(object):
 
                 
             # perform linear backward and store the gradients
-            dX, dW, db = linear_backward(dout, linear_cache[Xkey], self.params[Wkey], self.params[bkey])
+            dX, dW, db = linear_backward(dout, linear_cache[i], self.params[Wkey], self.params[bkey])
 
             # d(E_0 + 0.5 * reg * W_all^2)/dW_i = d(E_o)/dW_i + reg * W_i
             # dW holds d(E_0/dW_i), so we must add the reg * W_i term ourselves
