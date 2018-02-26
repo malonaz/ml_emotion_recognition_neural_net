@@ -161,9 +161,8 @@ class FullyConnectedNet(object):
                 linear_cache[X_nextkey] = out
 
                 
-            # this final iteration's output are the scores
-            else:
-                scores = relu_cache[i]
+        # final layer output is stored in the relu_cache since it did not go through dropout or ReLU
+        scores = relu_cache[self.num_layers]
                 
             
         # if y is None then we are in test mode so just return scores
