@@ -213,7 +213,10 @@ class FullyConnectedNet(object):
                 
             # perform linear backward and store the gradients
             dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
-            grads.update({W: dW, b: db})
+
+            # d(E_0 + 0.5 * reg * W_all^2)/dW_i = d(E_o)/dW_i + reg * W_i
+            # dW holds d(E_0/dW_i), so we must add the reg * W_i term ourselves
+            grads.update({W: dW + self.reg * self.params[W], b: db})
 
             # set dout equal to dX
             dout = dX
