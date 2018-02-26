@@ -134,9 +134,8 @@ class FullyConnectedNet(object):
         # iterate through all layers, including the class layer
         for i in range(1, self.num_layers + 1):
 
-            # compute this layer's X W and b keys
-            Xkey, Wkey, bkey = "X" + str(i), "W" + str(i), "b" + str(i)
-
+            # compute this layer's W and b keys
+            Wkey, bkey = "W" + str(i), "b" + str(i)
                        
             # perform linear pass. output has dimensions M x N. Store it in relu_cache
             relu_cache[i] = linear_forward(linear_cache[i], self.params[Wkey], self.params[bkey])
@@ -156,11 +155,10 @@ class FullyConnectedNet(object):
                 # add the mask to the dropout cache
                 dropout_cache[i] = mask
 
-                # compute next layer's X key and add this layer's output as input to the next layer in the linear cache
-                X_nextkey = "X" + str(i + 1)
+                # cache this layer's output as input to the next layer in the linear cache
                 linear_cache[i + 1] = out
 
-                
+
         # final layer output is stored in the relu_cache since it did not go through dropout or ReLU
         scores = relu_cache[self.num_layers]
             
@@ -190,8 +188,8 @@ class FullyConnectedNet(object):
         
         for i in range(self.num_layers, 0, -1):
             
-            # compute this layer's X, W and b names
-            Xkey, Wkey, bkey = "X" + str(i), "W" + str(i), "b" + str(i)
+            # compute this layer's W and b names
+            Wkey, bkey = "W" + str(i), "b" + str(i)
 
             # add L2 regularisation. square each weight of this layer and add it to loss
             loss += 0.5 * self.reg * np.sum(self.params[Wkey] ** 2)
