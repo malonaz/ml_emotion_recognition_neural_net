@@ -1,5 +1,5 @@
 
-currentTest: test_fcnet
+currentTest: test_overfit_fcnet
 
 all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet
 
@@ -28,6 +28,8 @@ test_classifiers:
 test_fcnet:
 	python -m test.test_fcnet
 
+test_overfit_fcnet:
+	python -m src.overfit_fcnet
 
 manual:
 	google-chrome manuals/assignment2_advanced.pdf&
