@@ -15,14 +15,14 @@ data = get_CIFAR10_data()
 
 
 # intialize net
-model = FullyConnectedNet([1000,1000] , input_dim=32*32*3, num_classes=10,
+model = FullyConnectedNet([200, 150] , input_dim=32*32*3, num_classes=10,
                           dropout=0, reg=0.0, weight_scale=1e-2, dtype=np.float32,
                           seed = 1)
 
 solver = Solver(model, data,
                 update_rule='sgd',
                 optim_config={
-                    'learning_rate': 1e-2,
+                    'learning_rate': 5e-2,
                 },
                 lr_decay=0.95,
                 num_epochs=20, batch_size=100,
