@@ -19,3 +19,22 @@ model = FullyConnectedNet([10,10,10] , input_dim=32*32*3, num_classes=10,
                           dropout=0, reg=0.0, weight_scale=1e-2, dtype=np.float32,
                           seed = 1)
 solver = Solver(model, data)
+solver.train()
+
+plt.subplot(2, 1, 1)
+
+plt.subplot(2, 1, 1)
+
+plt.title("trainingloss")
+plt.plot(solver.loss_history, "o")
+plt.xlabel('Iteration')
+
+plt.subplot(2, 1, 2)
+plt.title('Accuracy')
+plt.plot(solver.train_acc_history,'-o', label = 'train')
+plt.plot(solver.val_acc_history,'-o', label = 'val')
+plt.plot([0.5] * len(solver.val_acc_history), 'k--')
+plt.xlabel('Epoch')
+plt.legend(loc = 'lowerright')
+plt.gcf().set_size_inches(15, 12)
+plt.show()
