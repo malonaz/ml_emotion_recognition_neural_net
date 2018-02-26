@@ -134,15 +134,12 @@ class FullyConnectedNet(object):
         # iterate through all layers, including the class layer
         for i in range(self.num_layers):
 
-            # compute this layer's X W and b names
-            X, W, b = "X" + str(i + 1), "W" + str(i + 1), "b" + str(i + 1)
+            # compute this layer's X W and b keys
+            Xkey, Wkey, bkey = "X" + str(i + 1), "W" + str(i + 1), "b" + str(i + 1)
 
-            # compute next layer's X W and b names
-            # X_next, W_next, b_next = "X" + str(i + 2), "W" + str(i + 2), "b" + str(i + 2)
-            X_next = "X" + str(i + 2)
-                        
+                       
             # perform linear pass. output has dimensions M x N. Store it in relu_cache
-            relu_cache[i + 1] = linear_forward(linear_cache[X], self.params[W], self.params[b])
+            relu_cache[i + 1] = linear_forward(linear_cache[Xkey], self.params[Wkey], self.params[bkey])
             
             # perform relu -> dropout
             if i < num_hidden_layers:
@@ -159,8 +156,9 @@ class FullyConnectedNet(object):
                 # add the mask to the dropout cache
                 dropout_cache[i + 1] = mask
 
-                # add this layer's output as input to the next layer in the linear cache
-                linear_cache[X_next] = out
+                # compute next layer's X key and add this layer's output as input to the next layer in the linear cache
+                X_nextkey = "X" + str(i + 2)
+                linear_cache[X_nextkey] = out
 
                 
             # this final iteration's output are the scores
