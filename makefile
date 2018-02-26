@@ -33,3 +33,21 @@ test_overfit_fcnet:
 
 manual:
 	google-chrome manuals/assignment2_advanced.pdf&
+	
+	
+### REPORT
+
+REPORT_DISCARDED_OUTPUT = report.aux report.log report.out
+REPORT_SRC = report/report.tex report/introduction.tex report/layersimplementation.tex \
+             report/dropout.tex report/softmax.tex report/neuralnetworkcreation.tex \
+             report/hyperparameter.tex report/conclusion.tex
+
+report: report/report.pdf
+
+
+report/report.pdf: $(GRAPHS_OBJECTS:.dot=.pdf)  $(REPORT_SRC) 
+#	pdflatex -interaction=batchmode report/report.tex
+	pdflatex report/report.tex
+	rm -rf $(REPORT_DISCARDED_OUTPUT)
+	mv report.pdf report
+

@@ -1,0 +1,72 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{anysize}
+\usepackage[pdftex]{graphicx}
+\usepackage{url}
+\usepackage{fixltx2e}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{newclude}
+\usepackage[nodayofweek]{datetime}
+\usepackage[small,compact]{titlesec}
+\usepackage[pdfborder=0]{hyperref}
+\usepackage{verbatim}
+\usepackage{lettrine}
+\longdate
+
+\setlength{\parskip}{11pt} 
+\setlength\parindent{0pt}
+
+\pagestyle{fancyplain}
+\fancyhf{}
+\lhead{\fancyplain{}{Machine Learning CBC}}
+\rhead{\fancyplain{}{\today}}
+\cfoot{\fancyfoot[R]{\thepage}}
+%\fancyplain[R]{}{\thepage}}
+
+
+\title{395 Machine Learning\\\Large{--- Assignment 2 ---}}
+\author{Group 11\\Malon AZRIA, Alexandre CODACCIONI, Benjamin MAI,
+  Laura HAGEGE.\\
+  ma12917@ic.ac.uk, afc17@ic.ac.uk, bm2617@ic.ac.uk, lmh1417@ic.ac.uk \\
+       \small{CBC helper: Pingchaun MA}\\
+       \small{Course: CO395, Imperial College London}
+}
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+    \include*{report/introduction}
+
+\section{Linear and ReLu Layers implementation (forward/ backward pass)}
+    \include*{report/layersimplementation}
+
+\section{Dropout implepentation}
+    \include*{report/dropout}
+ 
+    
+\section{Softmax classifier}
+    \include*{report/softmax}
+
+\newpage
+\section{Fully-Connected Neural NetworkCreation}
+     \include*{report/neuralnetworkcreation}
+
+
+\section{Hyper-parameter optimisation}
+	\include*{report/hyperparameter}
+
+      
+\section{Conclusion}
+    \include*{report/conclusion}
+
+
+\end{document}
