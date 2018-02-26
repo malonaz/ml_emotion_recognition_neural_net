@@ -156,7 +156,7 @@ class FullyConnectedNet(object):
                                             self.dropout_params["seed"])
 
                 # add the mask to the dropout cache
-                dropout_cache["M" + str(i + 1)] = mask
+                dropout_cache[i + 1] = mask
 
                 # add this layer's output as input to the next layer in the linear cache
                 linear_cache[X_next] = out
@@ -194,29 +194,26 @@ class FullyConnectedNet(object):
         for i in range(self.num_layers, 0, -1):
             
             # compute this layer's X, W and b names
-            X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
+            Xkey, Wkey, bkey = "X" + str(i), "W" + str(i), "b" + str(i)
 
             # add L2 regularisation. square each weight of this layer and add it to loss
-            loss += 0.5 * self.reg * np.sum(self.params[W] ** 2)
+            loss += 0.5 * self.reg * np.sum(self.params[Wkey] ** 2)
 
             if i < self.num_layers:
                 
-                # compute mask name
-                M = "M" + str(i)
-
                 # perform dropout 
-                dout = dropout_backward(dout, dropout_cache[M], self.dropout_params["p"], self.dropout_params["train"])
+                dout = dropout_backward(dout, dropout_cache[i], self.dropout_params["p"], self.dropout_params["train"])
 
                 # perform ReLU
                 dout = relu_backward(dout, relu_cache[i])
 
                 
             # perform linear backward and store the gradients
-            dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
+            dX, dW, db = linear_backward(dout, linear_cache[Xkey], self.params[Wkey], self.params[bkey])
 
             # d(E_0 + 0.5 * reg * W_all^2)/dW_i = d(E_o)/dW_i + reg * W_i
             # dW holds d(E_0/dW_i), so we must add the reg * W_i term ourselves
-            grads.update({W: dW + self.reg * self.params[W], b: db})
+            grads.update({Wkey: dW + self.reg * self.params[Wkey], bkey: db})
 
             # set dout equal to dX
             dout = dX
