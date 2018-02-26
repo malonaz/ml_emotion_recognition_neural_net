@@ -138,7 +138,8 @@ class FullyConnectedNet(object):
             X, W, b = "X" + str(i + 1), "W" + str(i + 1), "b" + str(i + 1)
 
             # compute next layer's X W and b names
-            X_next, W_next, b_next = "X" + str(i + 2), "W" + str(i + 2), "b" + str(i + 2)
+            # X_next, W_next, b_next = "X" + str(i + 2), "W" + str(i + 2), "b" + str(i + 2)
+            X_next = "X" + str(i + 2)
                         
             # perform linear pass. output has dimensions M x N. Store it in relu_cache
             relu_cache[i + 1] = linear_forward(linear_cache[X], self.params[W], self.params[b])
