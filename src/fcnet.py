@@ -70,13 +70,11 @@ class FullyConnectedNet(object):
         # initialized to the input dim for the first layer
         n_in = input_dim
 
-        # iterate 
-        for i in range(len(layer_dims)):
+        # iterate through each layer
+        for i in range(self.num_layers):
 
             # get the number of output for each input
             n_out = layer_dims[i]
-
-            # print ("layer" + str(i + 1) + "n_in: ", n_in, " and n_out: ", n_out)
 
             # initialize weights and biases
             W, b = random_init(n_in, n_out, weight_scale, dtype)
@@ -142,32 +140,31 @@ class FullyConnectedNet(object):
             # compute next layer's X W and b names
             X_next, W_next, b_next = "X" + str(i + 2), "W" + str(i + 2), "b" + str(i + 2)
                         
-            # perform linear pass. output has dimensions M x N
-            linear_out = linear_forward(linear_cache[X], self.params[W], self.params[b])
+            # perform linear pass. output has dimensions M x N. Store it in relu_cache
+            relu_cache[i + 1] = linear_forward(linear_cache[X], self.params[W], self.params[b])
             
-                        
             # perform relu -> dropout
             if i < num_hidden_layers:
 
                 # perform ReLU
-                relu_out = relu_forward(linear_out)
+                relu_out = relu_forward(relu_cache[i + 1])
 
                 # perform dropout
-                out, mask = dropout_forward(relu_out, \
-                                            self.dropout_params["p"], \
-                                            self.dropout_params["train"], \
+                out, mask = dropout_forward(relu_out,                         \
+                                            self.dropout_params["p"],         \
+                                            self.dropout_params["train"],     \
                                             self.dropout_params["seed"])
-                
-                # add this layer's output as input to the next layer in the linear cache
-                linear_cache[X_next] = out
 
                 # add the mask to the dropout cache
                 dropout_cache["M" + str(i + 1)] = mask
-                
+
+                # add this layer's output as input to the next layer in the linear cache
+                linear_cache[X_next] = out
+
                 
             # this final iteration's output are the scores
             else:
-                scores = linear_out
+                scores = relu_cache[i + 1]
                 
             
         # if y is None then we are in test mode so just return scores
@@ -193,7 +190,7 @@ class FullyConnectedNet(object):
         # perform softmax. should I log scores?
         loss, dlogits = softmax(scores, y)
         
-        # used to store the input of the next layer to be processed
+        # used to store the upstream derivate of the next layer
         dout = dlogits
         
         for i in range(self.num_layers, 0, -1):
@@ -201,26 +198,29 @@ class FullyConnectedNet(object):
             # compute this layer's X, W and b names
             X, W, b = "X" + str(i), "W" + str(i), "b" + str(i)
 
-            # perform linear backward
-            dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
-
+            # add L2 regularisation. square each weight of this layer and add it to loss
+            loss += 0.5 * self.reg * np.sum(self.params[W] ** 2)
 
             if i < self.num_layers:
                 
                 # compute mask name
                 M = "M" + str(i)
-                
+
                 # perform dropout 
-                dX = dropout_backward(dX, dropout_cache[M], self.dropout_params["p"], self.dropout_params["train"])
+                dout = dropout_backward(dout, dropout_cache[M], self.dropout_params["p"], self.dropout_params["train"])
 
                 # perform ReLU
-                dX = relu_backward(dX, linear_cache[X])
+                dout = relu_backward(dout, relu_cache[i])
+
+                
+            # perform linear backward and store the gradients
+            dX, dW, db = linear_backward(dout, linear_cache[X], self.params[W], self.params[b])
+            grads.update({W: dW, b: db})
+
 
             # set dout equal to dX
             dout = dX
 
-            # store the gradients
-            grads.update({W: dW, b: db})
             
         
         return loss, grads
