@@ -16,7 +16,7 @@ def train_overfit_net(plot = False):
         
         
     # intialize net
-    model = FullyConnectedNet([1250, 1000],
+    model = FullyConnectedNet([32 * 32 * 3],
                               input_dim      = 32*32*3,
                               num_classes    = 10,
                               dropout        = 0,
@@ -29,8 +29,8 @@ def train_overfit_net(plot = False):
     # initialize solver
     solver = Solver(model,data,
                     update_rule  = 'sgd',
-                    optim_config = {'learning_rate': 5e-3},
-                    lr_decay     = 0.92,
+                    optim_config = {'learning_rate': 5e-4},
+                    lr_decay     = 0.95,
                     num_epochs   = 20,
                     batch_size   = 100,
                     print_every  = 100)
