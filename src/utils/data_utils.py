@@ -149,11 +149,11 @@ def get_FER2013_data():
         # append the matrix and the label to the appropriate array
         if i < num_training_examples:
             X_train[i] = image_matrix
-            y_train[i] = label
+            y_train[i] = int(label) -1
 
         else:
             X_test[i - num_training_examples] = image_matrix
-            y_train[i - num_training_examples] = label
+            y_train[i - num_training_examples] = int(label) - 1
             
     # package into one list, after casting the y matrices to integers
     raw_data = [X_train, y_train.astype(int, copy = False), X_test, y_test.astype(int, copy = False)]
