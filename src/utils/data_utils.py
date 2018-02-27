@@ -112,15 +112,19 @@ def get_FER2013_data():
         # remove first line because it is just info
         filenames_and_labels = labels_file.readlines()[1:]
 
+    # how many examples total
+    num_examples = len(filenames_and_labels)
+    
     # find out how many training example. 
     num_training_examples = 0
-    for i in range(len(filenames_and_labels)):
+    for i in range(num_examples):
         if filenames_and_labels[i][0 + 1] == "e":
             num_training_examples = i
             break
 
     # compute num_test_examples
-    num_test_examples = len(filenames_and_labels) - num_training_examples
+    num_test_examples = num_examples - num_training_examples
+
     
     # now find out the size of an element using the first image element
     filename = "datasets/FER2013/" + filenames_and_labels[0].split(',')[0]
@@ -134,7 +138,7 @@ def get_FER2013_data():
     y_test   = np.empty((num_test_examples, ))
     
     # iterate through each element of the list
-    for i in range(len(filenames_and_labels)):
+    for i in range(num_examples):
 
         # get filename and label
         filename, label = filenames_and_labels[i].split(',')
@@ -151,14 +155,12 @@ def get_FER2013_data():
             X_test[i - num_training_examples] = image_matrix
             y_train[i - num_training_examples] = label
             
+    # package into one list
+    raw_data = [X_train, y_train, X_test, y_test]
     
-    # Package data into a dictionary
-    return {
-      'X_train': X_train, 'y_train': y_train,
-      'X_val': X_val, 'y_val': y_val,
-      'X_test': X_test, 'y_test': y_test,
-    }
-
-
+    return process_data(raw_data,
+                        num_training = num_training_examples - 1200,
+                        num_validation = 1200,
+                        num_test = len(y_test))
 
         
