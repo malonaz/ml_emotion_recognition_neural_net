@@ -69,17 +69,20 @@ def sgd_momentum(w, dw, config=None):
     config.setdefault('learning_rate', 1e-2)
     config.setdefault('momentum', 0.9)
 
-    # get the dict's velocity matrix or generate one if none exist, filled with zeroes
-    v = config.get('velocity', np.zeros_like(w))
+    # get momemtum and rate
+    lr = config.get('learning_rate', 1e-2)
+    momentum = config.get('momentum', 0.9)
 
+    # get the dict's velocity matrix or generate one if none exist, filled with zeroes
+    velocity = config.get('velocity', np.zeros_like(w))
 
     # update velocity
-    v = config['momentum'] * v - config['learning_rate'] * dw
+    velocity = momentum * v - learning_rate * dw
 
     # store the velocity again
-    config['velocity'] = v
+    config['velocity'] = velocity
 
     # update weights
-    w += v
+    next_w = w + velocity
 
-    return w, config
+    return next_w, config
