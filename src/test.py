@@ -8,6 +8,19 @@ from src.utils.data_utils import get_FER2013_data
 
 import pickle
 
+def pickle_data():
+
+    # get FER2013 data
+    fer2013_data = get_FER2013_data()
+
+    # dump the pickle
+    pickle.dump(fer2013_data, open("datasets/FER2013/data.p", "wb"))
+
+    
+def load_data():
+    return pickle.load(open("datasets/FER2013/data.p", "rb"))
+
+
 
 def train_fer2013_net(learning_rate = 1e-3, data = None, plot = False):
     """
@@ -76,8 +89,8 @@ def train_fer2013_net(learning_rate = 1e-3, data = None, plot = False):
 def optimize_learning_rate():
 
     # get FER2013 data
-    fer2013_data = get_FER2013_data()
-
+    fer2013_data = load_data()
+    
     # initial learning_rate
     learning_rate = 1e-4
 
@@ -89,6 +102,10 @@ def optimize_learning_rate():
         solver = train_fer2013_net(data = fer2013_data, learning_rate = 1e-3)
 
         with open("output.txt", "a") as f:
-            f.write("learning rate: " + str(learning_rate) + " val_acc: " + str(solver.best_val_acc))
-        
+            f.write("learning rate: " + str(learning_rate) + " val_acc: " + str(solver.best_val_acc) + "\n")
+
+
+
+
+    
 optimize_learning_rate()
