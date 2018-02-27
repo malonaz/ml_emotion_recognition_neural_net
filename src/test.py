@@ -8,16 +8,18 @@ from src.utils.data_utils import get_FER2013_data
 
 import pickle
 
-def train_fer2013_net(plot = False, training_rate = 1e-3):
+
+def train_fer2013_net(learning_rate = 1e-3, data = None, plot = False):
     """
     Uses a Solver instance to train a neural net on the FER2013 dataset
     """
+    if data is None:
+        # get FER2013 data
+        data = get_FER2013_data()
 
-    # get FER2013 data
-    data = get_FER2013_data()
         
     # intialize net
-    model = FullyConnectedNet([1000, 1000],
+    model = FullyConnectedNet([500, 500],
                               input_dim      = 48*48*3,
                               num_classes    = 6,
                               dropout        = 0,   # removed regularisation
@@ -68,11 +70,15 @@ def train_fer2013_net(plot = False, training_rate = 1e-3):
         plt.show()
 
         
-    return model
+    return solver
 
 
 def optimize_learning_rate():
 
+    # get FER2013 data
+    fer2013_data = get_FER2013_data()
+
+    # initial learning_rate
     learning_rate = 1e-4
 
     while(True):
@@ -80,7 +86,7 @@ def optimize_learning_rate():
         learning_rate += .1e-4
 
         
-        solver = train_fer2013_net(training_rate = 1e-3)
+        solver = train_fer2013_net(data = fer2013_data, learning_rate = 1e-3)
 
         with open("output.txt", "a") as f:
             f.write("learning rate: " + str(learning_rate) + " val_acc: " + str(solver.best_val_acc))
