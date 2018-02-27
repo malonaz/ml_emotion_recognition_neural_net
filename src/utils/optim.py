@@ -77,7 +77,7 @@ def sgd_momentum(w, dw, config=None):
     velocity = config.get('velocity', np.zeros_like(w))
 
     # update velocity
-    velocity = momentum * v - learning_rate * dw
+    velocity = momentum * velocity - learning_rate * dw
 
     # store the velocity again
     config['velocity'] = velocity
