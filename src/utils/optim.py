@@ -65,7 +65,7 @@ def sgd_momentum(w, dw, config=None):
         # assign a new dict to config
         config = {}
 
-    # set default rate and momentum if they do not exist in the dictionnary
+    # set default rate and momentum if they do not exist in the dictionary
     config.setdefault('learning_rate', 1e-2)
     config.setdefault('momentum', 0.9)
 
