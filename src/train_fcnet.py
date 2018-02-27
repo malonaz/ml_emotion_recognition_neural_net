@@ -17,8 +17,6 @@ def train_cifar10_net(plot = False):
 
     # get CIFAR10 data
     data = get_CIFAR10_data()
-
-    print (data.keys())
         
     # intialize net
     model = FullyConnectedNet([100],
@@ -72,5 +70,5 @@ def train_cifar10_net(plot = False):
         plt.show()
 
 
-train_cifar10_net(plot = True)
+train_cifar10_net(plot = False)
 
