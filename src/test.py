@@ -8,7 +8,7 @@ from src.utils.data_utils import get_FER2013_data
 
 import pickle
 
-def train_fer2013_net(plot = False):
+def train_fer2013_net(plot = False, training_rate = 1e-3):
     """
     Uses a Solver instance to train a neural net on the FER2013 dataset
     """
@@ -29,7 +29,7 @@ def train_fer2013_net(plot = False):
     # initialize solver
     solver = Solver(model,data,
                     update_rule  = 'sgd_momentum',
-                    optim_config = {'learning_rate': 5e-4},
+                    optim_config = {'learning_rate': learning_rate},
                     lr_decay     = 0.95,
                     num_epochs   = 20,
                     batch_size   = 100,
@@ -39,7 +39,7 @@ def train_fer2013_net(plot = False):
     solver.train()
         
     # pickle net
-    pickle.dump(model, open("nets/fer2013_net/pickled_net.p", "wb"))
+    #pickle.dump(model, open("nets/fer2013_net/pickled_net.p", "wb"))
 
         
     if plot:
@@ -67,10 +67,22 @@ def train_fer2013_net(plot = False):
         # show figure
         plt.show()
 
-
-train_fer2013_net(plot = True)
-
-
+        
+    return model
 
 
+def optimize_learning_rate():
 
+    learning_rate = 1e-4
+
+    while(True):
+        print(learning_rate)
+        learning_rate += .1e-4
+
+        
+        solver = train_fer2013_net(training_rate = 1e-3)
+
+        with open("output.txt", "a") as f:
+            f.write("learning rate: " + str(learning_rate) + " val_acc: " + str(solver.best_val_acc))
+        
+optimize_learning_rate()
