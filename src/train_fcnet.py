@@ -17,15 +17,15 @@ def train_cifar10_net(plot = False):
 
     # get CIFAR10 data
     data = get_CIFAR10_data()
-        
+
+    print (data.keys())
         
     # intialize net
-    model = FullyConnectedNet([1000, 1000],
+    model = FullyConnectedNet([10],
                               input_dim      = 32*32*3,
                               num_classes    = 10,
                               dropout        = 0,
                               reg            = 0.0,
-                              weight_scale   = 1e-2,
                               dtype          = np.float32,
                               seed           = 1)
         
@@ -33,8 +33,8 @@ def train_cifar10_net(plot = False):
     # initialize solver
     solver = Solver(model,data,
                     update_rule  = 'sgd',
-                    optim_config = {'learning_rate': 5e-3},
-                    lr_decay     = 0.85,
+                    optim_config = {'learning_rate': 5e-4},
+                    lr_decay     = 0.95,
                     num_epochs   = 20,
                     batch_size   = 100,
                     print_every  = 100)
