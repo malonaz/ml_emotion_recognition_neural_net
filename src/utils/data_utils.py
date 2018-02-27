@@ -155,9 +155,9 @@ def get_FER2013_data():
             X_test[i - num_training_examples] = image_matrix
             y_train[i - num_training_examples] = label
             
-    # package into one list
-    raw_data = [X_train, y_train, X_test, y_test]
-    
+    # package into one list, after casting the y matrices to integers
+    raw_data = [X_train, y_train.astype(int, copy = False), X_test, y_test.astype(int, copy = False)]
+
     return process_data(raw_data,
                         num_training = num_training_examples - 1200,
                         num_validation = 1200,
