@@ -22,7 +22,7 @@ def softmax(logits, y):
     
     # add the logKs to the appropriate rows to stabilize the logits
     # for each entry, raise the number e to the power of this entry to get the score
-    stableScores = np.exp(logits + logKs)    
+    stableScores = np.exp(logits + logKs)
 
     # collapse matrix horizontally to get the sum of the scores of each sample
     sampleScoreSums = stableScores.sum(axis = 1).reshape(logits.shape[0], 1)
@@ -34,8 +34,8 @@ def softmax(logits, y):
 
     
     # compute likelihood: P(y_i = correctClass | logits)
-    correctClassProbabilities = classDistribution[np.arange(classDistribution.shape[0]), y]
-
+    correctClassProbabilities = classDistribution[np.arange(classDistribution.shape[0]), y] + np.finfo(np.float64).eps
+    
     # compute the negative log-likelihood 
     negLogLikelihood = -np.log(correctClassProbabilities)
 
