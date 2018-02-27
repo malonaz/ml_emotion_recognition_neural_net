@@ -70,7 +70,7 @@ def sgd_momentum(w, dw, config=None):
     config.setdefault('momentum', 0.9)
 
     # get momemtum and rate
-    lr = config.get('learning_rate', 1e-2)
+    learning_rate = config.get('learning_rate', 1e-2)
     momentum = config.get('momentum', 0.9)
 
     # get the dict's velocity matrix or generate one if none exist, filled with zeroes
