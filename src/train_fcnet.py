@@ -21,7 +21,7 @@ def train_cifar10_net(plot = False):
     print (data.keys())
         
     # intialize net
-    model = FullyConnectedNet([10],
+    model = FullyConnectedNet([100],
                               input_dim      = 32*32*3,
                               num_classes    = 10,
                               dropout        = 0,
