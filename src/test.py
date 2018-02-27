@@ -17,7 +17,7 @@ def train_fer2013_net(plot = False):
     data = get_FER2013_data()
         
     # intialize net
-    model = FullyConnectedNet([100],
+    model = FullyConnectedNet([1000, 1000],
                               input_dim      = 48*48*3,
                               num_classes    = 6,
                               dropout        = 0,
@@ -28,7 +28,7 @@ def train_fer2013_net(plot = False):
         
     # initialize solver
     solver = Solver(model,data,
-                    update_rule  = 'sgd',
+                    update_rule  = 'sgd_momentum',
                     optim_config = {'learning_rate': 5e-4},
                     lr_decay     = 0.95,
                     num_epochs   = 20,
