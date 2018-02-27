@@ -2,8 +2,8 @@ from builtins import range
 from six.moves import cPickle as pickle
 import numpy as np
 import os
-#from scipy.misc import imread
-import imread
+from scipy.misc import imread 
+#import imread
 import platform
 
 def load_pickle(f):
@@ -42,6 +42,7 @@ def load_CIFAR10(ROOT):
 
 def get_CIFAR10_data(num_training=49000, num_validation=1000, num_test=1000,
                      subtract_mean=True):
+
     """
     Load the CIFAR-10 dataset from disk and perform preprocessing to prepare
     it for classifiers. These are the same steps as we used for the SVM, but
@@ -49,7 +50,22 @@ def get_CIFAR10_data(num_training=49000, num_validation=1000, num_test=1000,
     """
     # Load the raw CIFAR-10 data
     cifar10_dir = 'cs231n/datasets/cifar-10-batches-py'
-    X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
+
+    # get raw data
+    raw_data = load_CIFAR10(cifar10_dir)
+
+    # return processed data
+    return process_data(raw_data, num_training, num_validation, num_test, subtract_mean)
+
+    
+def process_data(raw_data, num_training = None, num_validation = None, num_test = None,
+                     subtract_mean = True):
+    """
+    Load the CIFAR-10 dataset from disk and perform preprocessing to prepare
+    it for classifiers. These are the same steps as we used for the SVM, but
+    condensed to a single function.
+    """
+    X_train, y_train, X_test, y_test = raw_data
 
     # Subsample the data
     mask = list(range(num_training, num_training + num_validation))
@@ -80,3 +96,69 @@ def get_CIFAR10_data(num_training=49000, num_validation=1000, num_test=1000,
       'X_val': X_val, 'y_val': y_val,
       'X_test': X_test, 'y_test': y_test,
     }
+
+
+def get_image(filename):
+    """
+    opens image using imread and returns a numpy array contains the image
+    """
+    return imread(filename)
+
+
+def get_FER2013_data():
+
+    # place labels_public's lines into a list
+    with open("datasets/FER2013/labels_public.txt", "r") as labels_file:
+        # remove first line because it is just info
+        filenames_and_labels = labels_file.readlines()[1:]
+
+    # find out how many training example. 
+    num_training_examples = 0
+    for i in range(len(filenames_and_labels)):
+        if filenames_and_labels[i][0 + 1] == "e":
+            num_training_examples = i
+            break
+
+    # compute num_test_examples
+    num_test_examples = len(filenames_and_labels) - num_training_examples
+    
+    # now find out the size of an element using the first image element
+    filename = "datasets/FER2013/" + filenames_and_labels[0].split(',')[0]
+    image_matrix_shape = list(get_image(filename).shape)
+    
+    # used to contain the appropriate data. initialized to empty arrays
+    data = {}
+    X_train  = np.empty(([num_training_examples] + image_matrix_shape))
+    y_train  = np.empty((num_training_examples, ))
+    X_test   = np.empty(([num_test_examples] + image_matrix_shape))
+    y_test   = np.empty((num_test_examples, ))
+    
+    # iterate through each element of the list
+    for i in range(len(filenames_and_labels)):
+
+        # get filename and label
+        filename, label = filenames_and_labels[i].split(',')
+        
+        # get image matrix
+        image_matrix = get_image("datasets/FER2013/" + filename)
+
+        # append the matrix and the label to the appropriate array
+        if i < num_training_examples:
+            X_train[i] = image_matrix
+            y_train[i] = label
+
+        else:
+            X_test[i - num_training_examples] = image_matrix
+            y_train[i - num_training_examples] = label
+            
+    
+    # Package data into a dictionary
+    return {
+      'X_train': X_train, 'y_train': y_train,
+      'X_val': X_val, 'y_val': y_val,
+      'X_test': X_test, 'y_test': y_test,
+    }
+
+
+
+        
