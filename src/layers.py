@@ -105,7 +105,7 @@ def relu_backward(dout, X):
     dX = dout.copy()
  
     # d(ReLU(x)/dx = 0 if x < 0 and 1 otherwise
-    dX[X < 0] = 0
+    dX[X <= 0] = 0
 
     return dX
 
