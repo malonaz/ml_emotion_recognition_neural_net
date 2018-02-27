@@ -16,18 +16,24 @@ def train_overfit_net(plot = False):
         
         
     # intialize net
-    model = FullyConnectedNet([1000, 1000] , input_dim=32*32*3, num_classes=10,
-                                  dropout=0, reg=0.0, weight_scale=1e-2, dtype=np.float32,
-                                  seed = 1)
+    model = FullyConnectedNet([1250, 1000],
+                              input_dim      = 32*32*3,
+                              num_classes    = 10,
+                              dropout        = 0,
+                              reg            = 0.0,
+                              weight_scale   = 1e-2,
+                              dtype          = np.float32,
+                              seed           = 1)
         
         
     # initialize solver
-    solver = Solver(model, data,
-                    update_rule='sgd',
-                    optim_config={'learning_rate': 5e-3},
-                    lr_decay=0.92,
-                    num_epochs=1, batch_size=100,
-                    print_every=100)
+    solver = Solver(model,data,
+                    update_rule  = 'sgd',
+                    optim_config = {'learning_rate': 5e-3},
+                    lr_decay     = 0.92,
+                    num_epochs   = 20,
+                    batch_size   = 100,
+                    print_every  = 100)
     
     # train the net 
     solver.train()
@@ -52,7 +58,7 @@ def train_overfit_net(plot = False):
         plt.plot(solver.val_acc_history,'-o', label = 'val')
         plt.plot([0.5] * len(solver.val_acc_history), 'k--')
         plt.xlabel('Epoch')
-        plt.legend(loc = 'lowerright')
+        plt.legend(loc = 'lower right')
         plt.gcf().set_size_inches(15, 12)
         plt.show()
 
