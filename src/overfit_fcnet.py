@@ -8,37 +8,32 @@ from src.utils.data_utils import get_CIFAR10_data
 import pickle
 
 
-def train_overfit_net(generate = False, plot = True):
+def train_overfit_net(plot = False):
 
-    if generate:
-        # get CIFAR10 data
-        data = get_CIFAR10_data()
+
+    # get CIFAR10 data
+    data = get_CIFAR10_data()
         
         
-        # intialize net
-        model = FullyConnectedNet([1000, 1000] , input_dim=32*32*3, num_classes=10,
+    # intialize net
+    model = FullyConnectedNet([1000, 1000] , input_dim=32*32*3, num_classes=10,
                                   dropout=0, reg=0.0, weight_scale=1e-2, dtype=np.float32,
                                   seed = 1)
         
-        # initialize solver
-        solver = Solver(model, data,
-                        update_rule='sgd',
-                        optim_config={
-                            'learning_rate': 5e-3,
-                        },
-                        lr_decay=0.92,
-                        num_epochs=1, batch_size=100,
-                        print_every=100)
         
-        # train the net 
-        solver.train()
+    # initialize solver
+    solver = Solver(model, data,
+                    update_rule='sgd',
+                    optim_config={'learning_rate': 5e-3},
+                    lr_decay=0.92,
+                    num_epochs=1, batch_size=100,
+                    print_every=100)
+    
+    # train the net 
+    solver.train()
         
-        # pickle the solver
-        pickle.dump(solver, open("nets/overfit_net.p", "wb"))
-
-    else:
-        # unpickle the net
-        solver = pickle.load(open("nets/overfit_net.p", "rb"))
+    # pickle net
+    pickle.dump(model, open("nets/overfit_net.p", "wb"))
 
         
     if plot:
@@ -62,5 +57,5 @@ def train_overfit_net(generate = False, plot = True):
         plt.show()
 
 
-train_overfit_net(generate = True, plot = True)
+train_overfit_net(plot = True)
 
