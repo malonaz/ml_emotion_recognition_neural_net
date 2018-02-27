@@ -10,10 +10,6 @@ import numpy as np
 
 import src.utils.optim as optim
 
-"""
-@CS231 (cs231n.stanford.edu/)
-"""
-
 
 class Solver(object):
     """
