@@ -1,14 +1,11 @@
 
-currentTest: test_overfit_fcnet
-
-all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet
-
-pdf:
-	pandoc manuals/assignment2_advanced.md --pdf-engine=xelatex -o manuals/assignment2_advanced.pdf -V geometry:margin=1in --variable urlcolor=cyan --template eisvogel --listings
+currentTest: test_train_fcnet
 
 
+# TESTS
+all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet test_overfit_fcnet
 
-.PHONY: manual 
+
 
 test_linear_layer:
 	python -m test.test_layers TestLinearLayer
@@ -31,12 +28,19 @@ test_fcnet:
 test_overfit_fcnet:
 	python -m src.overfit_fcnet
 
+test_train_fcnet:
+	python -m src.train_fcnet
+
+
+### MANUAL 
 manual:
 	google-chrome manuals/assignment2_advanced.pdf&
-	
-	
-### REPORT
 
+pdf:
+	pandoc manuals/assignment2_advanced.md --pdf-engine=xelatex -o manuals/assignment2_advanced.pdf -V geometry:margin=1in --variable url	     color=cyan --template eisvogel --listings
+
+
+### REPORT
 REPORT_DISCARDED_OUTPUT = report.aux report.log report.out
 REPORT_SRC = report/report.tex report/introduction.tex report/layersimplementation.tex \
              report/dropout.tex report/softmax.tex report/neuralnetworkcreation.tex \
