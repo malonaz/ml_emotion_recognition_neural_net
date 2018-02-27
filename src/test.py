@@ -22,7 +22,7 @@ def load_data():
 
 
 
-def train_fer2013_net(learning_rate = 1e-3, data = None, plot = False):
+def train_fer2013_net(learning_rate = 5e-4, momentum = 0, data = None, plot = False):
     """
     Uses a Solver instance to train a neural net on the FER2013 dataset
     """
@@ -44,7 +44,8 @@ def train_fer2013_net(learning_rate = 1e-3, data = None, plot = False):
     # initialize solver
     solver = Solver(model,data,
                     update_rule  = 'sgd_momentum',
-                    optim_config = {'learning_rate': learning_rate},
+                    optim_config = {'learning_rate': learning_rate,
+                                     'momentum': momentum},
                     lr_decay     = 0.95,
                     num_epochs   = 20,
                     batch_size   = 100,
@@ -88,24 +89,43 @@ def train_fer2013_net(learning_rate = 1e-3, data = None, plot = False):
 
 def optimize_learning_rate():
 
+        # get FER2013 data
+    fer2013_data = load_data()
+    
+    # initial learning_rate
+    lr = 1e-4
+    
+    while(True):
+        
+        lr += .1e-4
+        
+        solver = train_fer2013_net(data = fer2013_data, learning_rate = lr)
+        
+        with open("output_lr2.txt", "a") as f:
+            f.write("learning rate: " + str(lr) + " val_acc: " + str(solver.best_val_acc) + "\n")
+            
+            
+            
+
+def optimize_momentum():
+
     # get FER2013 data
     fer2013_data = load_data()
     
     # initial learning_rate
-    learning_rate = 1e-4
+    m = 0.1
 
-    while(True):
-        print(learning_rate)
-        learning_rate += .1e-4
+    while(m < 1.1):
 
+        m += .1
         
-        solver = train_fer2013_net(data = fer2013_data, learning_rate = 1e-3)
+        solver = train_fer2013_net(data = fer2013_data, learning_rate = 5e-3, momentum = m )
 
-        with open("output.txt", "a") as f:
-            f.write("learning rate: " + str(learning_rate) + " val_acc: " + str(solver.best_val_acc) + "\n")
+        with open("output_m3.txt", "a") as f:
+            f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
 
 
 
 
     
-optimize_learning_rate()
+optimize_momentum()
