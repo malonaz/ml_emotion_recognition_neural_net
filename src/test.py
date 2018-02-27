@@ -20,8 +20,8 @@ def train_fer2013_net(plot = False):
     model = FullyConnectedNet([1000, 1000],
                               input_dim      = 48*48*3,
                               num_classes    = 6,
-                              dropout        = 0,
-                              reg            = 0.0,
+                              dropout        = 0,   # removed regularisation
+                              reg            = 0.0, # removed regularisation
                               dtype          = np.float32,
                               seed           = 1)
         
