@@ -19,7 +19,7 @@ def train_fer2013_net(plot = False):
     # intialize net
     model = FullyConnectedNet([100],
                               input_dim      = 48*48*3,
-                              num_classes    = 10,
+                              num_classes    = 6,
                               dropout        = 0,
                               reg            = 0.0,
                               dtype          = np.float32,
