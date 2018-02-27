@@ -64,6 +64,11 @@ def train_cifar10_net(plot = False):
         plt.xlabel('Epoch')
         plt.legend(loc = 'lower right')
         plt.gcf().set_size_inches(15, 12)
+
+        # save figure
+        plt.savefig("nets/train_net/diagrams.png", bbox_inches='tight')
+
+        # show figure
         plt.show()
 
 
