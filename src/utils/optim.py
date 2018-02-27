@@ -37,10 +37,16 @@ def sgd(w, dw, config=None):
     config format:
     - learning_rate: Scalar learning rate.
     """
-    if config is None: config = {}
+    if config is None:
+        # assign a new dict to config
+        config = {}
+
+    # set learning rate if none exist in the dictionary
     config.setdefault('learning_rate', 1e-2)
 
+    # update the weights. We perform in-place updates for efficiency
     w -= config['learning_rate'] * dw
+    
     return w, config
 
 
@@ -55,20 +61,25 @@ def sgd_momentum(w, dw, config=None):
     - velocity: A numpy array of the same shape as w and dw used to store a
       moving average of the gradients.
     """
-    if config is None: config = {}
+    if config is None:
+        # assign a new dict to config
+        config = {}
+
+    # set default rate and momentum if they do not exist in the dictionnary
     config.setdefault('learning_rate', 1e-2)
     config.setdefault('momentum', 0.9)
+
+    # get the dict's velocity matrix or generate one if none exist, filled with zeroes
     v = config.get('velocity', np.zeros_like(w))
 
-    next_w = None
-    ###########################################################################
-    # TODO: Implement the momentum update formula. Store the updated value in #
-    # the next_w variable. You should also use and update the velocity v.     #
-    ###########################################################################
 
-    ###########################################################################
-    #                             END OF YOUR CODE                            #
-    ###########################################################################
+    # update velocity
+    v = config['momentum'] * v - config['learning_rate'] * dw
+
+    # store the velocity again
     config['velocity'] = v
 
-    return next_w, config
+    # update weights
+    w += v
+
+    return w, config
