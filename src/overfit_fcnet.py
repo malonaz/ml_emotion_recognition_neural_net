@@ -39,7 +39,7 @@ def train_overfit_net(plot = False):
     solver.train()
         
     # pickle net
-    pickle.dump(model, open("nets/overfit_net/overfit_net.p", "wb"))
+    pickle.dump(model, open("nets/overfit_net/pickled_net.p", "wb"))
 
         
     if plot:

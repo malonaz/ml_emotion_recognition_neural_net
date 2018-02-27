@@ -43,7 +43,7 @@ def train_cifar10_net(plot = False):
     solver.train()
         
     # pickle net
-    pickle.dump(model, open("nets/cifar10_net.p", "wb"))
+    pickle.dump(model, open("nets/train_net/pickled_net.p", "wb"))
 
         
     if plot:
