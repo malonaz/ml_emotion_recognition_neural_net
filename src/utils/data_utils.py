@@ -163,4 +163,18 @@ def get_FER2013_data():
                         num_validation = 1200,
                         num_test = len(y_test))
 
-        
+
+def process_images(filenames, num_training, num_test):
+    """
+    Processes all the images with the filenames.
+    
+    Args:
+    - filenames: list of filenames relative to main folder, with training filenames
+                 first and test filenames second if any.
+    - num_training: the number of given filenames that are training examples
+    - num_testing:  the number of given filenames that are testing examples
+    
+    Returns:
+    - X_train: matrice containing the training examples as matrices
+    - X_test: matrice containing the testing examples as matrices if any
+    
