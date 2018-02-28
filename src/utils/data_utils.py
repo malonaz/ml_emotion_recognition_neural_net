@@ -128,6 +128,7 @@ def get_FER2013_data():
 
     # split filenames and labels
     filenames, labels = zip(*map(lambda x: x.split(','), filenames_and_labels))
+
     
     # now find out the size of an element using the first image element
     filename = "datasets/FER2013/" + filenames_and_labels[0].split(',')[0]
@@ -180,4 +181,28 @@ def process_images(filenames, num_training, num_test):
     Returns:
     - X_train: matrice containing the training examples as matrices
     - X_test: matrice containing the testing examples as matrices if any
-    """    
+    """
+    
+    # now find out the size of an element using the first image element
+    filename = "datasets/FER2013/" + filenames[0]x
+    image_matrix_shape = list(get_image(filename).shape)
+    
+    # used to contain the appropriate data. initialized to empty arrays
+    X_train  = np.empty(([num_training_examples] + image_matrix_shape))
+    X_test   = np.empty(([num_test_examples] + image_matrix_shape))
+
+    
+    # iterate through each element of the list
+    for i in range(num_training + num_test):
+        
+        # get image matrix
+        image_matrix = get_image("datasets/FER2013/" + filenames[i])
+
+        # append the matrix and the label to the appropriate array
+        if i < num_training_examples:
+            X_train[i] = image_matrix
+
+        else:
+            X_test[i - num_training_examples] = image_matrix
+
+    return X_train, X_test
