@@ -1,5 +1,5 @@
 
-currentTest:  test_test
+currentTest:  test_optimize_hyperparameters
 
 
 # TESTS
@@ -31,8 +31,8 @@ test_overfit_fcnet:
 test_train_fcnet:
 	python -m src.train_fcnet
 
-test_test:
-	python -m src.test
+test_optimize_hyperparameters:
+	python -m src.optimize_hyperparameters
 
 
 ### MANUAL 
