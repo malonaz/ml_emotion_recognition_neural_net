@@ -128,7 +128,7 @@ def optimize_learning_rate():
                                    momentum        = 0.5)
         # write result of iteration
         f = open("optimizers_output/l1.txt", "a")
-        f.write(str(lr) + ", " + str(solver.best_val_acc) + "\n")
+        f.write(str(lr) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
         f.close()
         
         # decrement learning rate
@@ -161,7 +161,7 @@ def optimize_momentum():
 
         # write result of iteration
         f = open("optimizers_output/m1.txt", "a")
-        f.write(str(m) + ", " + str(solver.best_val_acc) + "\n")
+        f.write(str(m) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
         f.close()
         
         # increment momentum
@@ -197,7 +197,7 @@ def optimize_hidden_units():
 
         # write result of iteration
         f = open("optimizers_output/h1.txt", "a")
-        f.write(str(hu) + ", " + str(solver.best_val_acc) + "\n")
+        f.write(str(hu) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
         f.close()
 
         # increment hidden units
