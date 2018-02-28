@@ -1,7 +1,8 @@
 ### params
 EXE = report.pdf
 COMPILER = pdflatex
-FLAGS = --interaction=batchmode -output-directory pdf
+DEBUG = --interaction=batchmode
+FLAGS =  -output-directory pdf
 DIR = src
 
 # get src objects
@@ -9,8 +10,10 @@ REPORT_OBJS = $(wildcard $(DIR)/*.tex)
 
 # compile main
 $(EXE): $(REPORT_OBJS)
-	$(COMPILER) $(FLAGS) $(DIR)/$(@:.pdf=.tex)
+	$(COMPILER) $(DEBUG) $(FLAGS) $(DIR)/$(@:.pdf=.tex)
 
+verbose:$(REPORT_OBJS)
+	$(COMPILER) $(FLAGS) $(DIR)/$(EXE:.pdf=.tex)
 
 .PHONY: clean open
 
