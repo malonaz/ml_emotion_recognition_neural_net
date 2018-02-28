@@ -107,20 +107,25 @@ def train_fer2013_net(hidden_units = 500, learning_rate = 5e-4, momentum = 0, da
 
 def optimize_learning_rate():
 
-        # get FER2013 data
+    # get FER2013 data
     fer2013_data = load_data()
     
     # initial learning_rate
     lr = 1e-4
+
+    # open file and write what this will be about
+    f = open("output_lr2.txt")
+    f.write("Learning rate optimizer with 3500 hidden units and momentum 0.5 \n")
     
     while(True):
         
-        lr += .1e-4
-        
-        solver = train_fer2013_net(data = fer2013_data, learning_rate = lr)
-        
-        with open("output_lr2.txt", "a") as f:
-            f.write("learning rate: " + str(lr) + " val_acc: " + str(solver.best_val_acc) + "\n")
+        lr -= .1e-4
+        solver = train_fer2013_net(hidden_units = 3500,
+                                   data = fer2013_data,
+                                   learning_rate = lr
+                                   momentum = 0.5)
+
+        f.write("learning rate: " + str(lr) + " val_acc: " + str(solver.best_val_acc) + "\n")
             
             
             
@@ -130,17 +135,20 @@ def optimize_momentum():
     # get FER2013 data
     fer2013_data = load_data()
     
-    # initial learning_rate
+    # initial momentum 
     m = 0.1
+
+    # open file and write what this will be about
+    f = open("output_m1.txt")
+    f.write("Momentum optimizer with 3500 hidden units and 5e-4 learning rate \n")
 
     while(m < 1.1):
 
         m += .1
         
-        solver = train_fer2013_net(data = fer2013_data, learning_rate = 5e-3, momentum = m )
+        solver = train_fer2013_net(data = fer2013_data, learning_rate = 5e-4, momentum = m )
 
-        with open("output_m3.txt", "a") as f:
-            f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
+        f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
 
 
 
