@@ -116,35 +116,32 @@ def get_FER2013_data():
     num_examples = len(filenames_and_labels)
     
     # find out how many training example. 
-    num_training_examples = 0
+    num_training = 0
     for i in range(num_examples):
         if filenames_and_labels[i][0 + 1] == "e":
-            num_training_examples = i
+            num_training = i
             break
 
-    # compute num_test_examples
-    num_test_examples = num_examples - num_training_examples
+    # compute num_test
+    num_test = num_examples - num_training
 
 
     # split filenames and labels
     filenames, labels = zip(*map(lambda x: x.split(','), filenames_and_labels))
 
     
-    # now find out the size of an element using the first image element
-    image_matrix_shape = list(get_image("datasets/FER2013/" + filenames[0]).shape)
-
     # process filenames
-    X_train, X_test = process_images(filenames, num_training_examples, num_test_examples)
+    X_train, X_test = process_images(filenames, num_training, num_test)
     
     # process labels
-    y_train  = np.array(labels[:num_training_examples].reshape(num_training_examples, ))
-    y_test   = np.array(labels[num_training_examples:]).reshape((num_test_examples, ))
+    y_train  = np.array(labels[:num_training].reshape(num_training, ))
+    y_test   = np.array(labels[num_training:]).reshape((num_test, ))
                 
     # package into one list, after casting the y matrices to integers
     raw_data = [X_train, y_train.astype(int, copy = False), X_test, y_test.astype(int, copy = False)]
 
     return process_data(raw_data,
-                        num_training = num_training_examples - 1200,
+                        num_training = num_training - 1200,
                         num_validation = 1200,
                         num_test = len(y_test))
 
@@ -163,6 +160,7 @@ def process_images(filenames, num_training, num_test = 0):
     - X_train: matrice containing the training examples as matrices
     - X_test: matrice containing the testing examples as matrices if any
     """
+    
     if num_test == 0:
         num_training = len(filenames)
         
@@ -177,7 +175,7 @@ def process_images(filenames, num_training, num_test = 0):
     
     # iterate through each element of the list
     for i in range(num_training + num_test):
-        
+
         # get image matrix
         image_matrix = get_image("datasets/FER2013/" + filenames[i])
 
