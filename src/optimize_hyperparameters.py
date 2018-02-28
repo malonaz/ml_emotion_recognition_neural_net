@@ -115,12 +115,12 @@ def optimize_learning_rate():
 
     # open file and write what this will be about
     f = open("optimizers_output/lr1.txt", "a")
-    f.write("Learning rate optimizer with 3500 hidden units and momentum 0.5 \n")
+    f.write("Learning rate optimizer with 1000 hidden units and momentum 0.5 \n")
     
     while(True):
         
 
-        solver = train_fer2013_net(hidden_units    = 3500,
+        solver = train_fer2013_net(hidden_units    = 1000,
                                    data            = fer2013_data,
                                    learning_rate   = lr,
                                    momentum        = 0.5)
@@ -144,11 +144,11 @@ def optimize_momentum():
 
     # open file and write what this will be about
     f = open("optimizers_output/m1.txt", "a")
-    f.write("Momentum optimizer with 3500 hidden units and 5e-4 learning rate \n")
+    f.write("Momentum optimizer with 1000 hidden units and 5e-4 learning rate \n")
 
     while(m < 1.1):
 
-        solver = train_fer2013_net(hidden_units    = 3500,
+        solver = train_fer2013_net(hidden_units    = 1000,
                                    data            = fer2013_data,
                                    learning_rate   = 5e-4,
                                    momentum        = m)
@@ -187,11 +187,11 @@ def optimize_hidden_units():
         hu += 500
 
         # write result of iteration
-        f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
+        f.write("hidden layers: " + str(hu) + " val_acc: " + str(solver.best_val_acc) + "\n")
 
     f.close()
 
 
 #optimize_learning_rate()
-#optimize_momentum()
-optimize_hidden_units()
+optimize_momentum()
+#optimize_hidden_units()
