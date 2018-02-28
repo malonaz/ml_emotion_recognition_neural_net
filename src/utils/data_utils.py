@@ -131,34 +131,18 @@ def get_FER2013_data():
 
     
     # now find out the size of an element using the first image element
-    filename = "datasets/FER2013/" + filenames_and_labels[0].split(',')[0]
-    image_matrix_shape = list(get_image(filename).shape)
+    image_matrix_shape = list(get_image("datasets/FER2013/" + filenames[0]).shape)
     
     # used to contain the appropriate data. initialized to empty arrays
     data = {}
-    X_train  = np.empty(([num_training_examples] + image_matrix_shape))
-    y_train  = np.empty((num_training_examples, ))
-    X_test   = np.empty(([num_test_examples] + image_matrix_shape))
-    y_test   = np.empty((num_test_examples, ))
+
+    # process filenames
+    X_train, X_test = process_images(filenames, num_training_examples, num_test_examples)
     
-    # iterate through each element of the list
-    for i in range(num_examples):
-
-        # get filename and label
-        filename, label = filenames_and_labels[i].split(',')
-        
-        # get image matrix
-        image_matrix = get_image("datasets/FER2013/" + filename)
-
-        # append the matrix and the label to the appropriate array
-        if i < num_training_examples:
-            X_train[i] = image_matrix
-            y_train[i] = int(label) -1
-
-        else:
-            X_test[i - num_training_examples] = image_matrix
-            y_train[i - num_training_examples] = int(label) - 1
-            
+    # process labels
+    y_train  = np.array(labels[:num_training_examples].reshape(num_training_examples, ))
+    y_test   = np.array(labels[num_training_examples:]).reshape((num_test_examples, ))
+                
     # package into one list, after casting the y matrices to integers
     raw_data = [X_train, y_train.astype(int, copy = False), X_test, y_test.astype(int, copy = False)]
 
@@ -184,12 +168,12 @@ def process_images(filenames, num_training, num_test):
     """
     
     # now find out the size of an element using the first image element
-    filename = "datasets/FER2013/" + filenames[0]x
+    filename = "datasets/FER2013/" + filenames[0]
     image_matrix_shape = list(get_image(filename).shape)
     
     # used to contain the appropriate data. initialized to empty arrays
-    X_train  = np.empty(([num_training_examples] + image_matrix_shape))
-    X_test   = np.empty(([num_test_examples] + image_matrix_shape))
+    X_train  = np.empty(([num_training] + image_matrix_shape))
+    X_test   = np.empty(([num_test] + image_matrix_shape))
 
     
     # iterate through each element of the list
@@ -199,10 +183,10 @@ def process_images(filenames, num_training, num_test):
         image_matrix = get_image("datasets/FER2013/" + filenames[i])
 
         # append the matrix and the label to the appropriate array
-        if i < num_training_examples:
+        if i < num_training:
             X_train[i] = image_matrix
 
         else:
-            X_test[i - num_training_examples] = image_matrix
+            X_test[i - num_training] = image_matrix
 
     return X_train, X_test
