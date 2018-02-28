@@ -191,3 +191,24 @@ def process_images(filenames, num_training, num_test = 0):
 
     return X_train, X_test
 
+
+
+def load_data():
+    """
+    Unpickles pickled data from the FER2013 dataset and
+    returns it as (X_train, y_train, X_test, y_test)
+    """
+    
+    return pickle.load(open("datasets/FER2013/data.p", "rb"))
+
+
+def pickle_data():
+    """
+    Extracts the data from the FER2013 dataset and pickles it
+    """
+
+    # get FER2013 data
+    fer2013_data = get_FER2013_data()
+
+    # dump the pickle
+    pickle.dump(fer2013_data, open("datasets/FER2013/data.p", "wb"))
