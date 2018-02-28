@@ -133,8 +133,6 @@ def get_FER2013_data():
     del filenames_and_labels
 
     # process labels
-    # first cast them to int and index starting at 0 instead of 1
-    labels = [int(label) - 1 for label in labels]
     y_train  = np.array(labels[:num_training]).reshape((num_training, ))
     y_test   = np.array(labels[num_training:]).reshape((num_test, ))
 
