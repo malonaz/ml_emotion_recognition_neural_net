@@ -132,9 +132,6 @@ def get_FER2013_data():
     
     # now find out the size of an element using the first image element
     image_matrix_shape = list(get_image("datasets/FER2013/" + filenames[0]).shape)
-    
-    # used to contain the appropriate data. initialized to empty arrays
-    data = {}
 
     # process filenames
     X_train, X_test = process_images(filenames, num_training_examples, num_test_examples)
@@ -152,7 +149,7 @@ def get_FER2013_data():
                         num_test = len(y_test))
 
 
-def process_images(filenames, num_training, num_test):
+def process_images(filenames, num_training, num_test = 0):
     """
     Processes all the images with the filenames.
     
@@ -166,7 +163,9 @@ def process_images(filenames, num_training, num_test):
     - X_train: matrice containing the training examples as matrices
     - X_test: matrice containing the testing examples as matrices if any
     """
-    
+    if num_test == 0:
+        num_training = len(filenames)
+        
     # now find out the size of an element using the first image element
     filename = "datasets/FER2013/" + filenames[0]
     image_matrix_shape = list(get_image(filename).shape)
