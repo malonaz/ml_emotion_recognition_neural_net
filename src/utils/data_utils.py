@@ -129,13 +129,18 @@ def get_FER2013_data():
     # split filenames and labels
     filenames, labels = zip(*map(lambda x: x.split(','), filenames_and_labels))
 
-    
+    # free memory
+    del filenames_and_labels
+
+    # process labels
+    # first cast them to int and index starting at 0 instead of 1
+    labels = [int(label) - 1 for label in labels]
+    y_train  = np.array(labels[:num_training]).reshape((num_training, ))
+    y_test   = np.array(labels[num_training:]).reshape((num_test, ))
+
     # process filenames
     X_train, X_test = process_images(filenames, num_training, num_test)
     
-    # process labels
-    y_train  = np.array(labels[:num_training].reshape(num_training, ))
-    y_test   = np.array(labels[num_training:]).reshape((num_test, ))
                 
     # package into one list, after casting the y matrices to integers
     raw_data = [X_train, y_train.astype(int, copy = False), X_test, y_test.astype(int, copy = False)]
@@ -175,7 +180,7 @@ def process_images(filenames, num_training, num_test = 0):
     
     # iterate through each element of the list
     for i in range(num_training + num_test):
-
+        print (i)
         # get image matrix
         image_matrix = get_image("datasets/FER2013/" + filenames[i])
 
@@ -187,3 +192,4 @@ def process_images(filenames, num_training, num_test = 0):
             X_test[i - num_training] = image_matrix
 
     return X_train, X_test
+
