@@ -115,14 +115,14 @@ def optimize_learning_rate():
 
     # open file and write what this will be about
     f = open("optimizers_output/l1.txt", "a")
-    f.write("Learning rate optimizer with 1000 hidden units and momentum 0.5 \n")
+    f.write("Learning rate optimizer with 512 hidden units and momentum 0.5 \n")
     f.write("learning rate, best validation rate accuracy\n")
     f.close()
     
     while(True):
         
 
-        solver = train_fer2013_net(hidden_units    = 1000,
+        solver = train_fer2013_net(hidden_units    = 512,
                                    data            = fer2013_data,
                                    learning_rate   = lr,
                                    momentum        = 0.5)
@@ -148,13 +148,13 @@ def optimize_momentum():
     
     # open file and write what this will be about
     f = open("optimizers_output/m1.txt", "a")
-    f.write("Momentum optimizer with 1000 hidden units and 5e-4 learning rate \n")
+    f.write("Momentum optimizer with 512 hidden units and 5e-4 learning rate \n")
     f.write("momentum, best validation rate accuracy\n")
     f.close()
     
     while(m < 1.1):
 
-        solver = train_fer2013_net(hidden_units    = 1000,
+        solver = train_fer2013_net(hidden_units    = 512,
                                    data            = fer2013_data,
                                    learning_rate   = 5e-4,
                                    momentum        = m)
@@ -179,7 +179,7 @@ def optimize_hidden_units():
     fer2013_data = load_data()
     
     # initial hidden unit numbers 
-    hu = 500
+    hu = 50
 
     # open file and write what this will be about
     f = open("optimizers_output/h1.txt", "a")
@@ -201,7 +201,7 @@ def optimize_hidden_units():
         f.close()
 
         # increment hidden units
-        hu += 500
+        hu += 50
 
 
     f.close()
@@ -209,4 +209,4 @@ def optimize_hidden_units():
 
 #optimize_learning_rate()
 #optimize_momentum()
-optimize_hidden_units()
+#optimize_hidden_units()
