@@ -51,7 +51,7 @@ def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, d
     # intialize net
     model = FullyConnectedNet([hidden_units],
                               input_dim      = 48*48*3,
-                              num_classes    = 6,
+                              num_classes    = 7,
                               dropout        = 0,   # removed regularisation
                               reg            = 0.0, # removed regularisation
                               dtype          = np.float32,
@@ -124,11 +124,11 @@ def optimize_learning_rate():
                                    data            = fer2013_data,
                                    learning_rate   = lr,
                                    momentum        = 0.5)
-        # decrement learning rate
-        lr -= .1e-4
-
         # write result of iteration
         f.write("learning rate: " + str(lr) + " val_acc: " + str(solver.best_val_acc) + "\n")
+
+        # decrement learning rate
+        lr -= .1e-4
             
     f.close()
             
@@ -153,11 +153,12 @@ def optimize_momentum():
                                    learning_rate   = 5e-4,
                                    momentum        = m)
 
+        # write result of iteration
+        f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
+
         # increment momentum
         m += .1
 
-        # write result of iteration
-        f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
 
     f.close()
 
@@ -183,11 +184,13 @@ def optimize_hidden_units():
                                    learning_rate = 5e-4,
                                    momentum = 0.5 )
 
-        # increment hidden units
-        hu += 500
 
         # write result of iteration
         f.write("hidden layers: " + str(hu) + " val_acc: " + str(solver.best_val_acc) + "\n")
+
+        # increment hidden units
+        hu += 500
+
 
     f.close()
 
