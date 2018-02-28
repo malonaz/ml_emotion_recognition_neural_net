@@ -114,7 +114,7 @@ def optimize_learning_rate():
     lr = 1e-4
 
     # open file and write what this will be about
-    f = open("optimizers_output/lr1.txt")
+    f = open("optimizers_output/lr1.txt", "a")
     f.write("Learning rate optimizer with 3500 hidden units and momentum 0.5 \n")
     
     while(True):
@@ -129,6 +129,7 @@ def optimize_learning_rate():
             
     f.close()
             
+optimize_learning_rate()
 
 def optimize_momentum():
 
@@ -139,7 +140,7 @@ def optimize_momentum():
     m = 0.1
 
     # open file and write what this will be about
-    f = open("optimizers_output/m1.txt")
+    f = open("optimizers_output/m1.txt", "a")
     f.write("Momentum optimizer with 3500 hidden units and 5e-4 learning rate \n")
 
     while(m < 1.1):
@@ -154,4 +155,4 @@ def optimize_momentum():
 
 
     
-optimize_momentum()
+#optimize_momentum()
