@@ -122,7 +122,7 @@ def optimize_learning_rate():
         lr -= .1e-4
         solver = train_fer2013_net(hidden_units = 3500,
                                    data = fer2013_data,
-                                   learning_rate = lr
+                                   learning_rate = lr,
                                    momentum = 0.5)
 
         f.write("learning rate: " + str(lr) + " val_acc: " + str(solver.best_val_acc) + "\n")
