@@ -52,7 +52,7 @@ opt_iter = 100
 domain = [{'name': 'learning_rate', 'type': 'continuous', 'domain': (-11, -6)},
           {'name': 'momentum',  'type': 'continuous', 'domain': (0, 1)},
           {'name': 'dropout',  'type': 'continuous', 'domain': (0, 1)},
-          {'name': 'hidden_units',  'type': 'continous', 'domain': (50, 1000)}]
+          {'name': 'hidden_units',  'type': 'continuous', 'domain': (50, 1000)}]
 
 
 
