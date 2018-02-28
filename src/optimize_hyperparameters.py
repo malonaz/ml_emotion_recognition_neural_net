@@ -30,7 +30,7 @@ def load_data():
 
 
 
-def train_fer2013_net(hidden_units = 500, learning_rate = 5e-4, momentum = 0, data = None, plot = False, pickle = False):
+def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, data = None, plot = False, pickle = False):
     """
     Uses a Solver instance to train a neural net on the FER2013 dataset.
     Args:
@@ -119,17 +119,20 @@ def optimize_learning_rate():
     
     while(True):
         
-        lr -= .1e-4
-        solver = train_fer2013_net(hidden_units = 3500,
-                                   data = fer2013_data,
-                                   learning_rate = lr,
-                                   momentum = 0.5)
 
+        solver = train_fer2013_net(hidden_units    = 3500,
+                                   data            = fer2013_data,
+                                   learning_rate   = lr,
+                                   momentum        = 0.5)
+        # decrement learning rate
+        lr -= .1e-4
+
+        # write result of iteration
         f.write("learning rate: " + str(lr) + " val_acc: " + str(solver.best_val_acc) + "\n")
             
     f.close()
             
-optimize_learning_rate()
+
 
 def optimize_momentum():
 
@@ -145,14 +148,50 @@ def optimize_momentum():
 
     while(m < 1.1):
 
-        m += .1
-        
-        solver = train_fer2013_net(data = fer2013_data, learning_rate = 5e-4, momentum = m )
+        solver = train_fer2013_net(hidden_units    = 3500,
+                                   data            = fer2013_data,
+                                   learning_rate   = 5e-4,
+                                   momentum        = m)
 
+        # increment momentum
+        m += .1
+
+        # write result of iteration
         f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
 
     f.close()
 
 
     
+
+def optimize_hidden_units():
+
+    # get FER2013 data
+    fer2013_data = load_data()
+    
+    # initial hidden unit numbers 
+    hu = 500
+
+    # open file and write what this will be about
+    f = open("optimizers_output/h1.txt", "a")
+    f.write("Hidden units optimizer with 0.5 momentum and 5e-4 learning rate \n")
+
+    while(True):
+        
+        solver = train_fer2013_net(hidden_units = hu,
+                                   data = fer2013_data,
+                                   learning_rate = 5e-4,
+                                   momentum = 0.5 )
+
+        # increment hidden units
+        hu += 500
+
+        # write result of iteration
+        f.write("momentum: " + str(m) + " val_acc: " + str(solver.best_val_acc) + "\n")
+
+    f.close()
+
+
+#optimize_learning_rate()
 #optimize_momentum()
+optimize_hidden_units()
