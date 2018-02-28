@@ -27,8 +27,7 @@ def train_net(hyperparameters):
                               num_classes    = 7,
                               dropout        = d,   # removed regularisation
                               reg            = 0.0, # removed regularisation
-                              dtype          = np.float32,
-                              seed           = 1)
+                              dtype          = np.float32)
         
         
     # initialize solver

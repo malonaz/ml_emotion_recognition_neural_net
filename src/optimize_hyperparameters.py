@@ -32,8 +32,7 @@ def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, d
                               num_classes    = 7,
                               dropout        = 0,   # removed regularisation
                               reg            = 0.0, # removed regularisation
-                              dtype          = np.float32,
-                              seed           = 1)
+                              dtype          = np.float32)
         
         
     # initialize solver
