@@ -1,0 +1,8 @@
+Once the transformations have been made, we can calculate the error for each output neuron. We can use the squarred error function and sum the erros:
+
+$E = \sum_{k=0}^{N} 1/2*(target - output)^2$.
+
+One of the main idea behind the backpropagation algorithm is to reduce the error rate according to the results expected. We need then to send the output back into the neural network to update parameters such as weight and biais. 
+
+Our algorithm calculates dW and db according to dout, which the first neural network output.
+We then need to send the "re-estimated" value in other hidden layer by calculating dX.

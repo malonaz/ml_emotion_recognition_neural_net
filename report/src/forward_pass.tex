@@ -1,0 +1,34 @@
+How does a neural net generate an output or in our case, how does it decide which emotion to recognize?
+The output is produced in a process known as the emph{forward pass}.
+Instead of processing one data point at a time,
+we have implemented our neural net to process data points in batches.
+As such, the forward pass takes in N examples in a matrix \emph{X}, where each row contains a data point of dimension D.
+Let us take a closer look at the neural net's inner workings.
+
+\begin{enumerate}
+   \item Affine transformation\\
+     The forward pass begins with a linear mapping.
+     Each neuron sums its inputs by their respective weights and then adds its bias to the sum.\\
+     Thus, each neuron produces a $sum = \sum_{k=0}^{N} w_i * x_i + b$,
+     where $x_i$ is its i$^t^h$ input, $w_i$ its i$^t^h$ weight and $b$ it's bias.
+     
+   \item ReLU Activation Function\\
+     So what does a neuron do? It computes a weighted sum of its input and must now decide whether it should be ``fired''.
+     Earlier we spoke of an activation function.
+     It is the activation that decides decides where the neuron should ``fire'' or not. 
+     There exists many activation functions such as the sigmoid function,
+     but in this coursework, we use following function known as the \emph{ReLU} activation function:
+     $ReLU(sum) = max(0,sum)$.\\
+     The function outputs the neuron's sum if it is greater than 0 or simply outputs 0.
+
+     If we do not apply an activation function, then the output of a layer would simply be a simple linear transformation.
+     Linear transformation are limited in their complexity and have a lesser ability to learn complex functional mappings from data.
+     A neural network without an activation function would simply be a multivariate linear regression Model.
+
+   \item Dropout\\
+
+
+   \item Softmax classifier\\
+
+\end{enumerate}     
+
