@@ -4,29 +4,7 @@ import matplotlib.pyplot as plt
 
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
-from src.utils.data_utils import get_FER2013_data
-
-import pickle
-
-def pickle_data():
-    """
-    Extracts the data from the FER2013 dataset and pickles it
-    """
-
-    # get FER2013 data
-    fer2013_data = get_FER2013_data()
-
-    # dump the pickle
-    pickle.dump(fer2013_data, open("datasets/FER2013/data.p", "wb"))
-
-    
-def load_data():
-    """
-    Unpickles pickled data from the FER2013 dataset and
-    returns it as (X_train, y_train, X_test, y_test)
-    """
-    
-    return pickle.load(open("datasets/FER2013/data.p", "rb"))
+from src.utils.data_utils import get_FER2013_data, load_data
 
 
 
