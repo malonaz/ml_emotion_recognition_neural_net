@@ -9,6 +9,9 @@ from src.utils.data_utils import get_FER2013_data
 import pickle
 
 def pickle_data():
+    """
+    Extracts the data from the FER2013 dataset and pickles it
+    """
 
     # get FER2013 data
     fer2013_data = get_FER2013_data()
@@ -18,21 +21,35 @@ def pickle_data():
 
     
 def load_data():
+    """
+    Unpickles pickled data from the FER2013 dataset and
+    returns it as (X_train, y_train, X_test, y_test)
+    """
+    
     return pickle.load(open("datasets/FER2013/data.p", "rb"))
 
 
 
-def train_fer2013_net(learning_rate = 5e-4, momentum = 0, data = None, plot = False):
+def train_fer2013_net(hidden_units = 500, learning_rate = 5e-4, momentum = 0, data = None, plot = False, pickle = False):
     """
-    Uses a Solver instance to train a neural net on the FER2013 dataset
+    Uses a Solver instance to train a neural net on the FER2013 dataset.
+    Args:
+    - data: FER2013 (X_train, y_train, X_test, y_test) dataset.
+            If None, the procedure processes all the images which is computationally expensive.
+    - plot: if True, generates a plot, saves it it in the the nets/fer2013 folder and shows it.
+    - pickle: if True, pickles the model in the nets/fer2013 folder.
+
+    Returns:
+    - solver: the solver with the trained model
     """
+    
     if data is None:
         # get FER2013 data
         data = get_FER2013_data()
 
-        
+    
     # intialize net
-    model = FullyConnectedNet([500, 500],
+    model = FullyConnectedNet([hidden_units],
                               input_dim      = 48*48*3,
                               num_classes    = 6,
                               dropout        = 0,   # removed regularisation
@@ -53,9 +70,10 @@ def train_fer2013_net(learning_rate = 5e-4, momentum = 0, data = None, plot = Fa
     
     # train the net 
     solver.train()
-        
-    # pickle net
-    #pickle.dump(model, open("nets/fer2013_net/pickled_net.p", "wb"))
+
+    if pickle:
+        # pickle net
+        pickle.dump(model, open("nets/fer2013_net/pickled_net.p", "wb"))
 
         
     if plot:
