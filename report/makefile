@@ -16,7 +16,7 @@ $(EXE): $(REPORT_OBJS)
 
 
 open:
-	google-chrome $(DIR)/$(EXE) &
+	google-chrome pdf/$(EXE) &
 
 clean:
 	rm -rf pdf/*
