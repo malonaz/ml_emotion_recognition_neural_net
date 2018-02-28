@@ -180,7 +180,7 @@ def process_images(filenames, num_training, num_test = 0):
     
     # iterate through each element of the list
     for i in range(num_training + num_test):
-        print (i)
+
         # get image matrix
         image_matrix = get_image("datasets/FER2013/" + filenames[i])
 
