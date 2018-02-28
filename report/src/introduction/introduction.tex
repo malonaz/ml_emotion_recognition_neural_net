@@ -10,25 +10,24 @@ But first, what is neural network?
 Neural networks aim to mimic the biological neural network present in the human brain.
 Let us begin by explaining the concept of a neuron.
 
-\begin{center}
-\includegraphics[scale = 0.35]{src/diagrams/neuron_diagram.png}
-\end{center}
+\begin{figure}[!ht]
+    \centering
+    \subfloat[neuron]{{\includegraphics[scale = 0.35]{src/diagrams/neuron_diagram.png}}}
+    \qquad
+    \subfloat[neural net architecture]{{\includegraphics[scale = 0.35]{src/diagrams/neural_net_diagram.png}}}   
+\end{figure}
 
 A neuron takes in several inputs and produces a single output, as represented in the picture above.
-The neuron sums all inputs weighted by their respective weights,
-adds a bias and then inputs this into an activate function to produce a single output.
-
-
-\begin{center}
-\includegraphics[scale = 0.35]{src/diagrams/neural_net_diagram.png}
-\end{center}
+A neuron sums all inputs weighted by their respective weights,
+adds a bias and then inputs this into an activation function to produce a single output.
 
 A neural network is is composed of layers of neurons,
 such that each neuron's output is an input to all of the next layer's neurons.
-The diagram below, shows three different types of layers.
-The input layers contains a neuron for each data input's elements.
-These neurons simply output the data point's element they are given.
-The hidden layer's neurons have a respective weight for each of the inputs connected to them,
+The neural net architecture diagram above, shows three different types of layers.
+An input layer contains a neuron for each data input's elements, which simply outputs the element it is given.
+A hidden layer's neuron has a weight for each of the inputs connected to them,
 and produces a single output as described earlier.
-The output layer's neurons also have weights for each input,
+An output layer has an neuron for each output you wish to train your net to predict.
+In this coursework, when we train a net to predict the emotion of a given image,
+the net's output layer will have 7 neurons, one for each emotion.
 
