@@ -184,7 +184,7 @@ def optimize_hidden_units():
     # open file and write what this will be about
     f = open("optimizers_output/h1.txt", "a")
     f.write("Hidden units optimizer with 0.5 momentum and 5e-4 learning rate \n")
-    f.write("hidden unis, best validation rate accuracy\n")
+    f.write("hidden units, best validation rate accuracy\n")
     f.close()
     
     while(True):
