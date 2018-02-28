@@ -1,9 +1,9 @@
 
-currentTest:  test_optimize_hyperparameters
+currentTest: test_bayesian_optim
 
 
 # TESTS
-all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet test_overfit_fcnet test_train_fcnet
+all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet test_overfit_fcnet test_train_fcnet test_optimize_hyperparameters
 
 
 
@@ -34,6 +34,8 @@ test_train_fcnet:
 test_optimize_hyperparameters:
 	python -m src.optimize_hyperparameters
 
+test_bayesian_optim:
+	python -m src.gaussian_process.gp
 
 ### MANUAL 
 manual:
