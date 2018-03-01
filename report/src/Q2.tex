@@ -15,6 +15,12 @@ If we are using dropout during the training phase we need to perform a rescaling
 
 \item \textbf{Backward pass :} 
 
+But how does a neural net know what weights it should apply to each input?
+How are they initialized?
+How do they evolve?
+   
+\begin{enumerate}    
+
 During the backpropagation we just need to consider the Dropout, neuron that have been dropped doesn't contribute to further updates, they consquently need to be dropped in the derivative matrix - coresponding weight won't be updated. Therefor mask need to be stored between forward an backward pass to know which neuron have been dropped.
 
 \end{itemize}
