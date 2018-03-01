@@ -4,16 +4,22 @@ Instead of processing one data point at a time,
 we have implemented our neural net to process data points in batches.
 As such, the forward pass takes in N examples in a matrix \emph{X}, where each row contains a data point of dimension D.
 Let us take a closer look at the neural net's inner workings, assuming it has already been trained.
-
+Note that although all the math involved in this coursework is in vector form, I find it more intuitive to illustrate my explanations
+using scalar equations.
+Please assume the following mathematical notations for the rest of the report, unless stated otherwise.\\
+\- - $w_{ij}$ is the weight from neuron $i$ to neuron $j$.\\
+\- - $b_j$ is the bias of a neuron $j$.\\
+\- - $x_i$ is the $i^{th}$ input of a neuron.
 \begin{enumerate}
    \item Affine transformation
   
-     \underline{Forward pass}: $\textbf{y = wX + b}$\\
-     The affine transformation is simply a linear mapping.
-     Each neuron sums its inputs by their respective weights and then adds its bias to the sum.\\
-     Thus, each neuron produces a $sum = \sum_{k=0}^{N} w_i * x_i + b$,
-     where $x_i$ is its i$^{th}$ input, $w_i$ its i$^{th}$ weight and $b$ its bias.
+     \underline{Forward pass}: $o_j= \sum\limits_{i=0}^{I} (w_{ij} \times x_{i}) + b_j$, \\
+     When a layer goes through the affine transformation step,
+     every neuron in the layer sums its $I$ inputs weighted by their respective weight, then adds its bias.\\
+
+     \underline{Backward pass}: $\frac{do_j}{dx_i} = w_{ij}$,\space\space $\frac{do_j}{dw_{ij}} = x_i$, \space\space$\frac{do_j}{db_j} = 1$\\ 
      
+
    \item ReLU Activation Function
      
      So what does a neuron do? It computes a weighted sum of its input and must now decide whether it should be ``fired''.
