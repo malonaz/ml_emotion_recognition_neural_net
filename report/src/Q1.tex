@@ -6,22 +6,22 @@ As such, the forward pass takes in N examples in a matrix \emph{X}, where each r
 Let us take a closer look at the neural net's inner workings, assuming it has already been trained.
 
 \begin{enumerate}
-   \item Affine transformation\\
-     \underline{Forward pass}: $\textbf{y = wX + b}$\\
+   \item Affine transformation
+  
+     \underline{Forward pass}: $\textbf{y = wX + b}$, where \\
      The affine transformation is simply a linear mapping.
      Each neuron sums its inputs by their respective weights and then adds its bias to the sum.\\
      Thus, each neuron produces a $sum = \sum_{k=0}^{N} w_i * x_i + b$,
      where $x_i$ is its i$^{th}$ input, $w_i$ its i$^{th}$ weight and $b$ its bias.
      
-   \item ReLU Activation Function\\
+   \item ReLU Activation Function
      
      So what does a neuron do? It computes a weighted sum of its input and must now decide whether it should be ``fired''.
      Earlier we spoke of an activation function.
      It is the activation that decides decides where the neuron should ``fire'' or not. 
      There exists many activation functions such as the sigmoid function,
-     but in this coursework, we use the function known the \emph{ReLU} activation function:
-     \underline{Forward pass}:
-     $ReLU(sum) = max(0,sum)$.\\
+     but in this coursework, we use the function known the \emph{ReLU} activation function.
+     \underline{Forward pass}: $ReLU(\textbf{X}) = max(0,\textbf{X})$.\\
      The function outputs the neuron's sum if it is greater than 0 or simply outputs 0.
      
      If we do not apply an activation function, then the output of a layer would simply be a simple linear transformation.
