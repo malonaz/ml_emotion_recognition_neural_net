@@ -13,7 +13,7 @@ Please assume the following mathematical notations for the rest of the report, u
 \begin{itemize}
    \item \textbf{Affine transformation}
   
-     \underline{Forward pass}: $o_j= \sum\limits_{i=0}^{I} (w_{ij} \times x_{i}) + b_j$, \\
+     \underline{Forward pass}: $o_j= \sum\limits_{i=1}^{I} (w_{ij} \times x_{i}) + b_j$, \\
      When a layer goes through the affine transformation step,
      every neuron in the layer sums its $I$ inputs weighted by their respective weight, then adds its bias.\\
 
