@@ -12,8 +12,8 @@ Let's explore how we determine whether a neuron should be ``dropped'', and how i
 \end{figure}
 
 \begin{itemize}[topsep=-10pt]
-\item \textbf{Forward pass :} 
-
+\item \textbf{Forward pass}: dropout($o_i$) = $o_i$ with probability p, otherwise 0.
+  
 During the forward pass we are modifying the network itself,
 neurons are randomly dropped from the network such that each neuron can be dropped with probability $p$,
 or kept with probability $q = 1- p$.
@@ -27,15 +27,15 @@ Yet, in the spirit of simplification,
 we can instead scale activation outputs by the inverse keep rate $\frac{1}{q}$ during the training phase.
 
 
-\item \textbf{Backward pass :} 
+\item \textbf{Backward pass}: $\frac{\partial dropout(o_i)}{\partial o_i} = 0 $ if neuron $i$ is dropped, otherwise 1.
 
-But how does a neural net know what weights it should apply to each input?
-How are they initialized?
-How do they evolve?
-   
+  At a high level, the backward pass is only concerned with computing the partial differential of the forward pass' loss with respect to the
+  learnable parameters, namely: the weights and bias of each neurons.
+  Yet, at a lower level, we need to compute differentials such as the one described in the equation above as they will be needed
+  by previous layers.
 
-During the backpropagation we just need to consider the Dropout, neuron that have been dropped doesn't contribute to further updates, they consquently need to be dropped in the derivative matrix - coresponding weight won't be updated. Therefor mask need to be stored between forward an backward pass to know which neuron have been dropped.
-
+  Neurons that have been dropped during the forward pass did not contribute to the scores and consequently to the loss of the net.
+  Thus, their partial derivatives are zeroed, so that their weights will not be wrongly updated at the end of the backward pass.
 \end{itemize}
 
 
