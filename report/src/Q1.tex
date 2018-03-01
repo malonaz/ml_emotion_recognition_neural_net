@@ -10,7 +10,7 @@ Please assume the following mathematical notations for the rest of the report, u
 \- - $w_{ij}$ is the weight from neuron $i$ to neuron $j$.\\
 \- - $b_j$ is the bias of a neuron $j$.\\
 \- - $x_i$ is the $i^{th}$ input of a neuron.
-\begin{enumerate}
+\begin{itemize}
    \item Affine transformation
   
      \underline{Forward pass}: $o_j= \sum\limits_{i=0}^{I} (w_{ij} \times x_{i}) + b_j$, \\
@@ -27,10 +27,9 @@ Please assume the following mathematical notations for the rest of the report, u
      Remember that the $I$ inputs of a neuron $j$ are actually the outputs of the previous layers' neurons.
      Using the chain rule, the previous layer will use $\frac{\partial o_j}{\partial x_i}$
      to compute its backward affine transformation for the previous layers.
-     
 
    \item ReLU Activation Function
-     
+   
      So what does a neuron do? It computes a weighted sum of its input and must now decide whether it should be ``fired''.
      Earlier we spoke of an activation function.
      It is the activation that decides decides where the neuron should ``fire'' or not.
@@ -39,10 +38,14 @@ Please assume the following mathematical notations for the rest of the report, u
      A neural network without an activation function would simply be a multivariate linear regression model.
      There exists many activation functions such as the sigmoid function,
      but in this coursework, we use the function known the ReLU activation function.\\
-     \underline{Forward pass}: $ReLU(\textbf{X}) = max(0,\textbf{X})$, where $\textbf{X}$ is the output of each neuron in a layer.\\
+     
+     \underline{Forward pass}: $ReLU(o_j) = max(0,o_j)$\\
      The ReLU function outputs the neuron's sum if it is greater than 0 or simply outputs 0.
      
      *Note that only hidden layers go through ReLU.
-     Output layer's neurons always ``fire'' and output their sum or ``score'' assigned by the net for each class we are classifying on.
+     Output layer's neurons always ``fire'' and output their sum or ``score''.
+
+     \underline{Backward pass}: $\frac{\partial ReLU(o_j)}{\partial o_j} = 1$ if $o_j < 0$, else 0.\\
+     This partial derivative is self-explanatory.
      
-\end{enumerate}
+\end{itemize}
