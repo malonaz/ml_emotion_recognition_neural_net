@@ -16,8 +16,7 @@ def softmax(logits, y):
     - dlogits: Loss gradient with respect to logits
     """
     
-    # compute K = -max(Wx_i), which will be used for numerical stability.
-    # here since we are dealing with logs, we will compute logK directly for each row.
+    # compute logK = -max(Wx_i), which will be used for numerical stability.
     logKs = -logits.max(axis = 1).reshape(logits.shape[0], 1)
     
     # add the logKs to the appropriate rows to stabilize the logits
