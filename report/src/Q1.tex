@@ -7,7 +7,8 @@ Let us take a closer look at the neural net's inner workings, assuming it has al
 
 \begin{enumerate}
    \item Affine transformation\\
-     The forward pass begins with a linear mapping.
+     \underline{Forward pass}: $\textbf{y = wX + b}$\\
+     The affine transformation is simply a linear mapping.
      Each neuron sums its inputs by their respective weights and then adds its bias to the sum.\\
      Thus, each neuron produces a $sum = \sum_{k=0}^{N} w_i * x_i + b$,
      where $x_i$ is its i$^{th}$ input, $w_i$ its i$^{th}$ weight and $b$ it's bias.
@@ -20,7 +21,7 @@ Let us take a closer look at the neural net's inner workings, assuming it has al
      but in this coursework, we use following function known as the \emph{ReLU} activation function:
      $ReLU(sum) = max(0,sum)$.\\
      The function outputs the neuron's sum if it is greater than 0 or simply outputs 0.
-
+     
      If we do not apply an activation function, then the output of a layer would simply be a simple linear transformation.
      Linear transformation are limited in their complexity and have a lesser ability to learn complex functional mappings from data.
      A neural network without an activation function would simply be a multivariate linear regression model.
@@ -28,8 +29,5 @@ Let us take a closer look at the neural net's inner workings, assuming it has al
      The output layer's neurons always ``fire'' and output their sum.
      Thus they do not go through ReLU activation and
      their outputs are the scores assigned by the net to each class we are classifying on.
-
      
-
-
 \end{enumerate}
