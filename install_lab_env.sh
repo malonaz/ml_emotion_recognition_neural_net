@@ -1,4 +1,4 @@
-PYTHON3ML="/usr/bin/python3"
+PYTHON3ML="/vol/bitbucket/395_anaconda/miniconda3/bin/python3"
 echo "Setting python path to "${PYTHON3ML}
 echo "Creating virtual environment under ./env"
 ${PYTHON3ML} -m venv ./env # Create a virtual environment (python3)
