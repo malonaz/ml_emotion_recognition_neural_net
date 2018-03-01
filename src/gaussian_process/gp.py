@@ -73,5 +73,5 @@ min_index = np.argmin(bayes_opt.Y)
 x_best = bayes_opt.X[min_index,:]
 y_best = bayes_opt.Y[min_index,:]
 
-print(x_best)
-print(y_best)
+f = open("bayesian_opt.txt", "a")
+f.write(str(x_best) + ", " + str(y_best))

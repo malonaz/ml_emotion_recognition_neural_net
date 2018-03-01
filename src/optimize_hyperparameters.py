@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
-from src.utils.data_utils import get_FER2013_data, load_data
+from src.utils.data_utils import get_FER2013_data, load_data, pickle_data
 
 
 
@@ -91,7 +91,7 @@ def optimize_learning_rate():
     lr = 1e-4
 
     # open file and write what this will be about
-    f = open("optimizers_output/l1.txt", "a")
+    f = open("optimizers_output/l1noseed.txt", "a")
     f.write("Learning rate optimizer with 512 hidden units and momentum 0.5 \n")
     f.write("learning rate, best validation rate accuracy\n")
     f.close()
@@ -104,7 +104,7 @@ def optimize_learning_rate():
                                    learning_rate   = lr,
                                    momentum        = 0.5)
         # write result of iteration
-        f = open("optimizers_output/l1.txt", "a")
+        f = open("optimizers_output/l1noseed.txt", "a")
         f.write(str(lr) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
         f.close()
         
@@ -124,7 +124,7 @@ def optimize_momentum():
     m = 0.0
     
     # open file and write what this will be about
-    f = open("optimizers_output/m1.txt", "a")
+    f = open("optimizers_output/m1noseed.txt", "a")
     f.write("Momentum optimizer with 512 hidden units and 5e-4 learning rate \n")
     f.write("momentum, best validation rate accuracy\n")
     f.close()
@@ -137,7 +137,7 @@ def optimize_momentum():
                                    momentum        = m)
 
         # write result of iteration
-        f = open("optimizers_output/m1.txt", "a")
+        f = open("optimizers_output/m1noseed.txt", "a")
         f.write(str(m) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
         f.close()
         
@@ -159,7 +159,7 @@ def optimize_hidden_units():
     hu = 50
 
     # open file and write what this will be about
-    f = open("optimizers_output/h1.txt", "a")
+    f = open("optimizers_output/h1noseed.txt", "a")
     f.write("Hidden units optimizer with 0.5 momentum and 5e-4 learning rate \n")
     f.write("hidden units, best validation rate accuracy\n")
     f.close()
@@ -173,7 +173,7 @@ def optimize_hidden_units():
 
 
         # write result of iteration
-        f = open("optimizers_output/h1.txt", "a")
+        f = open("optimizers_output/h1noseed.txt", "a")
         f.write(str(hu) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
         f.close()
 
@@ -182,7 +182,6 @@ def optimize_hidden_units():
 
 
     f.close()
-
 
 #optimize_learning_rate()
 #optimize_momentum()
