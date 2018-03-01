@@ -1,0 +1,7 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Q1: Explain the forward and backward pass of linear layers and relu activations}{}% 2
+\BOOKMARK [1][-]{section.3}{Q2: Explain the forward and backward pass of dropout}{}% 3
+\BOOKMARK [1][-]{section.4}{Q3: Explain the computation of softmax and its gradient}{}% 4
+\BOOKMARK [1][-]{section.5}{Q4: Training on the cifar10 dataset}{}% 5
+\BOOKMARK [1][-]{section.6}{Q5: Tuning the hyperparameters}{}% 6
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 7

@@ -1,33 +1,27 @@
+As we create and train the network Dropout layer is used for regularization. 
+Using dropout consist in dropping randomly some neuron from the network. 
+Those neuron are consider ar "turned off" meaning they won't impact the futur weight updates. \\
+While training on one example neuron can co-adapt on becoming really specific to an example. 
+Using dropout regularization we prevent then the neuron to co-adapt too much and the network to be less specific and better in generalization. 
+Dropout prevent then from overfitting and to be stuck in a local minimum of the error gradient.
+
+\begin{itemize}
+\item \textbf{Forward pass :} 
+
+During the forward pass we are modifying the network itself, neuron are dropped from the network with the probability p (and kept with propbability q=1-p) - each neuron has the same probability to be dropped or not. 
+To do so we used a a binomial distribution $\mathcal{B}$(N,p) to decide wether a neuron is dropped or not.\\
+If we are using dropout during the training phase we need to perform a rescaling (x $\frac{1}{1-p}$) on the neuron in order to make the network operational for testing. 
 
 
-But how does a neural net know what weights it should apply to each input?
-How are they initialized?
-How do they evolve?
-   
-\begin{enumerate}    
-   \item Softmax classifier\\
-     Every hidden layer's neurons applies the affine transformation, followed by the ReLU activation function.
-     The output layer on the other hand,  applies the affine transformation, followed by the softmax classifer.
-     The softmax classifier 
+\item \textbf{Backward pass :} 
+
+During the backpropagation we just need to consider the Dropout, neuron that have been dropped doesn't contribute to further updates, they consquently need to be dropped in the derivative matrix - coresponding weight won't be updated. Therefor mask need to be stored between forward an backward pass to know which neuron have been dropped.
+
+\end{itemize}
 
 
-
-   \item Dropout\\
-     Consider a neural network with a large number of hidden units relative to the input layer's size.
-     Such a network is a powerful machine learning system, yet, without regularization, it is prone to overfitting.
-     Neurons fron a layer develop dependencies to neurons from the previous layers.
-     In order to prevent such a thing, we randomly shutdown neurons by setting their outputs to 0.
-     This penalizes neurons co-dependencies and yields higher results.
-     Let's explore how we determine whether a neuron should be ``dropped'' and how the dropous process affects the 
-
-\end{enumerate}
-Once the transformations have been made, we can calculate the error for each output neuron. We can use the squarred error function and sum the erros:
-
-$E = \sum_{k=0}^{N} 1/2*(target - output)^2$.
-
-One of the main idea behind the backpropagation algorithm is to reduce the error rate according to the results expected. We need then to send the output back into the neural network to update parameters such as weight and biais. 
-
-Our algorithm calculates dW and db according to dout, which the first neural network output.
-We then need to send the "re-estimated" value in other hidden layer by calculating dX.
-
+\begin{figure}[!ht]
+    \centering
+    {{\includegraphics[scale = 0.50]{src/diagrams/dropout.png}}}  
+\end{figure}
 
