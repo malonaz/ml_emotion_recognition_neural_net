@@ -1,0 +1,69 @@
+
+Every hidden layer goes through an affine transformation, followed by the ReLU activation function.
+The output layer on the other hand,  goes through an affine transformation, outputs its scores into a loss function.
+A loss function allows us to quantity how good our neural net is at correctly classifying data points in a dataset.
+While there exists various loss function, in this coursework, we use the softmax classifier.
+The softmax classifier is particularly useful because it computes a probability distribution over the net's classes, for each data point in the current batch.
+Using this distribution, it computes a cross-entropy loss over the entire batch.
+Let us take a closer look at how it works.
+
+\underline{Forward pass}:
+
+\begin{itemize}[topsep=-10pt]
+   \item softmax: $p_i = \frac{e^{o_i}}{\sum_{j=1}^{C} e^{o_j}}$\\
+     Applying softmax to each output layer neuron, $o_i$, generates a probability distribution over the C classes of the net.
+     One may wonder why we raise the number $e$ to the power of each score and then normalize,
+     rather than simply normalize the scores. Remapping the problem using $e$ is mathematically correct because
+     $f(x) = e^x$ is a strictly increasing function.
+     This mapping has very nice properties: it is differentiable, leads to non-negative results and behaves like the max function,
+     which is appropriate in a classification setting.
+     
+   \item loss: $L_n$ = $-ln(p_c)$, where $p_c$ is the softmax of the output of the correct class neuron, for a data point $n$.
+     The loss simply computes the negative log-likelihood for a data point.
+     Since we are processing data points in batches, given $N$ data points,
+     we compute the average loss as the average negative log-likelihood for a data point as $Loss = \frac{1}{N}\sum_{i=1}^{N}L_i$.
+     As we train the neural network, it is this average loss we will minimize by changing the weights and bias of each neuron.\\
+     *The loss is only computed during training where we know the correct classes of the given datapoints.
+     
+     
+\end{itemize}
+
+\underline{Backward pass}: $\frac{\partial Loss}{\partial o_i} = $
+$\frac{\partial Loss}{\partial p_c} \times \frac{\partial p_c}{\partial o_i}$\\
+The backward pass of a neural net begins with the softmax classifer.
+We are solving an optimization problem, namely: minimizing the average loss,
+by tweaking the learnable parameters which are the weights and biases of each layers.
+The first step is to differentiate the average loss with respect to the scores of the output layer,
+as described by the partial derivative above.\\
+The first partial differential is straightforward: $\frac{\partial Loss}{\partial p_c} = -\frac{1}{Np_c}$.\\
+The second partial differential is trickier as there are two cases:
+\begin{enumerate}[topsep=-12pt]
+  
+ \item $i = c$\\
+   $ \frac{\partial p_c}{\partial o_i} = \frac{\partial p_i}{\partial o_i} $
+   $ = \frac{\partial( e^{o_i} (\sum_{j=1}^{C} e^{o_j})^{-1})} {\partial o_i} $
+   $ = e^{o_i} (\sum_{j=1}^{C} e^{o_j})^{-1} - e^{2o_i} (\sum_{j=1}^{C} e^{o_j})^{-2} $
+   $ = p_i - p_i^2$\\
+   Thus, $\frac{\partial Loss}{\partial o_i} = $
+   $ \frac{\partial Loss}{\partial p_i} \times \frac{\partial p_i}{\partial o_i} $
+   $ =  -\frac{1}{Np_i} \times (p_i - p_i^2) $
+   $ = \frac{p_i - 1}{N} $
+   
+ \item $i \neq c$\\
+   $ \frac{\partial p_c}{\partial o_i} $
+   $ = \frac{\partial( e^{o_c} (\sum_{j=1}^{C} e^{o_j})^{-1})} {\partial o_i} $
+   $ = -e^{o_c}e^{o_i} (\sum_{j=1}^{C} e^{o_j})^{-2} = $
+   $ = -p_cp_i $\\
+   Thus, $\frac{\partial Loss}{\partial o_i} = $
+   $ \frac{\partial Loss}{\partial p_c} \times \frac{\partial p_c}{\partial o_i} $
+   $ =  -\frac{1}{Np_c} \times (-p_cp_i) $
+   $ = \frac{p_i}{N} $ \\   
+\end{enumerate}
+
+Thus, for each partial $\frac {\partial Loss}{\partial o_i}$, we return $p_i - 1$ if $o_i$ is the output
+of a neuron that represents the correct class, and we return $p_i$ otherwise.
+
+
+
+
+
