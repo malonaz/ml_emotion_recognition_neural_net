@@ -11,7 +11,7 @@ Please assume the following mathematical notations for the rest of the report, u
 \- - $b_j$ is the bias of a neuron $j$.\\
 \- - $x_i$ is the $i^{th}$ input of a neuron.
 \begin{itemize}
-   \item Affine transformation
+   \item \textbf{Affine transformation}
   
      \underline{Forward pass}: $o_j= \sum\limits_{i=0}^{I} (w_{ij} \times x_{i}) + b_j$, \\
      When a layer goes through the affine transformation step,
@@ -28,7 +28,7 @@ Please assume the following mathematical notations for the rest of the report, u
      Using the chain rule, the previous layer will use $\frac{\partial o_j}{\partial x_i}$
      to compute its backward affine transformation for the previous layers.
 
-   \item ReLU Activation Function
+   \item \textbf{ReLU Activation Function}
    
      So what does a neuron do? It computes a weighted sum of its input and must now decide whether it should be ``fired''.
      Earlier we spoke of an activation function.
