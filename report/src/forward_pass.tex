@@ -3,7 +3,7 @@ The output is produced in a process known as the emph{forward pass}.
 Instead of processing one data point at a time,
 we have implemented our neural net to process data points in batches.
 As such, the forward pass takes in N examples in a matrix \emph{X}, where each row contains a data point of dimension D.
-Let us take a closer look at the neural net's inner workings.
+Let us take a closer look at the neural net's inner workings, assuming it has already been trained.
 
 \begin{enumerate}
    \item Affine transformation\\
@@ -25,9 +25,14 @@ Let us take a closer look at the neural net's inner workings.
      Linear transformation are limited in their complexity and have a lesser ability to learn complex functional mappings from data.
      A neural network without an activation function would simply be a multivariate linear regression model.
 
-
+     The output layer's neurons always ``fire'' and output their sum.
+     Thus they do not go through ReLU activation and
+     their outputs are the scores assigned by the net to each class we are classifying on.
+     
    \item Softmax classifier\\
-   
+     Every hidden layer's neurons applies the affine transformation, followed by the ReLU activation function.
+     The output layer on the other hand,  applies the affine transformation, followed by the softmax classifer.
+     The softmax classifier 
 
 
 
