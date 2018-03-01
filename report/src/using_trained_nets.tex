@@ -28,28 +28,8 @@ Let us take a closer look at the neural net's inner workings, assuming it has al
      The output layer's neurons always ``fire'' and output their sum.
      Thus they do not go through ReLU activation and
      their outputs are the scores assigned by the net to each class we are classifying on.
-     
-   \item Softmax classifier\\
-     Every hidden layer's neurons applies the affine transformation, followed by the ReLU activation function.
-     The output layer on the other hand,  applies the affine transformation, followed by the softmax classifer.
-     The softmax classifier 
 
-
-
-
-   \item Dropout\\
-     Consider a neural network with a large number of hidden units relative to the input layer's size.
-     Such a network is a powerful machine learning system, yet, without regularization, it is prone to overfitting.
-     Neurons fron a layer develop dependencies to neurons from the previous layers.
-     In order to prevent such a thing, we randomly shutdown neurons by setting their outputs to 0.
-     This penalizes neurons co-dependencies and yields higher results.
-     Let's explore how we determine whether a neuron should be ``dropped'' and how the dropous process affects the 
-     
-     
      
 
 
-
-
-\end{enumerate}     
-
+\end{enumerate}
