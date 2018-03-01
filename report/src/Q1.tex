@@ -17,7 +17,16 @@ Please assume the following mathematical notations for the rest of the report, u
      When a layer goes through the affine transformation step,
      every neuron in the layer sums its $I$ inputs weighted by their respective weight, then adds its bias.\\
 
-     \underline{Backward pass}: $\frac{do_j}{dx_i} = w_{ij}$,\space\space $\frac{do_j}{dw_{ij}} = x_i$, \space\space$\frac{do_j}{db_j} = 1$\\ 
+     \underline{Backward pass}: $\frac{\partial o_j}{\partial x_i} = w_{ij}$,
+     \space\space $\frac{\partial o_j}{\partial w_{ij}} = x_i$,
+     \space\space$\frac{\partial o_j}{\partial b_j} = 1$\\ 
+     For a neuron $j$ in a layer that has just gone through forward affine transformation,
+     we want to compute the derivative of its output $o_j$ with respect to each of its weights, and bias.
+     Take a look at the formulas derived above and notice that I have include $\frac{\partial o_j}{\partial x_i}$.
+     While we are not directly interested in how $o_j$ changes with respect to its inputs, we compute it for other layers that are.
+     Remember that the $I$ inputs of a neuron $j$ are actually the outputs of the previous layers' neurons.
+     Using the chain rule, the previous layer will use $\frac{\partial o_j}{\partial x_i}$
+     to compute its backward affine transformation for the previous layers.
      
 
    \item ReLU Activation Function
