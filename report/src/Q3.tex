@@ -23,13 +23,14 @@ Let us take a closer look at how it works.
      Since we are processing data points in batches, given $N$ data points,
      we compute the average loss as the average negative log-likelihood for a data point as $Loss = \frac{1}{N}\sum_{i=1}^{N}L_i$.
      As we train the neural network, it is this average loss we will minimize by changing the weights and bias of each neuron.\\
-     *The loss is only computed during training where we know the correct classes of the given datapoints.
-     
-     
+     *The loss is only computed during training where we know the correct classes of the given datapoints.\\
+          
 \end{itemize}
 
+
 \underline{Backward pass}: $\frac{\partial Loss}{\partial o_i} = $
-$\frac{\partial Loss}{\partial p_c} \times \frac{\partial p_c}{\partial o_i}$\\
+$\frac{\partial Loss}{\partial p_c} \times \frac{\partial p_c}{\partial o_i}$
+
 The backward pass of a neural net begins with the softmax classifer.
 We are solving an optimization problem, namely: minimizing the average loss,
 by tweaking the learnable parameters which are the weights and biases of each layers.
