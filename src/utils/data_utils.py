@@ -266,18 +266,24 @@ def append_to_file(filename, text):
     f.close()
     
 
-def plot_data(param_optimized_name, filename):
+def plot_data(filename, title, folder):
     """
     generates a plot of the data at the filename
     """
-    
-    data = np.genfromtxt(filename, delimiter = ',', skip_header = 1, names= True)
-    x,y = data.dtype.names
 
+    # read the data
+    data = np.genfromtxt(filename, delimiter = ',', skip_header = 1, names= True)
+
+    # extract x and y data points
+    x, y = data.dtype.names
+
+    # plot thems
     fig = plt.figure()
     plt.plot(data[x], data[y])
-    fig.suptitle("Title goes here")
+    fig.suptitle(title)
     plt.xlabel(x)
     plt.ylabel(y)
-    
-    plt.savefig("optimizers_output/" + param_optimized_name + ".png", bbox_inches='tight')
+
+    # save the figure
+    filename = "src/optimizers/outputs/" + folder + "/" + x + ".png"
+    plt.savefig(filename, bbox_inches='tight')
