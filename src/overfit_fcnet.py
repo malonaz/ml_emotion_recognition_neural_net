@@ -14,16 +14,20 @@ def train_overfit_net(plot = False):
     # get CIFAR10 data
     data = get_CIFAR10_data()
         
-        
+    # subsample the data. 50 draws
+    indices_to_select = np.random.randint(0, len(data["X_train"]), 50)
+
+    # extract the samples
+    data["X_train"] = data["X_train"][indices_to_select]
+    data["y_train"] = data["y_train"][indices_to_select]
+    
     # intialize net
-    model = FullyConnectedNet([32 * 32 * 3],
+    model = FullyConnectedNet([50],
                               input_dim      = 32*32*3,
                               num_classes    = 10,
                               dropout        = 0,
                               reg            = 0.0,
-                              weight_scale   = 1e-2,
-                              dtype          = np.float32,
-                              seed           = 1)
+                              weight_scale   = 1e-2)
         
         
     # initialize solver
