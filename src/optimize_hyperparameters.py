@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
-from src.utils.data_utils import get_FER2013_data, load_data, pickle_data
+from src.utils.data_utils import get_FER2013_data, load_data, save_net_info
 
 
 
-def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, data = None, plot = False, pickle = False):
+def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, data = None, save_net = False):
     """
     Uses a Solver instance to train a neural net on the FER2013 dataset.
     Args:
@@ -48,38 +48,24 @@ def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, d
     # train the net 
     solver.train()
 
-    if pickle:
-        # pickle net
-        pickle.dump(model, open("nets/fer2013_net/pickled_net.p", "wb"))
 
-        
-    if plot:
+    if save_net:
+        # test the net
+        model.test(data["X_test"], data["y_test"])
 
-        plt.subplot(2, 1, 1)
+        # save net info
+        save_net_info("nets/fer2013_net", solver)
 
-        plt.subplot(2, 1, 1)
-    
-        plt.title("trainingloss")
-        plt.plot(solver.loss_history, "o")
-        plt.xlabel('Iteration')
-        
-        plt.subplot(2, 1, 2)
-        plt.title('Accuracy')
-        plt.plot(solver.train_acc_history,'-o', label = 'train')
-        plt.plot(solver.val_acc_history,'-o', label = 'val')
-        plt.plot([0.5] * len(solver.val_acc_history), 'k--')
-        plt.xlabel('Epoch')
-        plt.legend(loc = 'lower right')
-        plt.gcf().set_size_inches(15, 12)
 
-        # save figure
-        plt.savefig("nets/fer2013_net/diagrams.png", bbox_inches='tight')
-
-        # show figure
-        plt.show()
-
-        
     return solver
+
+
+def plot_data(filename):
+    """
+    generates a plot of the data at the filename
+    """
+    
+
 
 
 def optimize_learning_rate():
