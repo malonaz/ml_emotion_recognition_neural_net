@@ -55,6 +55,7 @@ class FullyConnectedNet(object):
         if seed:
             np.random.seed(seed)
         self.params = dict()
+        self.test_acc = None
         """
         TODO: Initialise the weights and bias for all layers and store all in
         self.params. Store the weights and bias of the first layer in keys
@@ -220,7 +221,7 @@ class FullyConnectedNet(object):
     def test(self, X_test, y_test):
         """
         Performs a test using the X_test and y_test data"
-        Returns testing accuracy.
+        Sets the testing accuracy
         """
 
         # get scores
@@ -236,4 +237,6 @@ class FullyConnectedNet(object):
         highest_scores[highest_scores == -1] = 0
         test_acc = float(highest_scores.sum())/highest_scores.shape[0]
 
-        return test_acc
+        self.test_acc = test_acc
+        
+
