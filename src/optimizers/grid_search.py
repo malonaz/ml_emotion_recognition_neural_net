@@ -41,7 +41,7 @@ def optimize_learning_rate():
     while(optim_variable != end):
 
         # create and train a net
-        solver = train_net(data            = fer3013_data,
+        solver = train_net(data            = fer2013_data,
                            hidden_dims     = [default_hidden_units],
                            input_dims      = 48 * 48 * 3,
                            learning_rate   = optim_variable,
@@ -84,7 +84,7 @@ def optimize_momentum():
     while(optim_variable != end):
 
         # create and train a net
-        solver = train_net(data            = fer3013_data,
+        solver = train_net(data            = fer2013_data,
                            hidden_dims     = [default_hidden_units],
                            input_dims      = 48 * 48 * 3,
                            learning_rate   = default_learning_rate,
@@ -128,7 +128,7 @@ def optimize_hidden_units():
     while(optim_variable != end):
 
         # create and train a net
-        solver = train_net(data            = fer3013_data,
+        solver = train_net(data            = fer2013_data,
                            hidden_dims     = [optim_variable],
                            input_dims      = 48 * 48 * 3,
                            learning_rate   = default_learning_rate,
@@ -151,7 +151,7 @@ def optimize_hidden_units():
 
     
 #optimize_learning_rate()
-#optimize_momentum()
+optimize_momentum()
 #optimize_hidden_units()
 
 
