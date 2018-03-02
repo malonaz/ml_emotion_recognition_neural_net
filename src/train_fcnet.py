@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
-from src.utils.data_utils import get_CIFAR10_data
+from src.utils.data_utils import get_CIFAR10_data, save_net_info
 
 import pickle
 
 
-def train_cifar10_net(save_net_info = False):
+def train_cifar10_net(save_net = False):
     """
     Uses a Solver instance to train a TwoLayerNet that achieves at least 50% 
     accuracy on the validation set.
@@ -39,7 +39,7 @@ def train_cifar10_net(save_net_info = False):
     solver.train()
 
 
-    if save_net_info:
+    if save_net:
         # test the net
         model.test(data["X_test"], data["y_test"])
 
@@ -48,5 +48,5 @@ def train_cifar10_net(save_net_info = False):
 
 
 
-train_cifar10_net(save_net_info = True)
+train_cifar10_net(save_net = True)
 

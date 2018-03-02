@@ -8,7 +8,7 @@ from src.utils.data_utils import get_CIFAR10_data, save_net_info
 import pickle
 
 
-def train_overfit_net(save_net_info = False):
+def train_overfit_net(save_net = False):
 
 
     # get CIFAR10 data
@@ -42,13 +42,13 @@ def train_overfit_net(save_net_info = False):
     # train the net 
     solver.train()
 
-    if save_net_info:
+    if save_net:
         # test the net
         model.test(data["X_test"], data["y_test"])
         
         # save net info
         save_net_info("nets/overfit_net", solver)
 
-train_overfit_net(save_net_info = True)
+train_overfit_net(save_net = True)
 
 
