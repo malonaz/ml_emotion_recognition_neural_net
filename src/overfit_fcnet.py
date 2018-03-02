@@ -45,9 +45,10 @@ def train_overfit_net(plot = False):
     # pickle net
     pickle.dump(model, open("nets/overfit_net/pickled_net.p", "wb"))
 
-    # get test accuracy
+    # get test accuracy and write it to appropriate folder
+    test_acc = model.test(data["X_test"], data["y_test"])
+    open("nets/overfit_net/info.tex", "w").write(str.format("{0:.2f}%", test_acc*100))
     
-        
     if plot:
 
         plt.subplot(2, 1, 1)
@@ -69,9 +70,6 @@ def train_overfit_net(plot = False):
         
         # save figure
         plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
-
-        # show figure
-        plt.show()
 
 
 train_overfit_net(plot = True)
