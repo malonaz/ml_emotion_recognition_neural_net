@@ -1,14 +1,14 @@
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
-from src.utils.data_utils import get_CIFAR10_data
+from src.utils.data_utils import get_CIFAR10_data, save_net_info
 
 import pickle
 
 
-def train_overfit_net(plot = False):
+def train_overfit_net(save_info = True):
 
 
     # get CIFAR10 data
@@ -41,36 +41,13 @@ def train_overfit_net(plot = False):
     
     # train the net 
     solver.train()
-        
-    # pickle net
-    pickle.dump(model, open("nets/overfit_net/pickled_net.p", "wb"))
 
-    # get test accuracy and write it to appropriate folder
-    test_acc = model.test(data["X_test"], data["y_test"])
-    open("nets/overfit_net/info.tex", "w").write("Testing accuracy: " + str.format("{0:.2f}", test_acc*100) + "\%")
-    
-    if plot:
+    # test the net
+    model.test(data["X_test"], data["y_test"])
 
-        plt.subplot(2, 1, 1)
+    # save net info
+    save_net_info("nets/overfit_net", solver)
 
-        plt.subplot(2, 1, 1)
-    
-        plt.title("Training Loss")
-        plt.plot(solver.loss_history, "o")
-        plt.xlabel('Iteration')
-        
-        plt.subplot(2, 1, 2)
-        plt.title('Accuracy')
-        plt.plot(solver.train_acc_history,'-o', label = 'train')
-        plt.plot(solver.val_acc_history,'-o', label = 'val')
-        plt.plot([0.5] * len(solver.val_acc_history), 'k--')
-        plt.xlabel('Epoch')
-        plt.legend(loc = 'lower right')
-        plt.gcf().set_size_inches(15, 12)
-        
-        # save figure
-        plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
+train_overfit_net()
 
-
-train_overfit_net(plot = True)
 
