@@ -1,9 +1,9 @@
 
-currentTest: test_bayesian_optim
+currentTest: test_grid_search_optim
 
 
 # TESTS
-all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet test_overfit_fcnet test_train_fcnet test_optimize_hyperparameters
+all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet test_overfit_fcnet test_train_fcnet test_optimize_hyperparameters test_bayesian_optim
 
 
 
@@ -31,8 +31,8 @@ test_overfit_fcnet:
 test_train_fcnet:
 	python -m src.train_fcnet
 
-test_optimize_hyperparameters:
-	python -m src.optimize_hyperparameters
+test_grid_search_optim:
+	python -m src.optimizers.grid_search
 
 test_bayesian_optim:
 	python -m src.gaussian_process.gp
@@ -44,19 +44,4 @@ manual:
 pdf:
 	pandoc manuals/assignment2_advanced.md --pdf-engine=xelatex -o manuals/assignment2_advanced.pdf -V geometry:margin=1in --variable url	     color=cyan --template eisvogel --listings
 
-
-### REPORT
-REPORT_DISCARDED_OUTPUT = report.aux report.log report.out
-REPORT_SRC = report/report.tex report/introduction.tex report/layersimplementation.tex \
-             report/dropout.tex report/softmax.tex report/neuralnetworkcreation.tex \
-             report/hyperparameter.tex report/conclusion.tex
-
-report: report/report.pdf
-
-
-report/report.pdf: $(GRAPHS_OBJECTS:.dot=.pdf)  $(REPORT_SRC) 
-#	pdflatex -interaction=batchmode report/report.tex
-	pdflatex report/report.tex
-	rm -rf $(REPORT_DISCARDED_OUTPUT)
-	mv report.pdf report
 
