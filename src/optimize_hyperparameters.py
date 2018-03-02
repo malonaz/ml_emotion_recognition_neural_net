@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
 from src.utils.data_utils import get_FER2013_data, load_data, save_net_info
@@ -58,13 +57,6 @@ def train_fer2013_net(hidden_units = 3500, learning_rate = 5e-4, momentum = 0, d
 
 
     return solver
-
-
-def plot_data(filename):
-    """
-    generates a plot of the data at the filename
-    """
-    
 
 
 
@@ -172,3 +164,25 @@ def optimize_hidden_units():
 #optimize_learning_rate()
 #optimize_momentum()
 #optimize_hidden_units()
+
+
+def plot_data(param_optimized_name, filename):
+    """
+    generates a plot of the data at the filename
+    """
+    
+    data = np.genfromtxt(filename, delimiter = ',', skip_header = 1, names= True)
+    x,y = data.dtype.names
+
+    fig = plt.figure()
+    plt.plot(data[x], data[y])
+    fig.suptitle("Title goes here")
+    plt.xlabel(x)
+    plt.ylabel(y)
+    
+    plt.savefig("optimizers_output/" + param_optimized_name + ".png", bbox_inches='tight')
+    
+    
+plot_data("Optimizing the number of hidden units", "optimizers_output/h1noseed.txt")
+plot_data("Optimizing the learning rate", "optimizers_output/l1noseed.txt")
+plot_data("Optimizing the momentum", "optimizers_output/m1noseed.txt")
