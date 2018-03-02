@@ -252,7 +252,8 @@ def save_net_info(folder, solver):
     # save accuracy info if any
     if model.test_acc is not None:
         f  = open(folder + "/info.tex", "w")
-        f.write("Testing accuracy: " + str.format("{0:.2f}", model.test_acc * 100) + "\%")
+        f.write("Validation set accuracy: " + str.format("{0:.2f}", solver.best_val_acc * 100) + "\%")
+        f.write(" \& testing set accuracy: " + str.format("{0:.2f}", model.test_acc * 100) + "\%")
         f.close()
     
 
