@@ -42,6 +42,9 @@ def train_net(data,
                     num_epochs   = 20,
                     batch_size   = 100,
                     print_every  = 100)
+
+    # train the network
+    solver.train()
     
     # return the solver
     return solver
