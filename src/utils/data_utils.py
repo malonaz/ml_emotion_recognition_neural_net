@@ -255,9 +255,13 @@ def save_net_info(folder, solver):
         f.write("Validation set accuracy: " + str.format("{0:.2f}", solver.best_val_acc * 100) + "\%")
         f.write(" \& testing set accuracy: " + str.format("{0:.2f}", model.test_acc * 100) + "\%")
         f.close()
-    
 
+def append_to_file(filename, text):
+    """
+    Appends text to given file
+    """
     
-
-                
+    f = open(filename, "a")
+    f.write(text)
+    f.close()
     
