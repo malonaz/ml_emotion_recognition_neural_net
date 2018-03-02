@@ -24,8 +24,7 @@ def train_cifar10_net(plot = False):
                               num_classes    = 10,
                               dropout        = 0,
                               reg            = 0.0,
-                              dtype          = np.float32,
-                              seed           = 1)
+                              dtype          = np.float32)
         
         
     # initialize solver
