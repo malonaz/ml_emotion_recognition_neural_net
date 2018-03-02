@@ -5,6 +5,7 @@ import os
 from scipy.misc import imread 
 #from imread import imread
 import platform
+import matplotlib.pyplot as plt
 
 def load_pickle(f):
     version = platform.python_version_tuple()
@@ -214,7 +215,7 @@ def pickle_data():
     pickle.dump(fer2013_data, open("datasets/FER2013/data.p", "wb"))
 
 
-def save_info(folder, solver):
+def save_net_info(folder, solver):
     """
     Saves a matplot diagram of training losses, training and validation accuracy.
     Saves a pickled version of the model.
