@@ -38,7 +38,7 @@ def optimize_learning_rate():
     append_to_file(filename, title + csv_format)
 
     # start optim
-    while(optim_variable <= end):
+    while(optim_variable != end):
 
         # create and train a net
         solver = train_net(data            = fer3013_data,
@@ -81,15 +81,18 @@ def optimize_momentum():
     append_to_file(filename, title + csv_format)
 
     # start optim
-    while(optim_variable <= end):
+    while(optim_variable != end):
 
         # create and train a net
         solver = train_net(data            = fer3013_data,
-                           hidden_dims     = [512],
+                           hidden_dims     = [default_hidden_units],
                            input_dims      = 48 * 48 * 3,
-                           learning_rate   = 5e-4,
-                           update_rule     = 'sdg_momentum',
-                           momentum        = optim_variable)
+                           learning_rate   = default_learning_rate,
+                           update_rule     = default_update_rule,
+                           momentum        = optim_variable,
+                           num_epochs      = default_num_epochs,
+                           batch_size      = default_batch_size,
+                           lr_decary       = default_lr_decay)
         
         # append results of iteration
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
@@ -122,16 +125,19 @@ def optimize_hidden_units():
     append_to_file(filename, title + csv_format)
 
     # start optim
-    while(optim_variable <= end):
+    while(optim_variable != end):
 
         # create and train a net
         solver = train_net(data            = fer3013_data,
                            hidden_dims     = [optim_variable],
                            input_dims      = 48 * 48 * 3,
-                           learning_rate   = 5e-4,
-                           update_rule     = 'sdg_momentum',
-                           momentum        = 0.5)
-        
+                           learning_rate   = default_learning_rate,
+                           update_rule     = default_update_rule,
+                           momentum        = default_momentum,
+                           num_epochs      = default_num_epochs,
+                           batch_size      = default_batch_size,
+                           lr_decary       = default_lr_decay)
+
         # append results of iteration
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
         append_to_file(filename, result)
@@ -143,43 +149,8 @@ def optimize_hidden_units():
     plot_data(filename, title, "grid_search")
 
 
-
-
-def optimize_hidden_units():
-
-    # get FER2013 data
-    fer2013_data = load_data()
     
-    # initial hidden unit numbers 
-    hu = 50
-
-    # open file and write what this will be about
-    f = open("optimizers_output/h1noseed.txt", "a")
-    f.write("Hidden units optimizer with 0.5 momentum and 5e-4 learning rate \n")
-    f.write("hidden units, best validation rate accuracy\n")
-    f.close()
-    
-    while(True):
-        
-        solver = train_fer2013_net(hidden_units = hu,
-                                   data = fer2013_data,
-                                   learning_rate = 5e-4,
-                                   momentum = 0.5 )
-
-
-        # write result of iteration
-        f = open("optimizers_output/h1noseed.txt", "a")
-        f.write(str(hu) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n")
-        f.close()
-
-        # increment hidden units
-        hu += 50
-
-
-    f.close()
-    plot_data("Optimizing the momentum", "optimizers_output/m1noseed.txt")
-
-optimize_learning_rate()
+#optimize_learning_rate()
 #optimize_momentum()
 #optimize_hidden_units()
 
