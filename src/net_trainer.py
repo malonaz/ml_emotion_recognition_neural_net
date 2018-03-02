@@ -43,9 +43,8 @@ def train_net(data,
                     batch_size   = 100,
                     print_every  = 100)
     
-
-                              
-        
+    # return the solver
+    return solver
                        
 
 
