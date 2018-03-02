@@ -9,11 +9,14 @@ def train_net(data,
               hidden_dims,
               input_dim,
               num_classes,
-              dropout = 0,
-              reg = 0,
-              learning_rate = 5e-4,
-              momentum = 0,
-              update_rule = 'sdg')
+              dropout         = 0,
+              reg             = 0,
+              learning_rate   = 5e-4,
+              momentum        = 0,
+              num_epochs      = 20,
+              batch_size      = 100,
+              lr_decay        = 0.95,
+              update_rule     = "sdg"):
 
     """ 
     Uses a solver instance to train a neural net on the given dataset.
@@ -36,9 +39,9 @@ def train_net(data,
                     update_rule  = update_rule,
                     optim_config = {'learning_rate': learning_rate,
                                     'momentum': momentum},
-                    lr_decay     = 0.95,
-                    num_epochs   = 20,
-                    batch_size   = 100,
+                    lr_decay     = lr_decay,
+                    num_epochs   = num_epochs,
+                    batch_size   = batch_size,
                     print_every  = 100)
 
     # train the network
