@@ -34,9 +34,9 @@ def train_overfit_net(plot = False):
     solver = Solver(model,data,
                     update_rule  = 'sgd',
                     optim_config = {'learning_rate': 5e-4},
-                    lr_decay     = 0.95,
+                    lr_decay     = 0.85,
                     num_epochs   = 20,
-                    batch_size   = 100,
+                    batch_size   = 5,
                     print_every  = 100)
     
     # train the net 
@@ -45,6 +45,8 @@ def train_overfit_net(plot = False):
     # pickle net
     pickle.dump(model, open("nets/overfit_net/pickled_net.p", "wb"))
 
+    # get test accuracy
+    
         
     if plot:
 
@@ -52,7 +54,7 @@ def train_overfit_net(plot = False):
 
         plt.subplot(2, 1, 1)
     
-        plt.title("trainingloss")
+        plt.title("Training Loss")
         plt.plot(solver.loss_history, "o")
         plt.xlabel('Iteration')
         
@@ -64,7 +66,7 @@ def train_overfit_net(plot = False):
         plt.xlabel('Epoch')
         plt.legend(loc = 'lower right')
         plt.gcf().set_size_inches(15, 12)
-
+        
         # save figure
         plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
 
