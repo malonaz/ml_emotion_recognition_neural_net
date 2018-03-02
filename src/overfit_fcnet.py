@@ -47,7 +47,7 @@ def train_overfit_net(plot = False):
 
     # get test accuracy and write it to appropriate folder
     test_acc = model.test(data["X_test"], data["y_test"])
-    open("nets/overfit_net/info.tex", "w").write(str.format("{0:.2f}%", test_acc*100))
+    open("nets/overfit_net/info.tex", "w").write("Testing accuracy: " + str.format("{0:.2f}", test_acc*100) + "\%")
     
     if plot:
 
