@@ -48,7 +48,7 @@ def train_cifar10_net(plot = False):
 
         plt.subplot(2, 1, 1)
     
-        plt.title("trainingloss")
+        plt.title("Training Loss")
         plt.plot(solver.loss_history, "o")
         plt.xlabel('Iteration')
         
@@ -60,7 +60,7 @@ def train_cifar10_net(plot = False):
         plt.xlabel('Epoch')
         plt.legend(loc = 'lower right')
         plt.gcf().set_size_inches(15, 12)
- ccc
+        
         # save figure
         plt.savefig("nets/train_net/diagrams.png", bbox_inches='tight')
 
