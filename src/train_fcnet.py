@@ -23,14 +23,13 @@ def train_cifar10_net(plot = False):
                               input_dim      = 32*32*3,
                               num_classes    = 10,
                               dropout        = 0,
-                              reg            = 0.0,
-                              dtype          = np.float32)
+                              reg            = 0.0)
         
         
     # initialize solver
     solver = Solver(model,data,
                     update_rule  = 'sgd',
-                    optim_config = {'learning_rate': 5e-4},
+                    optim_config = {'learning_rate': 1e-3},
                     lr_decay     = 0.95,
                     num_epochs   = 20,
                     batch_size   = 100,
@@ -61,7 +60,7 @@ def train_cifar10_net(plot = False):
         plt.xlabel('Epoch')
         plt.legend(loc = 'lower right')
         plt.gcf().set_size_inches(15, 12)
-
+ ccc
         # save figure
         plt.savefig("nets/train_net/diagrams.png", bbox_inches='tight')
 
