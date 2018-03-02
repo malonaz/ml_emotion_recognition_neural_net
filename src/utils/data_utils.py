@@ -2,8 +2,8 @@ from builtins import range
 from six.moves import cPickle as pickle
 import numpy as np
 import os
-#from scipy.misc import imread 
-from imread import imread
+from scipy.misc import imread 
+#from imread import imread
 import platform
 
 def load_pickle(f):
@@ -212,3 +212,50 @@ def pickle_data():
 
     # dump the pickle
     pickle.dump(fer2013_data, open("datasets/FER2013/data.p", "wb"))
+
+
+def save_info(folder, solver):
+    """
+    Saves a matplot diagram of training losses, training and validation accuracy.
+    Saves a pickled version of the model.
+    Saves the testing accuracy.
+    """
+
+    # get model
+    model = solver.model
+
+    # pickle model
+    pickle.dump(model, open(folder + "/pickled_net.p", "wb"))
+
+    # create and save plot
+    plt.subplot(2, 1, 1)
+    
+    plt.subplot(2, 1, 1)
+    
+    plt.title("Training Loss")
+    plt.plot(solver.loss_history, "o")
+    plt.xlabel('Iteration')
+    
+    plt.subplot(2, 1, 2)
+    plt.title('Accuracy')
+    plt.plot(solver.train_acc_history,'-o', label = 'train')
+    plt.plot(solver.val_acc_history,'-o', label = 'val')
+    plt.plot([0.5] * len(solver.val_acc_history), 'k--')
+    plt.xlabel('Epoch')
+    plt.legend(loc = 'lower right')
+    plt.gcf().set_size_inches(15, 12)
+    
+    plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
+
+
+    # save accuracy info if any
+    if model.test_acc is not None:
+        f  = open(folder + "/info.tex", "w")
+        f.write("Testing accuracy: " + str.format("{0:.2f}", model.test_acc * 100) + "\%")
+        f.close()
+    
+
+    
+
+                
+    
