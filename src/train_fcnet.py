@@ -9,7 +9,7 @@ from src.utils.data_utils import get_CIFAR10_data
 import pickle
 
 
-def train_cifar10_net(plot = False):
+def train_cifar10_net(save_net_info = False):
     """
     Uses a Solver instance to train a TwoLayerNet that achieves at least 50% 
     accuracy on the validation set.
@@ -37,36 +37,16 @@ def train_cifar10_net(plot = False):
     
     # train the net 
     solver.train()
-        
-    # pickle net
-    pickle.dump(model, open("nets/train_net/pickled_net.p", "wb"))
-
-        
-    if plot:
-
-        plt.subplot(2, 1, 1)
-
-        plt.subplot(2, 1, 1)
-    
-        plt.title("Training Loss")
-        plt.plot(solver.loss_history, "o")
-        plt.xlabel('Iteration')
-        
-        plt.subplot(2, 1, 2)
-        plt.title('Accuracy')
-        plt.plot(solver.train_acc_history,'-o', label = 'train')
-        plt.plot(solver.val_acc_history,'-o', label = 'val')
-        plt.plot([0.5] * len(solver.val_acc_history), 'k--')
-        plt.xlabel('Epoch')
-        plt.legend(loc = 'lower right')
-        plt.gcf().set_size_inches(15, 12)
-        
-        # save figure
-        plt.savefig("nets/train_net/diagrams.png", bbox_inches='tight')
-
-        # show figure
-        plt.show()
 
 
-train_cifar10_net(plot = False)
+    if save_net_info:
+        # test the net
+        model.test(data["X_test"], data["y_test"])
+
+        # save net info
+        save_net_info("nets/train_net", solver)
+
+
+
+train_cifar10_net(save_net_info = True)
 
