@@ -13,9 +13,7 @@ def train_net(data,
               reg = 0,
               learning_rate = 5e-4,
               momentum = 0,
-              update_rule_solver = 'sdg',
-              plot = False,
-              pickle = False):
+              update_rule = 'sdg')
 
     """ 
     Uses a solver instance to train a neural net on the given dataset.
@@ -35,7 +33,7 @@ def train_net(data,
     # initialize solver
     solver = Solver(model,
                     data,
-                    update_rule  = update_rule_solver,
+                    update_rule  = update_rule,
                     optim_config = {'learning_rate': learning_rate,
                                     'momentum': momentum},
                     lr_decay     = 0.95,
@@ -49,7 +47,5 @@ def train_net(data,
     # return the solver
     return solver
                        
-
-
 
 
