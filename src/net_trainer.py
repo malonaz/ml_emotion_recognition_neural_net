@@ -43,7 +43,8 @@ def train_net(data,
                     lr_decay     = lr_decay,
                     num_epochs   = num_epochs,
                     batch_size   = batch_size,
-                    print_every  = 100)
+                    print_every  = 100,
+                    verbose = verbose)
 
     # train the network
     solver.train()
