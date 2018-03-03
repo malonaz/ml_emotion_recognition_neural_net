@@ -276,10 +276,18 @@ class Solver(object):
         for t in range(num_iterations):
 
             if increases >= 2:
+                print ("too many decreases\n")
                 break
             
             self._step()
 
+
+            # if loss is nan stop now
+            if np.isnan(self.loss_history[-1]):
+                print ("encountered nan\n")
+                self.best_val_acc = -1.0
+                break
+            
             # Maybe print training loss
             if self.verbose and t % self.print_every == 0:
                 print('(Iteration %d / %d) loss: %f' % (
