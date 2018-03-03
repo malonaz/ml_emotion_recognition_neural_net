@@ -5,7 +5,7 @@ from src.layers import (linear_forward, linear_backward, relu_forward,
 
 
 
-def random_init(n_in, n_out, weight_scale=5e-2, dtype=np.float32):
+def random_init(n_in, n_out, weight_scale=5e-2, dtype=np.float64):
     """
     Weights should be initialized from a normal distribution with standard
     deviation equal to weight_scale and biases should be initialized to zero.
