@@ -33,7 +33,7 @@ def softmax(logits, y):
 
     
     # compute likelihood: P(y_i = correctClass | logits)
-    correctClassProbabilities = classDistribution[np.arange(classDistribution.shape[0]), y]
+    correctClassProbabilities = classDistribution[np.arange(classDistribution.shape[0]), y] + np.finfo(classDistributionclear.dtype).eps
     
     # compute the negative log-likelihood 
     negLogLikelihood = -np.log(correctClassProbabilities)
