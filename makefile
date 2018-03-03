@@ -1,5 +1,5 @@
 
-currentTest: test_grid_search_optim
+currentTest: test_random_search_optim
 
 
 # TESTS
@@ -33,6 +33,9 @@ test_train_fcnet:
 
 test_grid_search_optim:
 	python -m src.optimizers.grid_search
+
+test_random_search_optim:
+	python -m src.optimizers.random_search
 
 test_bayesian_optim:
 	python -m src.gaussian_process.gp
