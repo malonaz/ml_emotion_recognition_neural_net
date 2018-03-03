@@ -7,7 +7,7 @@ from src.utils.data_utils import *
 from src.net_trainer import train_net
 
 # get FER2013_data
-fer2013_data = get_FER2013_data()
+fer2013_data = load_data()
 
 # defaut parameters
 default_learning_rate = 5e-4
