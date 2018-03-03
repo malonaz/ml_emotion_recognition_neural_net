@@ -269,7 +269,15 @@ class Solver(object):
         iterations_per_epoch = max(num_train // self.batch_size, 1)
         num_iterations = self.num_epochs * iterations_per_epoch
 
+        # keeps track of the number of validation accuracies increasing
+        last_val_acc = 0.0
+        increases = 0
+        
         for t in range(num_iterations):
+
+            if increases >= 2:
+                break
+            
             self._step()
 
             # Maybe print training loss
@@ -308,6 +316,13 @@ class Solver(object):
                     self.best_params = {}
                     for k, v in self.model.params.items():
                         self.best_params[k] = v.copy()
+
+            if val_acc > last_val_acc:
+                increases += 1
+            else:
+                increases = 0
+                
+            last_val_acc = val_acc
 
         # At the end of training swap the best params into the model
         self.model.params = self.best_params
