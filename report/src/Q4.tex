@@ -1,22 +1,23 @@
-\begin{itemize}
+Optimizing hyperparameters for this section was trivial, as the training of the following two networks was more a sanity check than anything else. As such, we simply present the architectures found that satisfied the specs and plots of our results.
+\begin{itemize}[topsep=-15pt, noitemsep, nolistsep]
   
   \item \textbf{Overfitting a net}\\
     Architecture: 1 hidden layer with 50 hidden units.\\
-    We used a learning rate of 5e-4, learning decay of 0.85, 20 epochs, and a batch size of 5 and sgd update rule.
+    Hyperparameters: learning rate of 5e-4, learning decay of 0.85, 20 epochs, and a batch size of 5 and sgd update rule.
     \include*{../nets/overfit_net/info}
 
     \begin{figure}[!ht]
         \centering
-        {{\includegraphics[scale = 0.35]{../nets/overfit_net/diagrams.png}}}  
+        {{\includegraphics[scale = 0.32]{../nets/overfit_net/diagrams.png}}}  
     \end{figure}
 
   \item \textbf{Training a net}\\
     Architecture: 1 hidden layer with 100 hidden units.\\
-    We used a learning rate of 5e-4, learning decay of 0.95, 20 epochs, and a batch size of 100 and sgd update rule.
+    Hyperparameters: learning rate of 5e-4, learning decay of 0.95, 20 epochs, and a batch size of 100 and sgd update rule.
     \include*{../nets/train_net/info}
     \begin{figure}[!ht]
         \centering
-        {{\includegraphics[scale = 0.35]{../nets/train_net/diagrams.png}}}  
+        {{\includegraphics[scale = 0.32]{../nets/train_net/diagrams.png}}}  
     \end{figure}
 
 
