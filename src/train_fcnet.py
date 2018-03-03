@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
-from src.utils.data_utils import get_CIFAR10_data, save_net_info
+from src.utils.data_utils import *
 
 import pickle
 
