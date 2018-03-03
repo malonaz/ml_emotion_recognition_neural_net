@@ -19,6 +19,9 @@ default_num_epochs = 1
 default_lr_decay = 0.95
 default_update_rule = "sgd_momentum"
 
+# set number of iterations
+num_iterations = 2
+
 def optimize_learning_rate():
 
     # define item being optimized
@@ -30,7 +33,7 @@ def optimize_learning_rate():
     # define range on optim variable, and initiate it
     start  = 5e-3
     end = 1e-6
-    incr = (end - start)/20
+    incr = (end - start)/num_iterations
     optim_variable = start
     
     # append optimization info to file
@@ -39,8 +42,8 @@ def optimize_learning_rate():
     append_to_file(filename, title + csv_format)
 
     # start optim
-    while(optim_variable != end):
-
+    for i in range(num_iterations):
+        
         # create and train a net
         solver = train_net(data            = fer2013_data,
                            num_classes     = default_num_classes,
@@ -74,7 +77,7 @@ def optimize_momentum():
     # define range on optim variable, and initiate it
     start  = 0.0
     end = 1.0
-    incr = (end - start)/20
+    incr = (end - start)/num_iterations
     optim_variable = start
     
     # append optimization info to file
@@ -83,7 +86,7 @@ def optimize_momentum():
     append_to_file(filename, title + csv_format)
 
     # start optim
-    while(optim_variable != end):
+    for i in range(num_iterations):
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
@@ -119,7 +122,7 @@ def optimize_hidden_units():
     # define range on optim variable, and initiate it
     start  = 50
     end = 2550
-    incr = (end - start)/20
+    incr = (end - start)/num_iterations
     optim_variable = start
     
     # append optimization info to file
@@ -128,8 +131,8 @@ def optimize_hidden_units():
     append_to_file(filename, title + csv_format)
 
     # start optim
-    while(optim_variable != end):
-        print (optim_variable)
+    for i in range(num_iterations):
+
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
@@ -154,12 +157,6 @@ def optimize_hidden_units():
     plot_data(filename, title, "grid_search")
 
 
-    
-#optimize_learning_rate()
-#optimize_momentum()
+optimize_learning_rate()
+optimize_momentum()
 optimize_hidden_units()
-
-
-
-
-
