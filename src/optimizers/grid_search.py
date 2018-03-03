@@ -11,12 +11,13 @@ fer2013_data = get_FER2013_data()
 
 # defaut parameters
 default_learning_rate = 5e-4
+default_num_classes = 7
 default_momentum = 0.5
-default_hidden_units = 512
+default_hidden_units = 5
 default_batch_size = 100
 default_num_epochs = 1
 default_lr_decay = 0.95
-default_update_rule = "sdg_momentum"
+default_update_rule = "sgd_momentum"
 
 def optimize_learning_rate():
 
@@ -42,14 +43,15 @@ def optimize_learning_rate():
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
+                           num_classes     = default_num_classes,
                            hidden_dims     = [default_hidden_units],
-                           input_dim      = 48 * 48 * 3,
+                           input_dim       = 48 * 48 * 3,
                            learning_rate   = optim_variable,
                            update_rule     = default_update_rule,
                            momentum        = default_momentum,
                            num_epochs      = default_num_epochs,
                            batch_size      = default_batch_size,
-                           lr_decay       = default_lr_decay)
+                           lr_decay        = default_lr_decay)
         
         # append results of iteration
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
@@ -85,14 +87,15 @@ def optimize_momentum():
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
+                           num_classes     = default_num_classes,
                            hidden_dims     = [default_hidden_units],
-                           input_dim      = 48 * 48 * 3,
+                           input_dim       = 48 * 48 * 3,
                            learning_rate   = default_learning_rate,
                            update_rule     = default_update_rule,
                            momentum        = optim_variable,
                            num_epochs      = default_num_epochs,
                            batch_size      = default_batch_size,
-                           lr_decay       = default_lr_decay)
+                           lr_decay        = default_lr_decay)
         
         # append results of iteration
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
@@ -129,14 +132,15 @@ def optimize_hidden_units():
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
+                           num_classes     = default_num_classes,
                            hidden_dims     = [optim_variable],
-                           input_dim      = 48 * 48 * 3,
+                           input_dim       = 48 * 48 * 3,
                            learning_rate   = default_learning_rate,
                            update_rule     = default_update_rule,
                            momentum        = default_momentum,
                            num_epochs      = default_num_epochs,
                            batch_size      = default_batch_size,
-                           lr_decay       = default_lr_decay)
+                           lr_decay        = default_lr_decay)
 
         # append results of iteration
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
