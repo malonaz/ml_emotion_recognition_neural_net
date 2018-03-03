@@ -279,3 +279,77 @@ def plot_data(filename, title, folder):
     # save the figure
     filename = "src/optimizers/outputs/" + folder + "/" + x + ".png"
     plt.savefig(filename, bbox_inches='tight')
+
+
+    
+#####################  EVALUATION PURPOSES ########################    
+def get_confusion_matrix(predictions, labels):
+    """ returns confusion matrix implied by the predictions versus the labels."""
+
+    # find num of classes
+    num_classes = labels.max() - labels.min() + 1
+
+    # find num of examples
+    num_examples = labels.shape[0]
+    
+    # create a 6 by 6 matrix filled with 0s
+    confusion_matrix = zeros((num_classes, num_classes), int)
+
+    for i in range(num_examples):
+        
+        # get the actual and predicted for prediction
+        actual = labels[i]
+        predicted = predictions[i]
+
+        # increment the appropriate 
+        confusion_matrix[actual - 1][predicted - 1] += 1
+    
+    return confusion_matrix
+
+
+def get_recall_precision_rates(confusion_matrix):
+    """ Computes the recall and precision rates for each class and returns
+        a list [recall rates, precision rates]. """
+
+    # used to store the recall and precision rates
+    recall_rates = zeros(6, float)
+    precision_rates = zeros(6, float)
+    
+    for i in range(confusion_matrix.shape[0]):
+
+        # get the ith row and column
+        row = confusion_matrix[i, :]
+        col = confusion_matrix[:, i]
+
+        # compute TP, FP and FN
+        TP = float(row[i])
+        FP = float(sum(col) - TP)
+        FN = float(sum(row) - TP)
+        
+        # compute recall rate and add it to recall rates
+        recall_rates[i] = (100*TP)/(TP + FN)
+
+        # compute precision rate and add it to precision rates
+        precision_rates[i] = (100*TP)/(TP + FP)
+
+    return recall_rates, precision_rates
+        
+
+def get_f_measures(recall_rates, precision_rates, alpha = 1):
+    """ Computes the F_a measures of all 6 recall & precision rates duos and returns it. """
+
+    # used to store f1 measures
+    f1_measures = zeros(6, float)
+
+    for i in range(len(recall_rates)):
+
+        # get current recall & precision rates
+        recall = recall_rates[i]
+        precision = precision_rates[i]
+
+        # compute f1_measure and append it to f1_measures
+        f1_measure = ((1 + alpha*alpha)*precision*recall)/(alpha*alpha*precision + recall)
+        f1_measures[i] = f1_measure
+
+        
+    return f1_measures
