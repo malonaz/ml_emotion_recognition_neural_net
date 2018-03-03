@@ -13,8 +13,8 @@ fer2013_data = get_FER2013_data()
 default_learning_rate = 5e-4
 default_num_classes = 7
 default_momentum = 0.5
-default_hidden_units = 5
-default_batch_size = 100
+default_hidden_units = 1
+default_batch_size = 500
 default_num_epochs = 1
 default_lr_decay = 0.95
 default_update_rule = "sgd_momentum"
@@ -129,11 +129,12 @@ def optimize_hidden_units():
 
     # start optim
     while(optim_variable != end):
+        print (optim_variable)
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
                            num_classes     = default_num_classes,
-                           hidden_dims     = [optim_variable],
+                           hidden_dims     = [int(optim_variable)],
                            input_dim       = 48 * 48 * 3,
                            learning_rate   = default_learning_rate,
                            update_rule     = default_update_rule,
@@ -155,8 +156,8 @@ def optimize_hidden_units():
 
     
 #optimize_learning_rate()
-optimize_momentum()
-#optimize_hidden_units()
+#optimize_momentum()
+optimize_hidden_units()
 
 
 
