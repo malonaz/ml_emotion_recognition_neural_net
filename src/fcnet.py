@@ -218,25 +218,3 @@ class FullyConnectedNet(object):
         
         return loss, grads
 
-    def test(self, X_test, y_test):
-        """
-        Performs a test using the X_test and y_test data"
-        Sets the testing accuracy
-        """
-
-        # get scores
-        scores = self.loss(X_test, y = None)
-
-        # get highest score for each row
-        highest_scores = scores.argmax(axis = 1)
-
-        # compute test accuracy by comparing with y_test
-
-        highest_scores[y_test != highest_scores] = -1
-        highest_scores[y_test == highest_scores] = 1
-        highest_scores[highest_scores == -1] = 0
-        test_acc = float(highest_scores.sum())/highest_scores.shape[0]
-
-        self.test_acc = test_acc
-        
-

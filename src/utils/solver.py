@@ -9,7 +9,7 @@ import pickle as pickle
 import numpy as np
 
 import src.utils.optim as optim
-
+from src.utils.data_utils import get_confusion_matrix
 
 class Solver(object):
     """
@@ -213,7 +213,7 @@ class Solver(object):
             pickle.dump(checkpoint, f)
 
 
-    def check_accuracy(self, X, y, num_samples=None, batch_size=100):
+    def check_accuracy(self, X, y, num_samples=None, batch_size=100, confusion_matrix = False):
         """
         Check accuracy of the model on the provided data.
 
@@ -251,6 +251,13 @@ class Solver(object):
         y_pred = np.hstack(y_pred)
         acc = np.mean(y_pred == y)
 
+        if confusion_matrix:
+            # generate confusion matrix
+            confusion_matrix = get_confusion_matrix(y_pred, y)
+
+            # return acc and confusion matrix
+            return acc, confusion_matrix
+            
         return acc
 
 

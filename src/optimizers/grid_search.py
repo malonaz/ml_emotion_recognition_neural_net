@@ -10,13 +10,13 @@ from src.net_trainer import train_net
 fer2013_data = load_data()
 
 # defaut parameters
-default_learning_rate = 5e-4
+default_learning_rate = 1e-3
 default_num_classes = 7
-default_momentum = 0.5
-default_hidden_units = 512
-default_batch_size = 100
+default_momentum = 0.9
+default_hidden_units = 256
+default_batch_size = 60
 default_num_epochs = 20
-default_lr_decay = 0.95
+default_lr_decay = 0.90
 default_update_rule = "sgd_momentum"
 
 # set number of iterations
@@ -31,16 +31,16 @@ def optimize_learning_rate():
     filename = "src/optimizers/outputs/grid_search/learning_rate.txt"
     
     # define range on optim variable, and initiate it
-    start  = 5e-3
+    start  = 1e-3
     end = 1e-6
     incr = (end - start)/num_iterations
     optim_variable = start
     
     # append optimization info to file
-    title = "Learning rate optimizer with 512 hidden units and momentum 0.5 \n"
+    title = "Learning rate optimizer with 256 hidden units and momentum 0.5 \n"
     csv_format = "learning rate, best validation rate accuracy\n"
     append_to_file(filename, title + csv_format)
-
+    
     # start optim
     for i in range(num_iterations):
         
@@ -55,17 +55,39 @@ def optimize_learning_rate():
                            num_epochs      = default_num_epochs,
                            batch_size      = default_batch_size,
                            lr_decay        = default_lr_decay)
-        
+
+
         # append results of iteration
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
         append_to_file(filename, result)
         
         # increment learning rate
         optim_variable += incr
-            
-    # generate plot of optimization
-    plot_data(filename, title, "grid_search")
 
+
+    if save_net:
+        
+        # test the net and save its training, validation and testing accuracies.
+
+        # get training accuracy
+        train_acc = str.format("{0:.2f}", solver.check_accuracy(data["X_train"], data["y_train"]) * 100) + "\%"
+        
+        # get validation accuracy
+        val_acc = str.format("{0:.2f}", solver.best_val_acc * 100) + "\%"
+        
+        # get testing accuracy
+        test_acc = str.format("{0:.2f}", solver.check_accuracy(data["X_test"], data["y_test"]) * 100) + "\%"
+
+        text = "Accuracies: " + train_acc + " training, " + val_acc + " validation  \& " + test_acc + " testing."
+
+        # write to file
+        append_to_file("nets/overfit_net/info.tex", text, mode =  "w")
+        
+        # save net info
+        save_net_info("nets/overfit_net", solver)
+
+
+        
 def optimize_momentum():
 
     # define item being optimized
@@ -81,7 +103,7 @@ def optimize_momentum():
     optim_variable = start
     
     # append optimization info to file
-    title = "Momentum optimizer with 512 hidden units and momentum 0.5 \n"
+    title = "Momentum optimizer with 256 hidden units and momentum 0.5 \n"
     csv_format = "momentum, best validation rate accuracy\n"
     append_to_file(filename, title + csv_format)
 
@@ -126,7 +148,7 @@ def optimize_hidden_units():
     optim_variable = start
     
     # append optimization info to file
-    title = "Hidden units optimizer with 512 hidden units and momentum 0.5 \n"
+    title = "Hidden units optimizer with 256 hidden units and momentum 0.5 \n"
     csv_format = "hidden units, best validation rate accuracy\n"
     append_to_file(filename, title + csv_format)
 
@@ -157,6 +179,27 @@ def optimize_hidden_units():
     plot_data(filename, title, "grid_search")
 
 
-optimize_learning_rate()
-optimize_momentum()
-optimize_hidden_units()
+def generate_plots():
+    # learning rate
+    filename = "src/optimizers/outputs/grid_search/learning_rate.txt"
+    title = "Learning rate optimizer with 256 hidden units and 0.5 momentum \n"
+    plot_data(filename, title, "grid_search")
+
+    # momentum
+    filename = "src/optimizers/outputs/grid_search/momentum.txt"
+    title = "Momentum optimizer with 5e-4 learning rate and 0.5 momentum \n"    
+    plot_data(filename, title, "grid_search")
+    
+    # hidden units
+    title = "Hidden units optimizer with 5e-4 learning rate and 0.5 momentum \n"
+    filename = "src/optimizers/outputs/grid_search/hidden_units.txt"
+    plot_data(filename, title, "grid_search")
+
+
+def optimize():
+    optimize_learning_rate()
+    optimize_momentum()
+    optimize_hidden_units()
+
+
+#generate_plots()    
