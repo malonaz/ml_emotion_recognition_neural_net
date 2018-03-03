@@ -16,7 +16,8 @@ def train_net(data,
               num_epochs      = 20,
               batch_size      = 100,
               lr_decay        = 0.95,
-              update_rule     = "sdg"):
+              update_rule     = "sdg",
+              verbose = True):
 
     """ 
     Uses a solver instance to train a neural net on the given dataset.
