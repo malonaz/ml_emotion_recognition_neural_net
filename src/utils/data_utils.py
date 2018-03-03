@@ -279,7 +279,7 @@ def plot_data(filename, title, folder):
 
     # plot thems
     fig = plt.figure()
-    plt.plot(data[x], data[y])
+    plt.plot(data[x], data[y], "bo")
     fig.suptitle(title)
     plt.xlabel(x)
     plt.ylabel(y)
