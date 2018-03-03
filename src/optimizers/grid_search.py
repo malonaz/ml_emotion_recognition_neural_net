@@ -157,6 +157,27 @@ def optimize_hidden_units():
     plot_data(filename, title, "grid_search")
 
 
-optimize_learning_rate()
-optimize_momentum()
-optimize_hidden_units()
+def generate_plots():
+    # learning rate
+    filename = "src/optimizers/outputs/grid_search/learning_rate.txt"
+    title = "Learning rate optimizer with 512 hidden units and momentum 0.5 \n"
+    plot_data(filename, title, "grid_search")
+
+    # momentum
+    filename = "src/optimizers/outputs/grid_search/momentum.txt"
+    title = "Momentum optimizer with 512 hidden units and momentum 0.5 \n"    
+    plot_data(filename, title, "grid_search")
+    
+    # hidden units
+    title = "Hidden units optimizer with 512 hidden units and momentum 0.5 \n"
+    filename = "src/optimizers/outputs/grid_search/hidden_units.txt"
+    plot_data(filename, title, "grid_search")
+
+
+def optimize():
+    optimize_learning_rate()
+    optimize_momentum()
+    optimize_hidden_units()
+
+
+generate_plots()    
