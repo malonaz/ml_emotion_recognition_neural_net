@@ -31,7 +31,6 @@ def optimize_learning_rate():
     filename = "src/optimizers/outputs/random_search/learning_rate.txt"
     
     # define optim variable's type and range
-    optim_var_type = np.float64
     low  = 5e-3
     high = 1e-6
     
@@ -44,7 +43,7 @@ def optimize_learning_rate():
     for i in range(num_iterations):
 
         # randomly draw optim variable from the range low-high
-        optim_variable = np.random.randint(low = low, high = high, dtype = optim_var_type)
+        optim_variable = np.random.uniform(low = low, high = high)
         
         # create and train a net
         solver = train_net(data            = fer2013_data,
@@ -72,12 +71,10 @@ def optimize_momentum():
     
     # define filename template
     filename = "src/optimizers/outputs/random_search/momentum.txt"
-    
-    # define range on optim variable, and initiate it
-    start  = 0.0
-    end = 1.0
-    incr = (end - start)/num_iterations
-    optim_variable = start
+
+    # define optim variable's range
+    low  = 0.0
+    high = 1.0
     
     # append optimization info to file
     title = "Momentum optimizer with 512 hidden units and momentum 0.5 \n"
@@ -86,6 +83,9 @@ def optimize_momentum():
 
     # start optim
     for i in range(num_iterations):
+
+        # randomly draw optim variable from the range low-high
+        optim_variable = np.random.uniform(low = low, high = high)
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
@@ -103,9 +103,7 @@ def optimize_momentum():
         result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
         append_to_file(filename, result)
         
-        # increment learning rate
-        optim_variable += incr
-            
+                    
     # generate plot of optimization
     plot_data(filename, title, "random_search")
 
@@ -117,12 +115,10 @@ def optimize_hidden_units():
     
     # define filename template
     filename = "src/optimizers/outputs/random_search/hidden_units.txt"
-    
-    # define range on optim variable, and initiate it
-    start  = 50
-    end = 2550
-    incr = (end - start)/num_iterations
-    optim_variable = start
+
+    # define optim variable's range
+    low  = 50
+    high = 2500
     
     # append optimization info to file
     title = "Hidden units optimizer with 512 hidden units and momentum 0.5 \n"
@@ -132,6 +128,8 @@ def optimize_hidden_units():
     # start optim
     for i in range(num_iterations):
 
+        # randomly draw optim variable from the range low-high
+        optim_variable = np.random.uniform(low = low, high = high)
 
         # create and train a net
         solver = train_net(data            = fer2013_data,
