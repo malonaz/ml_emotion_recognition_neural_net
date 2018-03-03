@@ -219,7 +219,6 @@ def save_net_info(folder, solver):
     """
     Saves a matplot diagram of training losses, training and validation accuracy.
     Saves a pickled version of the model.
-    Saves the testing accuracy.
     """
 
     # get model
@@ -249,19 +248,12 @@ def save_net_info(folder, solver):
     plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
 
 
-    # save accuracy info if any
-    if model.test_acc is not None:
-        f  = open(folder + "/info.tex", "w")
-        f.write("Validation set accuracy: " + str.format("{0:.2f}", solver.best_val_acc * 100) + "\%")
-        f.write(" \& testing set accuracy: " + str.format("{0:.2f}", model.test_acc * 100) + "\%")
-        f.close()
-
-def append_to_file(filename, text):
+def append_to_file(filename, text, mode = "a"):
     """
     Appends text to given file
     """
     
-    f = open(filename, "a")
+    f = open(filename, mode)
     f.write(text)
     f.close()
     
