@@ -14,7 +14,7 @@ default_learning_rate = 1e-3
 default_num_classes = 7
 default_momentum = 0.9
 default_hidden_units = 256
-default_batch_size = 60
+default_batch_size = 100
 default_num_epochs = 20
 default_lr_decay = 0.90
 default_update_rule = "sgd_momentum"
@@ -63,29 +63,6 @@ def optimize_learning_rate():
         
         # increment learning rate
         optim_variable += incr
-
-
-    if save_net:
-        
-        # test the net and save its training, validation and testing accuracies.
-
-        # get training accuracy
-        train_acc = str.format("{0:.2f}", solver.check_accuracy(data["X_train"], data["y_train"]) * 100) + "\%"
-        
-        # get validation accuracy
-        val_acc = str.format("{0:.2f}", solver.best_val_acc * 100) + "\%"
-        
-        # get testing accuracy
-        test_acc = str.format("{0:.2f}", solver.check_accuracy(data["X_test"], data["y_test"]) * 100) + "\%"
-
-        text = "Accuracies: " + train_acc + " training, " + val_acc + " validation  \& " + test_acc + " testing."
-
-        # write to file
-        append_to_file("nets/overfit_net/info.tex", text, mode =  "w")
-        
-        # save net info
-        save_net_info("nets/overfit_net", solver)
-
 
         
 def optimize_momentum():
@@ -198,8 +175,8 @@ def generate_plots():
 
 def optimize():
     optimize_learning_rate()
-    optimize_momentum()
-    optimize_hidden_units()
+    #optimize_momentum()
+    #optimize_hidden_units()
 
-
+optimize()
 #generate_plots()    
