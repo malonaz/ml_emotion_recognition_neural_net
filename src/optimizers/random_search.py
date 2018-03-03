@@ -19,141 +19,88 @@ default_num_epochs = 20
 default_lr_decay = 0.95
 default_update_rule = "sgd_momentum"
 
+# set ranges of optim params
+range_learning_rate = (1e-7, 1e-4)
+
+range_momentum = (0.0, 1.0)
+
+range_batch_size = (20, 200)
+
+range_num_epochs = (20, 200)
+
+range_lr_decay = (0.5, 1.0)
+
+range_hidden_units = (100, 500)
+
+range_num_hidden_layers = (1, 4)
+
+
 # set number of iterations
-num_iterations = 20
+num_iterations = 200
 
-def optimize_learning_rate():
+def random_search():
 
-    # define item being optimized
-    optim_param = "learning rate"
-    
-    # define filename template
-    filename = "src/optimizers/outputs/random_search/learning_rate.txt"
-    
-    # define optim variable's type and range
-    low  = 5e-3
-    high = 1e-6
-    
-    # append optimization info to file
-    title = "Learning rate optimizer with 512 hidden units and momentum 0.5 \n"
-    csv_format = "learning rate, best validation rate accuracy\n"
-    append_to_file(filename, title + csv_format)
+    print ("best_val_accuracy, learning_rate, momentum, lr_decay, num_epochs, batch_size, \
+num_hidden_layers, hidden_dim1, hidden_dim2, hidden_dim3\n")
+
+    # used to hold the best val and its parameters
+    best_val_acc = 0.0
+    best_params = "none"
 
     # start optim
     for i in range(num_iterations):
 
-        # randomly draw optim variable from the range low-high
-        optim_variable = np.random.uniform(low = low, high = high)
+        # randomly draw optim variables from the range low-high
+        # floats
+        learning_rate = np.random.uniform(low = range_learning_rate[0], high = range_learning_rate[1])
+        momentum = np.random.uniform(low = range_momentum[0], high = range_momentum[1])
+        lr_decay = np.random.uniform(low = range_lr_decay[0], high = range_lr_decay[1])
+        # integers
+        num_epochs = np.random.randint(low = range_num_epochs[0], high = range_num_epochs[1])
+        batch_size  = np.random.randint(low = range_batch_size[0], high = range_batch_size[1])
+        num_hidden_layers = np.random.randint(low = range_num_hidden_layers[0], high = range_num_hidden_layers[1])
+        hidden_dims = [np.random.randint(low = range_hidden_units[0], high = range_hidden_units[1])
+                       for i in range(num_hidden_layers)]
+        
         
         # create and train a net
         solver = train_net(data            = fer2013_data,
                            num_classes     = default_num_classes,
-                           hidden_dims     = [default_hidden_units],
+                           hidden_dims     = hidden_dims,
                            input_dim       = 48 * 48 * 3,
-                           learning_rate   = optim_variable,
+                           learning_rate   = learning_rate,
                            update_rule     = default_update_rule,
-                           momentum        = default_momentum,
-                           num_epochs      = default_num_epochs,
-                           batch_size      = default_batch_size,
-                           lr_decay        = default_lr_decay)
+                           momentum        = momentum,
+                           num_epochs      = num_epochs,
+                           batch_size      = batch_size,
+                           lr_decay        = lr_decay,
+                           verbose         = False)
         
         # append results of iteration
-        result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
-        append_to_file(filename, result)
-                    
-    # generate plot of optimization
-    plot_data(filename, title, "random_search")
+        results = str.format('{0:6f}', solver.best_val_acc) + ', ' +\
+                  str.format('{0:6f}', learning_rate) + ', ' + \
+                  str.format('{0:6f}', momentum) + ', ' + \
+                  str.format('{0:6f}', lr_decay) + ', ' +\
+                  str(num_epochs) + ', ' +\
+                  str(batch_size) + ', ' +\
+                  str(num_hidden_layers)
 
-def optimize_momentum():
-
-    # define item being optimized
-    optim_param = "momentum"
-    
-    # define filename template
-    filename = "src/optimizers/outputs/random_search/momentum.txt"
-
-    # define optim variable's range
-    low  = 0.0
-    high = 1.0
-    
-    # append optimization info to file
-    title = "Momentum optimizer with 512 hidden units and momentum 0.5 \n"
-    csv_format = "momentum, best validation rate accuracy\n"
-    append_to_file(filename, title + csv_format)
-
-    # start optim
-    for i in range(num_iterations):
-
-        # randomly draw optim variable from the range low-high
-        optim_variable = np.random.uniform(low = low, high = high)
-
-        # create and train a net
-        solver = train_net(data            = fer2013_data,
-                           num_classes     = default_num_classes,
-                           hidden_dims     = [default_hidden_units],
-                           input_dim       = 48 * 48 * 3,
-                           learning_rate   = default_learning_rate,
-                           update_rule     = default_update_rule,
-                           momentum        = optim_variable,
-                           num_epochs      = default_num_epochs,
-                           batch_size      = default_batch_size,
-                           lr_decay        = default_lr_decay)
+        for i in range(3):
+            if i < num_hidden_layers:
+                results += ', ' + str(hidden_dims[i])
+            else:
+                results += ', -1'
         
-        # append results of iteration
-        result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
-        append_to_file(filename, result)
+                  
+        results += "\n"
+        print (results)
+
+        # update best_params
+        if solver.best_val_acc > best_val_acc:
+            best_params = results
+            best_val_acc = solver.best_val_acc
         
-                    
-    # generate plot of optimization
-    plot_data(filename, title, "random_search")
-
-
-def optimize_hidden_units():
-
-    # define item being optimized
-    optim_param = "hidden units"
-    
-    # define filename template
-    filename = "src/optimizers/outputs/random_search/hidden_units.txt"
-
-    # define optim variable's range
-    low  = 50
-    high = 2500
-    
-    # append optimization info to file
-    title = "Hidden units optimizer with 512 hidden units and momentum 0.5 \n"
-    csv_format = "hidden units, best validation rate accuracy\n"
-    append_to_file(filename, title + csv_format)
-
-    # start optim
-    for i in range(num_iterations):
-
-        # randomly draw optim variable from the range low-high
-        optim_variable = np.random.uniform(low = low, high = high)
-
-        # create and train a net
-        solver = train_net(data            = fer2013_data,
-                           num_classes     = default_num_classes,
-                           hidden_dims     = [int(optim_variable)],
-                           input_dim       = 48 * 48 * 3,
-                           learning_rate   = default_learning_rate,
-                           update_rule     = default_update_rule,
-                           momentum        = default_momentum,
-                           num_epochs      = default_num_epochs,
-                           batch_size      = default_batch_size,
-                           lr_decay        = default_lr_decay)
-
-        # append results of iteration
-        result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
-        append_to_file(filename, result)
         
-        # increment learning rate
-        optim_variable += incr
-            
-    # generate plot of optimization
-    plot_data(filename, title, "random_search")
+    print (best_params)
 
-
-optimize_learning_rate()
-optimize_momentum()
-optimize_hidden_units()
+random_search()
