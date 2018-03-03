@@ -31,8 +31,8 @@ def optimize_learning_rate():
     filename = "src/optimizers/outputs/grid_search/learning_rate.txt"
     
     # define range on optim variable, and initiate it
-    start  = 1e-3
-    end = 1e-6
+    start  = 1e-4
+    end = 1e-7
     incr = (end - start)/num_iterations
     optim_variable = start
     
