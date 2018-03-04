@@ -19,13 +19,25 @@ the performance measure to be used to compare the performance of the different p
   We decided to initiate a grid search (of one parameter) for the learning rate in the range (1e-7, 1e-4).
   using the parameters found through hand-tuning in the previous section.
   Please find a below a graph showing the best validation accuracy for each learning rate tested in the range.
-  As you can see, all learning rates test 
   \begin{figure}[!ht]
       \centering
       {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/learning_rate.png}}}
   \end{figure}
 
+  The optimal learning rate was found at 6.5e-5.
+  Please find below a plot of the training loss of our model, as well as its classification error on each set.
+  \include*{../nets/fer2013_net/learning_rate_optim_info}
+  \begin{figure}[!ht]
+      \centering
+      {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/learning_rate.png}}}
+  \end{figure}
 
+  
+
+
+  
+
+  
 \item \textbf{Using dropout}\\
 
 
