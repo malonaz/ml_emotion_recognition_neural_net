@@ -41,15 +41,23 @@ the performance measure to be used to compare the performance of the different p
   
 
 \item \textbf{L2 vs dropout}:\\
+  Let us now run a grid search to optimize L2 regularization,
+  using the range (0.0, 1.0), to compare the performance against the dropout regularization.
+  
+\item \textbf{Optimizing the topology of the layer}:\\
+  Thus far, we have assumed that a neural net's hyperparameters are independent variables.
+  Yet our experiences thus far have shown us that this is a false assumption.
+  To optimize the topology of the layer, we have instead decided to run a random search,
+  letting each hyperparameter be randomly drawn (within its respective range as defined in previous sections).
+  This removes our false assumption of hyperparameters variable independence.
+  We have found the optimal parameters to be:
+  
+\item \textbf{Performance metrics of network trained with the optimal set of parameters}:\\
+  
 
-\item \textbf{Optimizing the topology of the layer}:\\  
   
 \item \textbf{How to retrieve our best trained model}:\\
   You may retrieve and test our best trained model using our test.py file.
   Thank you.
 \end{itemize}
   
-
-
-
-Now that we had a better idea of the range of the hyperparameters, we launched a random search, optimizing
