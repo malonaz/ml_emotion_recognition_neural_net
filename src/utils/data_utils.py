@@ -147,7 +147,8 @@ def get_FER2013_data():
     return process_data(raw_data,
                         num_training = num_training - 1200,
                         num_validation = 1200,
-                        num_test = len(y_test))
+                        num_test = len(y_test),
+                        subtract_mean = True)
 
 
 def process_images(filenames, num_training, num_test = 0):
