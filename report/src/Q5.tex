@@ -38,7 +38,11 @@ the performance measure to be used to compare the performance of the different p
   Now, keeping our optimal learning rate of 6.5e-5,
   we ran another grid search for dropout in the range (0.0, 1.0) to see if there was any improvement in the validation performance.
   Please find below a plot of the validation accuracy rate at each dropout rate examined.
-  
+  \begin{figure}[!ht]
+    \centering
+        {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/dropout_rate.png}}}
+  \end{figure}
+
 
 \item \textbf{L2 vs dropout}:\\
   Let us now run a grid search to optimize L2 regularization,
