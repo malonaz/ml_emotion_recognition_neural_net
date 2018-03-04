@@ -13,14 +13,15 @@ fer2013_data = load_data()
 default_learning_rate = 1e-3
 default_num_classes = 7
 default_momentum = 0.9
-default_hidden_units = 1
+default_hidden_units = 256
 default_batch_size = 100
-default_num_epochs = 2
+default_num_epochs = 15
 default_lr_decay = 0.90
 default_update_rule = "sgd_momentum"
 
 # set number of iterations
-num_iterations = 2
+num_iterations = 20
+
 
 def optimize_learning_rate():
 
@@ -35,11 +36,12 @@ def optimize_learning_rate():
     end = 1e-7
     incr = (end - start)/num_iterations
     optim_variable = start
-
-    # used to store current learning rate and solver history
-    learning_rates = []
-    val_acc_histories = []
-
+    
+    # append optimization info to file
+    title = "Learning rate optimizer with 256 hidden units and momentum 0.5 \n"
+    csv_format = "learning rate, best validation rate accuracy\n"
+    append_to_file(filename, title + csv_format)
+    
     # start optim
     for i in range(num_iterations):
         
@@ -57,15 +59,11 @@ def optimize_learning_rate():
 
 
         # append results of iteration
-        learning_rates.append(optim_variable)
-        val_acc_histories.append(solver.val_acc_history)    
-    
+        result = str.format('{0:6f}', optim_variable) + ", " + str.format('{0:6f}', solver.best_val_acc) + "\n"
+        append_to_file(filename, result)
+        
         # increment learning rate
         optim_variable += incr
-
-    plot_learning_rate_optimization(learning_rates, val_acc_histories)
-
-
 
         
 def optimize_momentum():

@@ -249,24 +249,6 @@ def save_net_info(folder, solver):
     plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
 
 #################### OPTIMIZERS #####################################
-def plot_learning_rate_optimization(learning_rates, val_acc_histories):
-    """
-    graphs the learning rates vs their validation accuracies at each epoch
-    """
-
-    # create and save plot    
-    plt.subplot(2, 1, 2)
-    plt.title('Optimizing learning rate')
-    for i in range(len(learning_rates)):
-        plt.plot(val_acc_histories[i],'-o', label = 'lr = ' + str.format("{:.2E}", learning_rates[i]))
-
-    plt.ylabel('validation rate accuracy')    
-    plt.xlabel('Epoch')
-    plt.legend(loc = 'lower right')
-    plt.gcf().set_size_inches(15, 12)
-    
-    plt.savefig("src/optimizers/outputs/grid_search/learning_rates.png", bbox_inches='tight')
-
 def append_to_file(filename, text, mode = "a"):
     """
     Appends text to given file
