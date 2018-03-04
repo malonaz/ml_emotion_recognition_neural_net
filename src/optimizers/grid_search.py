@@ -35,11 +35,6 @@ def optimize_learning_rate():
     end = 1e-7
     incr = (end - start)/num_iterations
     optim_variable = start
-    
-    # append optimization info to file
-    title = "Learning rate optimizer with 256 hidden units and momentum 0.5 \n"
-    csv_format = "learning rate, best validation rate accuracy\n"
-    append_to_file(filename, title + csv_format)
 
     # used to store current learning rate and solver history
     learning_rates = []
@@ -68,7 +63,7 @@ def optimize_learning_rate():
         # increment learning rate
         optim_variable += incr
 
-    plot_learning_rate_optimization(learning_rates, val_acc_histories):
+    plot_learning_rate_optimization(learning_rates, val_acc_histories)
 
 
 
@@ -188,5 +183,5 @@ def optimize():
     #optimize_momentum()
     #optimize_hidden_units()
 
-#optimize()
-generate_plots()    
+optimize()
+#generate_plots()    
