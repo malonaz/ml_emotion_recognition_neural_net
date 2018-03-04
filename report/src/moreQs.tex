@@ -1,0 +1,25 @@
+\begin{itemize}
+
+
+\item \textbf{A1}:\\
+  We cannot claim that one algorithm is a better learning algorithm than the other in general for multiple reasons.
+  We will address the issue of using the classification error rate as a means of measure performances between models later.
+  First we must address a more general issue with such a statement:
+  different types of data and learning objectives context require different types of learning algorithms.
+  Some algorithms are better suited for discrete classification, some other can output continuous data and some can even deal with 
+  time-sensitive data such as speech recognition.
+  Thus to say that a learning algorithm is better than another because of their respective performance on a single dataset is an uninformed mistake.\\
+  Now that we have clarified this, let us move on to the performance measure used to compare the algorithms.
+  Classification error rate is not enough.
+  You must evaluate whether the model is good enough to solve your problem.
+  What if your model is making decisions where you care more about it never being wrong, than about it being right?
+  Suddenly, looking at a classification error rate is of little help.
+  Instead, we would want to look at confusion matrices, precision and recall rates such that we may select a model with greater
+  precision rate.
+  Perhaps we would use an F-1 score weighted more heavily towards the precision rate.\\
+  To conclude, one must carefully determine which performance measure to use when comparing models, and perhaps then, one may make
+  a more specific claim on the performance of a model versus another, within the current context.
+  
+\item \textbf{A2}:\\
+
+\end{itemize}
