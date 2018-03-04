@@ -138,7 +138,7 @@ def get_FER2013_data():
     y_test   = np.array(labels[num_training:]).reshape((num_test, ))
 
     # process filenames
-    X_train, X_test = process_images(filenames, num_training, num_test)
+    X_train, X_test = process_images(filenames,"datasets/FER2013/", num_training, num_test)
     
                 
     # package into one list, after casting the y matrices to integers
@@ -151,7 +151,7 @@ def get_FER2013_data():
                         subtract_mean = True)
 
 
-def process_images(filenames, num_training, num_test = 0):
+def process_images(filenames, folder, num_training = 0, num_test = 0):
     """
     Processes all the images with the filenames.
     
@@ -165,12 +165,12 @@ def process_images(filenames, num_training, num_test = 0):
     - X_train: matrice containing the training examples as matrices
     - X_test: matrice containing the testing examples as matrices if any
     """
-    
+
     if num_test == 0:
         num_training = len(filenames)
         
     # now find out the size of an element using the first image element
-    filename = "datasets/FER2013/" + filenames[0]
+    filename = folder + filenames[0]
     image_matrix_shape = list(get_image(filename).shape)
     
     # used to contain the appropriate data. initialized to empty arrays
@@ -182,7 +182,7 @@ def process_images(filenames, num_training, num_test = 0):
     for i in range(num_training + num_test):
 
         # get image matrix
-        image_matrix = get_image("datasets/FER2013/" + filenames[i])
+        image_matrix = get_image(folder + filenames[i])
 
         # append the matrix and the label to the appropriate array
         if i < num_training:
