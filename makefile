@@ -1,5 +1,5 @@
 
-currentTest: test_random_search_optim
+currentTest: test_test
 
 
 # TESTS
@@ -39,6 +39,9 @@ test_random_search_optim:
 
 test_bayesian_optim:
 	python -m src.gaussian_process.gp
+
+test_test:
+	python -m src.test
 
 ### MANUAL 
 manual:
