@@ -258,15 +258,13 @@ def plot_learning_rate_optimization(folder, learning_rates, loss_histories):
     plt.subplot(2, 1, 2)
     plt.title('Accuracy')
     for i in range(len(learning_rates)):
-        plt.plot(loss_histories[i],'-o', label = 'lr = ' + str(learning_rates[i]))
+        plt.plot(loss_histories[i],'-o', label = 'lr = ' + str.format("{:.2E}", learning_rates[i]))
         
-    plt.plot(solver.val_acc_history,'-o', label = 'val')
-    plt.plot([0.5] * len(solver.val_acc_history), 'k--')
     plt.xlabel('Epoch')
     plt.legend(loc = 'lower right')
     plt.gcf().set_size_inches(15, 12)
     
-    plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
+    plt.savefig("src/optimizers/grid_search/learning_rates.png", bbox_inches='tight')
 
 def append_to_file(filename, text, mode = "a"):
     """
