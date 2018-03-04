@@ -43,6 +43,13 @@ the performance measure to be used to compare the performance of the different p
 \item \textbf{L2 vs dropout}:\\
   Let us now run a grid search to optimize L2 regularization,
   using the range (0.0, 1.0), to compare the performance against the dropout regularization.
+  The highest validation accuracy rate obtained was 37.08\% with 0.85 L2 regularization constant.
+  Please find below a plot of the validation accuracy rate at each L2 regularization rate tested.
+  \begin{figure}[!ht]
+    \centering
+        {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/L2_rate.png}}}
+  \end{figure}
+
   
 \item \textbf{Optimizing the topology of the layer}:\\
   Thus far, we have assumed that a neural net's hyperparameters are independent variables.
