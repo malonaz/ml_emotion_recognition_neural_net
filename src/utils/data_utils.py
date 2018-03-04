@@ -248,6 +248,25 @@ def save_net_info(folder, solver):
     
     plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
 
+#################### OPTIMIZERS #####################################
+def plot_learning_rate_optimization(folder, learning_rates, loss_histories):
+    """
+    graphs the learning rates vs their validation accuracies at each epoch
+    """
+
+    # create and save plot    
+    plt.subplot(2, 1, 2)
+    plt.title('Accuracy')
+    for i in range(len(learning_rates)):
+        plt.plot(loss_histories[i],'-o', label = 'lr = ' + str(learning_rates[i]))
+        
+    plt.plot(solver.val_acc_history,'-o', label = 'val')
+    plt.plot([0.5] * len(solver.val_acc_history), 'k--')
+    plt.xlabel('Epoch')
+    plt.legend(loc = 'lower right')
+    plt.gcf().set_size_inches(15, 12)
+    
+    plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
 
 def append_to_file(filename, text, mode = "a"):
     """
@@ -354,3 +373,4 @@ def get_f_measures(recall_rates, precision_rates, alpha = 1):
 
         
     return f1_measures
+
