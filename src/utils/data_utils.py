@@ -246,7 +246,7 @@ def save_net_info(folder, solver):
     plt.legend(loc = 'lower right')
     plt.gcf().set_size_inches(15, 12)
     
-    plt.savefig("nets/overfit_net/diagrams.png", bbox_inches='tight')
+    plt.savefig(folder + "/diagrams.png", bbox_inches='tight')
 
 #################### OPTIMIZERS #####################################
 def append_to_file(filename, text, mode = "a"):
