@@ -21,5 +21,19 @@
   a more specific claim on the performance of a model versus another, within the current context.
   
 \item \textbf{A2}:\\
+  Let us begin by discussing the changes we would need to make to include new classes in a neural network.
+  Assuming we have already determined the optimal hyperparameters to train on the original set,
+  adding a new class would be as simple as changing
+  the output layer's dimension to match the total number of classes in the extended dataset.
+  We could retrain the entire neural network, but first we could try using the exisiting neural network and continue its training
+  using the new dataset.
+  If the performance satifies our objectives, this would be the cheapest option computationally.
 
+  For the decision trees classifier, we would need to add a new tree for each new class.
+  We could follow a similar train of thought as for the neural net and simply train new trees for each new class
+  and simply add these trees to the classifier.
+  Yet, this would be a lot less effective for decision trees because the old trees trained on the original dataset would not be trained
+  to reject examples of the new classes.
+  In order to accomodate new classes, I would retrain all trees on the new dataset.
+  
 \end{itemize}
