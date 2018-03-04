@@ -151,7 +151,7 @@ def get_FER2013_data():
                         subtract_mean = True)
 
 
-def process_images(filenames, folder, num_training = 0, num_test = 0):
+def process_images(filenames, folder = "", num_training = 0, num_test = 0):
     """
     Processes all the images with the filenames.
     
