@@ -65,6 +65,48 @@ def optimize_learning_rate():
         # increment learning rate
         optim_variable += incr
 
+
+def get_optimal_learning_rate_info():
+
+    # set data
+    data = fer2013_data
+    
+    # optimal learning rate
+    optimal_learning_rate = 6.5e-5
+    
+    solver = train_net(data            = data,
+                       num_classes     = default_num_classes,
+                       hidden_dims     = [default_hidden_units],
+                       input_dim       = 48 * 48 * 3,
+                       learning_rate   = optimal_learning_rate,
+                       update_rule     = default_update_rule,
+                       momentum        = default_momentum,
+                       num_epochs      = default_num_epochs,
+                       batch_size      = default_batch_size,
+                       lr_decay        = default_lr_decay)
+    
+        
+    # test the net and save its training, validation and testing classification errors.
+    
+    # get training
+    train_err = str.format("{0:.2f}", (1 - solver.check_accuracy(data["X_train"], data["y_train"])) * 100) + "\%"
+    
+    # get validation 
+    val_err = str.format("{0:.2f}", (1 - solver.best_val_acc) * 100) + "\%"
+    
+    # get testing 
+    test_err = str.format("{0:.2f}", (1 - solver.check_accuracy(data["X_test"], data["y_test"])) * 100) + "\%"
+    
+    text = "Classification error rates: " + train_err + " training, " + val_err + " validation  \& " + test_err + " testing."
+    
+    # write to file
+    append_to_file("nets/optimal_learning_rate/info.tex", text, mode =  "w")
+    
+    # save net info
+    save_net_info("nets/optimal_learning_rate", solver)
+    
+
+        
         
 def optimize_momentum():
 
@@ -181,5 +223,8 @@ def optimize():
     #optimize_momentum()
     #optimize_hidden_units()
 
-optimize()
+#optimize()
 #generate_plots()    
+
+
+get_optimal_learning_rate_info()
