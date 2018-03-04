@@ -256,15 +256,16 @@ def plot_learning_rate_optimization(learning_rates, val_acc_histories):
 
     # create and save plot    
     plt.subplot(2, 1, 2)
-    plt.title('Accuracy')
+    plt.title('Optimizing learning rate')
     for i in range(len(learning_rates)):
         plt.plot(val_acc_histories[i],'-o', label = 'lr = ' + str.format("{:.2E}", learning_rates[i]))
-        
+
+    plt.ylabel('validation rate accuracy')    
     plt.xlabel('Epoch')
     plt.legend(loc = 'lower right')
     plt.gcf().set_size_inches(15, 12)
     
-    plt.savefig("src/optimizers/grid_search/learning_rates.png", bbox_inches='tight')
+    plt.savefig("src/optimizers/outputs/grid_search/learning_rates.png", bbox_inches='tight')
 
 def append_to_file(filename, text, mode = "a"):
     """
