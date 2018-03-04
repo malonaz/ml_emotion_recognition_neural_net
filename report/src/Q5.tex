@@ -26,19 +26,16 @@ the performance measure to be used to compare the performance of the different p
 
   The optimal learning rate was found at 6.5e-5.
   Please find below a plot of the training loss of our model, as well as its classification error on each set.
-  \include*{../nets/fer2013_net/learning_rate_optim_info}
+  \include*{../nets/optimal_learning_rate/info}
+
   \begin{figure}[!ht]
-      \centering
-      {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/learning_rate.png}}}
+    \centering
+        {{\includegraphics[scale = 0.32]{../nets/optimal_learning_rate/diagrams.png}}}  
   \end{figure}
-
   
-
-
-  
-
   
 \item \textbf{Using dropout}\\
+  Now, we ran another grid search for dropout in the range (0.0, 1.0) to see if there was any improvement in the validation performance.
 
 
 \item \textbf{L2 vs dropout}:\\
