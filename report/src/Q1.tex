@@ -26,7 +26,7 @@ Please assume the following mathematical notations for the rest of the report, u
      While we are not directly interested in how $o_j$ changes with respect to its inputs, we compute it for other layers that are.
      Remember that the $I$ inputs of a neuron $j$ are actually the outputs of the previous layers' neurons.
      Using the chain rule, the previous layer will use $\frac{\partial o_j}{\partial x_i}$
-     to compute its backward affine transformation for the previous layers.
+     to compute its backward affine transformation gradients.
 
    \item \textbf{ReLU activation function}
    
@@ -43,7 +43,7 @@ Please assume the following mathematical notations for the rest of the report, u
      The ReLU function outputs the neuron's sum if it is greater than 0 or simply outputs 0.
      
      *Note that only hidden layers go through ReLU.
-     Output layer's neurons always ``fire'' and output their sum or ``score''.
+     Output layer neurons always ``fire'' and output their sum or ``score''.
 
      \underline{Backward pass}: $\frac{\partial ReLU(o_j)}{\partial o_j} = 1$ if $o_j < 0$, else 0.\\
      This partial derivative is self-explanatory.
