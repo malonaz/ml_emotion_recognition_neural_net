@@ -22,7 +22,7 @@ and dropping a neuron if $x < p$.
 
 We only use dropout when training a net and as such, during training, a neuron's expected input will be scaled down by $q$ such that $o_i = q\sum_{i=1}^K x_i$, where $x_i$ is the neuron's $i^{th}$ input.
 Thus, during testing, a neuron will be overloaded as the sum of its inputs will be unexpectedly large.
-A solution to this problem could be to scale activation outputs by the $q$ at test time..
+A solution to this problem could be to scale activation outputs by the keep rate $q$ at test time..
 Yet, in the spirit of simplification,
 we can instead scale activation outputs by the inverse keep rate $\frac{1}{q}$ during the training phase.
 
