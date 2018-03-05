@@ -1,10 +1,9 @@
-
 Every hidden layer goes through an affine transformation, followed by the ReLU activation function.
-The output layer on the other hand,  goes through an affine transformation, outputs its scores into a loss function.
-A loss function allows us to quantity how good our neural net is at correctly classifying data points in a dataset.
+The output layer on the other hand,  goes through an affine transformation, then outputs its scores into a loss function.
+A loss function allows us to quantify how good our neural net is at correctly classifying data points in a dataset.
 While there exists various loss functions, in this coursework, we use the softmax classifier.
 The softmax classifier is particularly useful because it computes a probability distribution over the net's classes, for each data point in the current batch.
-Using this distribution, it computes a cross-entropy loss over the entire batch.
+Using this distribution, it computes the cross-entropy loss over the entire batch.
 Let us take a closer look at how it works.
 
 \underline{Forward pass}:
@@ -61,8 +60,8 @@ The second partial differential is trickier as there are two cases:
    $ = \frac{p_i}{N} $ \\   
 \end{enumerate}
 
-Thus, for each partial $\frac {\partial Loss}{\partial o_i}$, we return $p_i - 1$ if $o_i$ is the output
-of a neuron that represents the correct class, and we return $p_i$ otherwise.
+Thus, for each partial $\frac {\partial Loss}{\partial o_i}$, we return $\frac{p_i - 1}{N}$ if $o_i$ is the output
+of a neuron that represents the correct class, and we return $\frac{p_i}{N}$ otherwise.
 
 
 
