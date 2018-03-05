@@ -1,17 +1,18 @@
 Model in hand, we are finally ready to start tuning its hyperparameters on a dataset.
 Where to start?
-First, we processed the FER2013 dataset, with mean image substraction, and 1200 training set.
+First, we processed the FER2013 dataset, with mean image substraction, and a 1200 images validation set.
 Then, we define the classification accuracy on the validation set as
 the performance measure to be used to compare the performance of the different parameters on the validation set.
 
-\begin{itemize}[topsep=-13pt]
+\begin{itemize}[topsep=-10pt]
 \item \textbf{Select a reasonable network architecture}:\\
-  After some hand-tuning of the hidden layer size, we decided to start with a single hidden layer of 512 hidden units.
+  After some hand-tuning of the hidden layer size, we decided to start with a single hidden layer of 256 hidden units.
   It seemed a reasonable tradeoff between complexity and training efficiency, and less likely to overfit.
   We set our model's momentum to 0.9 and its learning rate to a relatively small 1e-6
   since the magnitude of the gradient will be larger due to momentum.
-  We set the batch size to a 100 and used 15 epochs.
-  We added the following stopping criterion: stop if the error in the validation set does not decrease for three consecutive cycles.
+  We trained for 15 epochs with batch size of a 100.
+  We added the following stopping criterion: stop if the error in the validation set does not decrease for three consecutive cycles,
+  and stop if the loss diverges to ``nan''.
   This will help increase our training efficiency.
 
 \item \textbf{Optimize the learning rate}:\\
@@ -37,23 +38,26 @@ the performance measure to be used to compare the performance of the different p
 \item \textbf{Using dropout}\\
   Now, keeping our optimal learning rate of 6.5e-5,
   we ran another grid search for dropout in the range (0.0, 1.0) to see if there was any improvement in the validation performance.
-  Please find below a plot of the validation accuracy rate at each dropout rate examined.
-  \begin{figure}[!ht]
-    \centering
-        {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/dropout_rate.png}}}
-  \end{figure}
-
+  Please find in the next section a plot of the validation accuracy rate at each dropout rate examined.
+  As you can see, there is no improvement when using dropout, or perhaps the dropout rate is not independent with other hyperparameters
+  such as the hidden layer's size or the momentum.
+  Hence, it is possible that introducing a dropout rate requires us to recalibrate the learning rate.
+  More on this in the last section!
 
 \item \textbf{L2 vs dropout}:\\
   Let us now run a grid search to optimize L2 regularization,
   using the range (0.0, 1.0), to compare the performance against the dropout regularization.
   The highest validation accuracy rate obtained was 37.08\% with 0.85 L2 regularization constant.
-  Please find below a plot of the validation accuracy rate at each L2 regularization rate tested.
+  Please find below a plot of the validation accuracy rate at each L2 regularization rate tested, as well as for the dropout rate.
+  It seems that the L2 rate is performing better than the dropout rate.
+  In fact, our model is doing better with an L2 regularization constant of 0.8 than without any.
+  
   \begin{figure}[!ht]
     \centering
-        {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/L2_rate.png}}}
-  \end{figure}
-
+    \subfloat[Optimizing the dropout rate]{{\includegraphics[scale = 0.40]{../src/optimizers/outputs/grid_search/dropout_rate.png}}}
+    \qquad
+    \subfloat[Optimizing the L2 rate]{{\includegraphics[scale = 0.40]{../src/optimizers/outputs/grid_search/L2_rate.png}}}
+\end{figure}
   
 \item \textbf{Optimizing the topology of the layer}:\\
   Thus far, we have assumed that a neural net's hyperparameters are independent variables.
@@ -64,7 +68,6 @@ the performance measure to be used to compare the performance of the different p
   We have found the optimal parameters to be:
   
 \item \textbf{Performance metrics of network trained with the optimal set of parameters}:\\
-  
 
   
 \item \textbf{How to retrieve our best trained model}:\\
