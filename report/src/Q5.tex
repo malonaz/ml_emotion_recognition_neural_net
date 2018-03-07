@@ -78,7 +78,25 @@ the performance measure to be used to compare the performance of the different p
   we begin by presenting our model's classification error rates on each set.
   \include*{../nets/optimal_net/info}
   we now set out to test this model on the FER2013's testing set.
-  Please find below a confusion matrix, precision and recall rates, as well as F1 scores.
+  Please find below a confusion matrix, precision and recall rates, as well as F1 scores per class.
+  \begin{figure}[h]
+  \begin{center}
+    \caption{Confusion Matrix for test dataset}
+    \begin{tabular}{ | l || c | c | c | c | c | c | c |}
+    \hline
+          & Angry 1 & Disgust 2 & Fear 3 & Happy 4 & Sad 5 & Surprise 6 & Neutral 7 \\ \hline \hline
+        Angry 1 & 95 & 9 & 4 & 8 & 14 & 2 & 3 \\ \hline
+        Disgust 2 & 14 & 147 & 3 & 8 & 13 & 12 & 4 \\ \hline
+        Fear 3 & 6 & 8 & 76 & 3 & 7 & 19 & 5\\ \hline
+        Happy 4 & 4 & 10 & 3 & 174 & 13 & 10 & 6 \\ \hline
+        Sad 5 & 14 & 20 & 9 & 6 & 76 & 7 & 8\\ \hline
+        Surprise 6 & 3 & 4 & 15 & 6 & 11 & 167 & 9 \\ \hline
+        Neutral 7 & 3 & 4 & 15 & 6 & 11 & 167  & 23\\ \hline
+    \end{tabular}
+    \label{fig:confusionMatrix}
+\end{center}
+\end{figure}
+
 
 
   
