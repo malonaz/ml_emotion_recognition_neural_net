@@ -17,7 +17,7 @@ the performance measure to be used to compare the performance of the different p
 
 \item \textbf{Optimize the learning rate}:\\
   Our experience hand-tuning the network as mentioned gave us a better idea of the range of learning rates we should test.
-  We decided to initiate a grid search (of one parameter) for the learning rate in the range (1e-7, 1e-4).
+  We decided to initiate a grid search (of one parameter) for the learning rate in the range (1e-7, 1e-3).
   using the parameters found through hand-tuning in the previous section.
   Please find a below a graph showing the best validation accuracy for each learning rate tested in the range.
   \begin{figure}[!ht]
@@ -50,7 +50,8 @@ the performance measure to be used to compare the performance of the different p
   The highest validation accuracy rate obtained was 37.08\% with 0.85 L2 regularization constant.
   Please find below a plot of the validation accuracy rate at each L2 regularization rate tested, as well as for the dropout rate.
   It seems that the L2 rate is performing better than the dropout rate.
-  In fact, our model is doing better with an L2 regularization constant of 0.8 than without any.
+  In fact, as we increase the dropout rate from 0.0 to 1.0, we see an almost constant drop in performance.
+  On the other hand, our model is doing better with an L2 regularization constant of 0.8 than without any.
   
   \begin{figure}[!ht]
     \centering
@@ -63,12 +64,28 @@ the performance measure to be used to compare the performance of the different p
   Thus far, we have assumed that a neural net's hyperparameters are independent variables.
   Yet our experiences thus far have shown us that this is a false assumption.
   To optimize the topology of the layer, we have instead decided to run a random search,
-  letting each hyperparameter be randomly drawn (within its respective range as defined in previous sections).
-  This removes our false assumption of hyperparameters variable independence.
-  We have found the optimal parameters to be:
+  letting every hyperparameter be randomly drawn (within its respective range as defined in previous sections).
+  This removes the previous false assumption of hyperparameter variable independence.
+  Given random search's potential for parallel computing, we used Imperial's \emph{condor} setup to send our random search program
+  to all computers in the lab, training over 20,000 nets.
+  We have found the optimal set of parameters to be:\\
+  Please find below plots of accuracy and loss generated
+  while training a network on this optimal set of parameters.
+
   
 \item \textbf{Performance metrics of network trained with the optimal set of parameters}:\\
+  Having trained a network on the optimal set of parameters in the previous section,
+  we begin by presenting our model's classification error rates on each set.
+  \include*{../nets/optimal_net/info}
+  we now set out to test this model on the FER2013's testing set.
+  Please find below a confusion matrix, precision and recall rates, as well as F1 scores.
 
+
+  
+
+  
+  
+  
   
 \item \textbf{How to retrieve our best trained model}:\\
   You may retrieve and test our best trained model using our test.py file.
