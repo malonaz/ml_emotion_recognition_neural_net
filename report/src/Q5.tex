@@ -30,6 +30,7 @@ the performance measure to be used to compare the performance of the different p
   \include*{../nets/optimal_learning_rate/info}
 
   \begin{figure}[!ht]
+    \caption{Optimal learning rate diagrams}
     \centering
         {{\includegraphics[scale = 0.32]{../nets/optimal_learning_rate/diagrams.png}}}  
   \end{figure}
@@ -67,17 +68,23 @@ the performance measure to be used to compare the performance of the different p
   letting every hyperparameter be randomly drawn (within its respective range as defined in previous sections).
   This removes the previous false assumption of hyperparameter variable independence.
   Given random search's potential for parallel computing, we used Imperial's \emph{condor} setup to send our random search program
-  to all computers in the lab, training over 20,000 nets.
+  to all computers in the lab, training over 40,000 nets.
   We have found the optimal set of parameters to be:\\
+  Architecture: 2 hidden layers, of 316 and 100 hidden units respectively.\\
+  Hyperparameters: 0.0013 learning rate, sdg with 0.93 momentum, 0.15 dropout rate, 25 epochs with a batch size of 24 and 0.91 learning rate decay.\\
   Please find below plots of accuracy and loss generated
   while training a network on this optimal set of parameters.
+  \begin{figure}[!ht]
+    \centering
+        {{\includegraphics[scale = 0.32]{../nets/optimal_net/diagrams.png}}}  
+  \end{figure}
 
   
 \item \textbf{Performance metrics of network trained with the optimal set of parameters}:\\
   Having trained a network on the optimal set of parameters in the previous section,
   we begin by presenting our model's classification error rates on each set.
   \include*{../nets/optimal_net/info}
-  we now set out to test this model on the FER2013's testing set.
+  We now set out to test this model on the FER2013's testing set.
   Please find below a confusion matrix, precision and recall rates, as well as F1 scores per class.
   \begin{figure}[h]
   \begin{center}
@@ -97,7 +104,21 @@ the performance measure to be used to compare the performance of the different p
 \end{center}
 \end{figure}
 
-
+  The above confusion matrix reveals interesting aspects of the FER2013 dataset.
+  It appears the network has trouble identifying Fear correctly.
+  In addition, the network misclassifies around 20\% of Angry examples as Neutral and 16\% of the Angry examples as Happy.
+  Similarly, 16\% of Sad examples get classified as Angry.
+  Perhaps humans struggle to objectively label facial emotions.
+  Poor consistence of labels could induce the net in error.
+  It is also possible that humans simply don't display a single emotion at a time,
+  causing both Angry and Sad emotions to confuse the network.
+  These metrics are not intuitively read from the confusion matrix.
+  The confusion matrix however, does reveal that there are only 56 examples of the Disgust emotion, versus 500+ for others.
+  This is an issue, as with very little data points, our measures such as precision rate, or recall rates are subject to high variance.
+  Furthermore, a look into the training data will show that the lack of Digust examples is also present in the training data.
+  Let us look at the recall, precision and F1-score,
+  to ascertain the impact such an under representation of a class can have on the model's predictive power.
+  
 \begin{figure}[h]
 \begin{center}
 \caption{Recall and Precision Rates for test dataset}
@@ -111,7 +132,6 @@ the performance measure to be used to compare the performance of the different p
     \label{fig:averageRecall}
 \end{center}
 \end{figure}
-
 
 
 
