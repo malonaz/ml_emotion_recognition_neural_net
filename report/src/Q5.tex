@@ -127,20 +127,21 @@ the performance measure to be used to compare the performance of the different p
          & Angry 1 & Disgust 2 & Fear 3 & Happy 4 & Sad 5 & Surprise 6 & Neutral 7 \\ \hline \hline
         Avg Recall(\%) & 34.69 & 25.00 & 28.43 & 60.67 & 30.32 & 55.66 & 40.53 \\ \hline
         Avg Precision(\%) & 30.98 & 41.18 & 32.19 & 56.98 & 36.26 & 61.44 & 34.21 \\ \hline
-        F\textsubscript{1} Measure(\%) & 32.73 & 31.11 & 30.19 & 58.77 & 33.03 & 58.41 & 37.10 \\ \hline
+        F\textsubscript{1} Score(\%) & 32.73 & 31.11 & 30.19 & 58.77 & 33.03 & 58.41 & 37.10 \\ \hline
     \end{tabular}
     \label{fig:averageRecall}
 \end{center}
 \end{figure}
 
+Some of the patterns deduced from the confusion matrix take more solid shape in the table above.
+Surprisingly, it is not the underpresented Disgust emotion that displays the lowest $F_1$ score, but rather Fear.
+This is a good time to remind ourselves that the statistical confidence in Disgust's metrics is very low relative to other metrics.
+However, we can still observe that the network notable struggles to to recall Disgust examples, which is understandable given that
+few Disgust examples were provided in the training set.
+In the decision tree coursework, we had conjectured that Happy was the most identifiable emotion.
+Faith in this conjecture is strengthened upon examining this coursework's results.
+It seems that Happiness impacts our facial expressions more significantly than any other emotion.
 
-
-  
-
-  
-  
-  
-  
 \item \textbf{How to retrieve our best trained model}:\\
   You may retrieve and test our best trained model using our test.py file.
   Thank you.
