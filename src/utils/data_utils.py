@@ -3,7 +3,6 @@ from six.moves import cPickle as pickle
 import numpy as np
 import os
 from scipy.misc import imread 
-#from imread import imread
 import platform
 import matplotlib.pyplot as plt
 
