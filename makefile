@@ -51,3 +51,8 @@ pdf:
 	pandoc manuals/assignment2_advanced.md --pdf-engine=xelatex -o manuals/assignment2_advanced.pdf -V geometry:margin=1in --variable url	     color=cyan --template eisvogel --listings
 
 
+
+### ZIP
+
+zip:
+	zip assignment2_advanced_code_team_11.zip ./*
