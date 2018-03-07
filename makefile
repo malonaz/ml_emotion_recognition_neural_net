@@ -52,4 +52,4 @@ pdf:
 ### ZIP
 
 zip:
-	zip assignment2_advanced_code_team_11.zip ./*
+	zip -r assignment2_advanced_code_team_11.zip ./* -x "./datasets/*" "./env/*" "./*.zip"
