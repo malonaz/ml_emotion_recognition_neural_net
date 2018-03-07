@@ -20,3 +20,5 @@ learning rate, best validation rate accuracy
 0.000015, 0.321667
 0.000010, 0.325833
 0.000005, 0.296667
+Learning rate optimizer with 256 hidden units and momentum 0.5 
+learning rate, best validation rate accuracy

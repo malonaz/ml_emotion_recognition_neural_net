@@ -294,7 +294,7 @@ def get_confusion_matrix(predictions, labels):
     num_examples = labels.shape[0]
     
     # create a 6 by 6 matrix filled with 0s
-    confusion_matrix = zeros((num_classes, num_classes), int)
+    confusion_matrix = np.zeros((num_classes, num_classes), int)
 
     for i in range(num_examples):
         
@@ -308,13 +308,14 @@ def get_confusion_matrix(predictions, labels):
     return confusion_matrix
 
 
+
 def get_recall_precision_rates(confusion_matrix):
     """ Computes the recall and precision rates for each class and returns
         a list [recall rates, precision rates]. """
 
     # used to store the recall and precision rates
-    recall_rates = zeros(6, float)
-    precision_rates = zeros(6, float)
+    recall_rates = np.zeros(confusion_matrix.shape[0], float)
+    precision_rates = np.zeros(confusion_matrix.shape[0], float)
     
     for i in range(confusion_matrix.shape[0]):
 
@@ -340,7 +341,7 @@ def get_f_measures(recall_rates, precision_rates, alpha = 1):
     """ Computes the F_a measures of all 6 recall & precision rates duos and returns it. """
 
     # used to store f1 measures
-    f1_measures = zeros(6, float)
+    f1_measures = np.zeros(recall_rates.shape[0], float)
 
     for i in range(len(recall_rates)):
 
