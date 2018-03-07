@@ -37,9 +37,6 @@ test_grid_search_optim:
 test_random_search_optim:
 	python -m src.optimizers.random_search
 
-test_bayesian_optim:
-	python -m src.gaussian_process.gp
-
 test_test:
 	python -m src.test
 
