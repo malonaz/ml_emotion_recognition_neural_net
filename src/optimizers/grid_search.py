@@ -153,7 +153,7 @@ def get_optimal_net_info():
     X_test, y_test = data["X_test"], data["y_test"]
 
     # get the prediction vector
-    predictions = solver.model.loss(X_test).argmax(axis = 1) + 1
+    predictions = solver.model.loss(X_test).argmax(axis = 1)
 
     # get confusion matrix and save it
     confusion_matrix = get_confusion_matrix(predictions, y_test)
@@ -169,7 +169,7 @@ def get_optimal_net_info():
     # put recall, precision and F-1 score together and save the composite matrix
     metrics = np.empty((3, recall_rates.shape[0]))
     metrics[0], metrics[1], metrics[2] = recall_rates, precision_rates, f_measures
-    np.savetxt("nets/optimal_net/metrics.tex", metrics, delimiter = ' 7', fmt = '%1.3f', newline = ' \\\\\n')
+    np.savetxt("nets/optimal_net/metrics.tex", metrics, delimiter = ' &', fmt = '%1.3f', newline = ' \\\\\n')
     
 
 def optimize_dropout():
