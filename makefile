@@ -3,7 +3,7 @@ currentTest: test_test
 
 
 # TESTS
-all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet test_overfit_fcnet test_train_fcnet test_optimize_hyperparameters test_bayesian_optim
+all: test_linear_layer test_relu_layer test_dropoutLayer test_classifiers test_fcnet 
 
 
 
