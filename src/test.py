@@ -3,9 +3,6 @@ from src.utils.data_utils import *
 import pickle
 
 
-data = load_data()
-
-
 def test_fer_model(img_folder, model = "nets/optimal_net/pickled_net.p"):
     """
     Given a folder with images, load the images (in lexico-graphical ordering
@@ -47,12 +44,13 @@ def test_fer_model(img_folder, model = "nets/optimal_net/pickled_net.p"):
     # unpickle model
     model = load_pickle(open(model, "rb"))
 
+    # get model's score on X 
+    scores = model.loss(X_test)
+
     # get prediction vector using argmax
-    preds = model.loss(X_test).argmax(axis = 1)
+    preds = scores.argmax(axis = 1)
+
     
-
-
-
     return preds
 
 test_fer_model("datasets/FER2013/Test")
