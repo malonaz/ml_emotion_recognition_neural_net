@@ -303,7 +303,7 @@ def get_confusion_matrix(predictions, labels):
         predicted = predictions[i]
 
         # increment the appropriate 
-        confusion_matrix[actual - 1][predicted - 1] += 1
+        confusion_matrix[actual][predicted] += 1
     
     return confusion_matrix
 
