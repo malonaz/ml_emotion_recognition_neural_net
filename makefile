@@ -1,5 +1,6 @@
 
-currentTest: test_test
+
+currentTest: deep_net #test_test
 
 
 # TESTS
@@ -39,6 +40,9 @@ test_random_search_optim:
 
 test_test:
 	python -m src.test
+
+deep_net:
+	python -m src.cnn
 
 ### MANUAL 
 manual:
