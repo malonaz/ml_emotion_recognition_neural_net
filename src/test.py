@@ -52,5 +52,3 @@ def test_fer_model(img_folder, model = "nets/optimal_net/pickled_net.p"):
 
     
     return preds
-
-test_fer_model("datasets/FER2013/Test")
