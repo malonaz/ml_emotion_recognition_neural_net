@@ -3,7 +3,7 @@ from src.utils.data_utils import *
 import pickle
 
 
-def test_fer_model(img_folder, model = "nets/optimal_net/pickled_net.p"):
+def test_fer_model(img_folder, model_filename = "nets/optimal_net/pickled_net.p"):
     """
     Given a folder with images, load the images (in lexico-graphical ordering
     according to the filename of the images) and your best model to predict
@@ -42,7 +42,7 @@ def test_fer_model(img_folder, model = "nets/optimal_net/pickled_net.p"):
 
     ### TEST MODEL
     # unpickle model
-    model = load_pickle(open(model, "rb"))
+    model = load_pickle(open(model_filename, "rb"))
 
     # get model's score on X 
     scores = model.loss(X_test)
