@@ -10,7 +10,7 @@ the performance measure to be used to compare the performance of the different p
   It seemed a reasonable tradeoff between complexity and training efficiency, and less likely to overfit.
   We set our model's momentum to 0.9 and its learning rate to a relatively small 1e-6
   since the magnitude of the gradient will be larger due to momentum.
-  We trained for 15 epochs with batch size of a 100.
+  We trained for 15 epochs with batch size of 100.
   We added the following stopping criterion: stop if the error in the validation set does not decrease for three consecutive cycles,
   and stop if the loss diverges to ``nan''.
   This will help increase our training efficiency.
@@ -19,7 +19,7 @@ the performance measure to be used to compare the performance of the different p
   Our experience hand-tuning the network as mentioned gave us a better idea of the range of learning rates we should test.
   We decided to initiate a grid search (of one parameter) for the learning rate in the range (1e-7, 1e-3),
   using the parameters found through hand-tuning in the previous section.
-  Please find a below a graph showing the best validation accuracy for each learning rate tested in the range.
+  Please find below a graph showing the best validation accuracy for each learning rate tested in the range.
   \begin{figure}[!ht]
       \centering
       {{\includegraphics[scale = 0.50]{../src/optimizers/outputs/grid_search/learning_rate.png}}}

@@ -30,7 +30,7 @@ we can instead scale activation outputs by the inverse keep rate $\frac{1}{q}$ d
 \item \textbf{Backward pass}: $\frac{\partial dropout(o_i)}{\partial o_i} = 0 $ if neuron $i$ is dropped, otherwise 1.
 
   At a high level, the backward pass is only concerned with computing the partial differential of the forward pass' loss with respect to the
-  learnable parameters, namely: the weights and bias of each neurons.
+  learnable parameters, namely: the weights and bias of each neuron.
   Yet, at a lower level, we need to compute differentials such as the one described in the equation above as they will be needed
   by previous layers.
 
