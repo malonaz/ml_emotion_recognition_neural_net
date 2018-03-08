@@ -56,48 +56,8 @@ def test_fer_model(img_folder, model_filename = "nets/deep_net/cnn_model.h5"):
     preds = scores.argmax(axis = 1)
     mapping = [1, 2, 3, 4, 5, 6, 0]
     for i in range(len(preds)):
-        preds[i] = mapping2[preds[i]]
+        preds[i] = mapping[preds[i]]
         
-
-    y_test = data["y_test"]
-    acc = np.mean(y_test == preds)
-    
-    # get training
-    train_err = str.format("{0:.2f}", (1 - .87) * 100) + "\%"
-    
-    # get validation 
-    val_err = str.format("{0:.2f}", (1 - 0.5775) * 100) + "\%"
-    
-    # get testing 
-    test_err =  str.format("{0:.2f}", (1 - acc) * 100) + "\%"
-    
-    text = "Classification error rates: " + train_err + " training, " + val_err + " validation  \& " + test_err + " testing."
-    
-    # write to file
-    append_to_file("nets/deep_net/info.tex", text, mode =  "w")
-
-    
-    ### now save confusion matrix on test data
-
-    # get confusion matrix and save it
-    confusion_matrix = get_confusion_matrix(preds, y_test)
-    print (confusion_matrix)
-
-    np.savetxt("nets/deep_net/confusion_matrix.tex", confusion_matrix, delimiter = ' & ', fmt = '%i', newline =' \\\\\n')
-
-    # get recall and precision rates
-    recall_rates, precision_rates = get_recall_precision_rates(confusion_matrix)
-    
-    # get F-1 score
-    f_measures = get_f_measures(recall_rates, precision_rates)
-
-    # put recall, precision and F-1 score together and save the composite matrix
-    metrics = np.empty((3, recall_rates.shape[0]))
-    metrics[0], metrics[1], metrics[2] = recall_rates, precision_rates, f_measures
-    np.savetxt("nets/deep_net/metrics.tex", metrics, delimiter = ' &', fmt = '%1.3f', newline = ' \\\\\n')
     
     return preds
 
-
-
-test_fer_model("datasets/FER2013/Test")
