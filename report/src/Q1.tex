@@ -4,7 +4,7 @@ Instead of processing one data point at a time,
 we have implemented our neural net to process data points in batches.
 As such, the forward pass takes in N examples in a matrix \emph{X}, where each row contains a data point of dimension D.
 Let us take a closer look at the neural net's inner workings, assuming it has already been trained.
-Note that although all the math involved in this coursework is in vector form, I find it more intuitive to illustrate my explanations
+Note that although all the math involved in this coursework is in vector form, we find it more intuitive to illustrate my explanations
 using scalar equations.
 Please assume the following mathematical notations for the rest of the report, unless stated otherwise.\\
 \- - $w_{ij}$ is the weight from neuron $i$ to neuron $j$.\\
@@ -45,7 +45,7 @@ Please assume the following mathematical notations for the rest of the report, u
      *Note that only hidden layers go through ReLU.
      Output layer neurons always ``fire'' and output their sum or ``score''.
 
-     \underline{Backward pass}: $\frac{\partial ReLU(o_j)}{\partial o_j} = 1$ if $o_j < 0$, else 0.\\
+     \underline{Backward pass}: $\frac{\partial ReLU(o_j)}{\partial o_j} = 1$ if $o_j > 0$, else 0.\\
      This partial derivative is self-explanatory.
      
 \end{itemize}
