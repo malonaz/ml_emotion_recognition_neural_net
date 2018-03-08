@@ -1,0 +1,51 @@
+For this question, we have decided to use the Tensorflow learning library and Kera's API.
+
+\begin{itemize}
+
+\item \textbf{Performance of the network with the optimal set of parameters}:
+  Having trained a network on the optimal set of parameters,
+  we begin by presenting our model's classification error rates on each set.
+  \include*{../nets/deep_net/info}
+  We now set out to test this model on the FER2013's testing set.
+  Please find below a confusion matrix, precision and recall rates, as well as F1 scores per class.
+  \begin{figure}[h]
+  \begin{center}
+    \caption{Confusion Matrix for test dataset}
+    \begin{tabular}{ | l || c | c | c | c | c | c | c |}
+    \hline
+          & Angry 1 & Disgust 2 & Fear 3 & Happy 4 & Sad 5 & Surprise 6 & Neutral 7 \\ \hline \hline
+        Angry 1 & 162 & 2 & 47 & 77 & 66 & 18 & 95 \\ \hline
+        Disgust 2 & 11 & 14 & 5 & 10 & 8 & 1 & 7 \\ \hline
+        Fear 3 & 67 & 2 & 141 & 74 & 79 & 41 & 92 \\ \hline
+        Happy 4 & 76 & 1 & 56 & 543 & 81 & 33 & 105 \\ \hline
+        Sad 5 & 104 & 7 & 81 & 108 & 198 & 20 & 135 \\ \hline
+        Surprise 6 & 27 & 2 & 55 & 39 & 22 & 231 & 39 \\ \hline
+        Neutral 7 & 76 & 6 & 53 & 102 & 92 & 32 & 246 \\ \hline
+    \end{tabular}
+    \label{fig:confusionMatrix}
+\end{center}
+\end{figure}
+
+  
+\begin{figure}[h]
+\begin{center}
+\caption{Recall and Precision Rates for test dataset}
+\begin{tabular}{ | l || c | c | c | c | c | c | c |}
+  \hline
+         & Angry 1 & Disgust 2 & Fear 3 & Happy 4 & Sad 5 & Surprise 6 & Neutral 7 \\ \hline \hline
+        Avg Recall(\%) & 34.69 & 25.00 & 28.43 & 60.67 & 30.32 & 55.66 & 40.53 \\ \hline
+        Avg Precision(\%) & 30.98 & 41.18 & 32.19 & 56.98 & 36.26 & 61.44 & 34.21 \\ \hline
+        F\textsubscript{1} Score(\%) & 32.73 & 31.11 & 30.19 & 58.77 & 33.03 & 58.41 & 37.10 \\ \hline
+    \end{tabular}
+    \label{fig:averageRecall}
+\end{center}
+\end{figure}
+
+
+\item \textbf{Compare the performance of your CNN with the feedforward NN}:
+  Talk about difference here.
+
+
+\item \textbf{How to retrieve our best trained model}:
+  talk abut it here
+\end{itemize}
