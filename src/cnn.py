@@ -32,7 +32,7 @@ def get_new_model():
 
     
     # define optimizer
-    sgd = SGD(lr = 0.001,
+    sgd = SGD(lr = 0.01,
               momentum = 0.9,
               decay = 0.95)
     
