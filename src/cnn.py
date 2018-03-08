@@ -10,7 +10,7 @@ from keras.preprocessing.image import ImageDataGenerator
 img_rows, img_cols = 48, 48
 batch_size  = 128
 nb_classes = 7
-nb_epoch = 10
+nb_epoch = 30
 img_channel = 3
 
 def get_new_model():
@@ -19,25 +19,25 @@ def get_new_model():
     model = Sequential()
 
     # FIRST LAYER
-    model. add(Conv2D(64, (5, 5), activation = 'relu', data_format = "channels_first", input_shape = (1, img_rows, img_cols)))
+    model. add(Conv2D(64, (6, 6), activation = 'relu', data_format = "channels_first", input_shape = (1, img_rows, img_cols)))
     model.add(MaxPooling2D(pool_size = (5, 5), strides = (2, 2)))
 
     # SECOND LAYER
-    model.add(Conv2D(64, (3, 3), activation = 'relu'))
-    model.add(Conv2D(64, (3, 3), activation = 'relu'))
+    model.add(Conv2D(64, (6, 6), activation = 'relu'))
+    model.add(Conv2D(64, (6, 6), activation = 'relu'))
     model.add(AveragePooling2D(pool_size = (3, 3), strides = (2, 2)))
 
     # THIRD LAYER
-    model.add(Conv2D(128, (3, 3), activation = 'relu'))
-    model.add(Conv2D(128, (3, 3), activation='relu'))
+    model.add(Conv2D(64, (6, 6), activation = 'relu'))
+    model.add(Conv2D(64, (6, 6), activation='relu'))
     model.add(AveragePooling2D(pool_size=(3,3), strides=(2, 2)))
 
     model.add(Flatten())
 
     # FCC
-    model.add(Dense(1024, activation = 'relu'))
+    model.add(Dense(1003, activation = 'relu'))
     model.add(Dropout(0.2))
-    model.add(Dense(1024, activation = 'relu'))
+    model.add(Dense(1003, activation = 'relu'))
     model.add(Dropout(0.2))
 
     model.add(Dense(nb_classes, activation = 'softmax'))
