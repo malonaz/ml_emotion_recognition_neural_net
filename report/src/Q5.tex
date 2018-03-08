@@ -17,7 +17,7 @@ the performance measure to be used to compare the performance of the different p
 
 \item \textbf{Optimize the learning rate}:\\
   Our experience hand-tuning the network as mentioned gave us a better idea of the range of learning rates we should test.
-  We decided to initiate a grid search (of one parameter) for the learning rate in the range (1e-7, 1e-3).
+  We decided to initiate a grid search (of one parameter) for the learning rate in the range (1e-7, 1e-3),
   using the parameters found through hand-tuning in the previous section.
   Please find a below a graph showing the best validation accuracy for each learning rate tested in the range.
   \begin{figure}[!ht]
@@ -43,7 +43,6 @@ the performance measure to be used to compare the performance of the different p
   As you can see, there is no improvement when using dropout, or perhaps the dropout rate is not independent with other hyperparameters
   such as the hidden layer's size or the momentum.
   Hence, it is possible that introducing a dropout rate requires us to recalibrate the learning rate.
-  More on this in the last section!
 
 \item \textbf{L2 vs dropout}:\\
   Let us now run a grid search to optimize L2 regularization,
@@ -116,7 +115,7 @@ the performance measure to be used to compare the performance of the different p
   The confusion matrix however, does reveal that there are only 56 examples of the Disgust emotion, versus 500+ for others.
   This is an issue, as with very little data points, our measures such as precision rate, or recall rates are subject to high variance.
   Furthermore, a look into the training data will show that the lack of Digust examples is also present in the training data.
-  Let us look at the recall, precision and F1-score,
+  Let us look at the recall, precision and $F_1$ score,
   to ascertain the impact such an under representation of a class can have on the model's predictive power.
   
 \begin{figure}[h]
@@ -136,11 +135,11 @@ the performance measure to be used to compare the performance of the different p
 Some of the patterns deduced from the confusion matrix take more solid shape in the table above.
 Surprisingly, it is not the underpresented Disgust emotion that displays the lowest $F_1$ score, but rather Fear.
 This is a good time to remind ourselves that the statistical confidence in Disgust's metrics is very low relative to other metrics.
-However, we can still observe that the network notable struggles to to recall Disgust examples, which is understandable given that
+However, we can still observe that the network struggles to recall Disgust examples, which is understandable given that
 few Disgust examples were provided in the training set.
 In the decision tree coursework, we had conjectured that Happy was the most identifiable emotion.
-Faith in this conjecture is strengthened upon examining this coursework's results.
-It seems that Happiness impacts our facial expressions more significantly than any other emotion.
+Belief in this conjecture is strengthened upon examining this coursework's results.
+It seems that Happiness impacts our facial expressions in a very distinctive way, compared to other emotions.
 
 \item \textbf{How to retrieve our best trained model}:\\
   You may retrieve and test our best trained model using our test.py file.
