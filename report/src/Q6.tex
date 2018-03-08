@@ -1,5 +1,9 @@
 For this question, we have decided to use the Tensorflow learning library and Kera's API.
-
+We decided on the architecture [convolution - relu] x 2 - [affine - relu - dropout] - softmax.
+In order to find the optimal parameters, we ran a random search on imperial's Condor system,
+letting hidden units run between 128 and 1024, convolutional kernels dimensions run between 2 and 10, dropout rate between 0 and 1,
+filter number between 16 and 128, stride number between 1 and 2 and randomly choosing between SGD, Adam or SGD with momentum.
+The optimal hyperparameters that we find were 60 filters, 2 units strides, Adam optimizer, and 1003 hidden units.
 \begin{itemize}
 
 \item \textbf{Performance of the network with the optimal set of parameters}:
@@ -42,10 +46,19 @@ For this question, we have decided to use the Tensorflow learning library and Ke
 \end{figure}
 
 
-\item \textbf{Compare the performance of your CNN with the feedforward NN}:
-  Talk about difference here.
+\item \textbf{Compare the performance of your CNN with the feedforward NN}:\\
+  The convolutional neural network outperforms our feedforward neural network significantly on the validation set,
+  yet it appears to be prone to overfitting, and thus barely outperforms the feedforward neural net on the testing set.
+  Analyzing the confusion matrices gives us a lot more insight into what happens.
+  In a strange turn of events, examples of Angry, Disgust and Neutral emotions were misclassified more often with the CNN,
+  than they were with the NN.
+  Other emotions however, such as Happy, were classified correctly more often with the CNN.
+  Looking at the F1 scores, we notice that Fear has taken the biggest hit with this introduction of convolutional layers.
+  Since Fear gets confused often with Fear and Sad, it is possible that the convolutional layers have focused on
+  a particular area of the face that changes similarly for all three of these emotions.
+  With more time on our hands, it would have been interesting to see how far we could push these CNNs.
 
-
-\item \textbf{How to retrieve our best trained model}:
-  talk abut it here
+\item \textbf{How to retrieve our best trained model}:\\
+  You may retrieve and test our model using our file \emph{src/test\_deep\_net.py}.
+  
 \end{itemize}
